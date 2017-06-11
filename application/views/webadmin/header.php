@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="../../index2.html" class="logo">
+    <a href="../../index2.html" class="logo" style="height: 60px !important;">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
@@ -9,7 +9,7 @@
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="height: 60px !important;">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -47,7 +47,7 @@
                         <li class="footer"><a href="#">See All Messages</a></li>
                     </ul>
                 </li>
-                <!-- Notifications: style can be found in dropdown.less -->
+                <!-- Notifications: style can be found in dropdown.less --
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
@@ -56,7 +56,7 @@
                     <ul class="dropdown-menu">
                         <li class="header">You have 10 notifications</li>
                         <li>
-                            <!-- inner menu: contains the actual data -->
+                            <!-- inner menu: contains the actual data -
                             <ul class="menu">
                                 <li>
                                     <a href="#">
@@ -68,7 +68,7 @@
                         <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>
-                <!-- Tasks: style can be found in dropdown.less -->
+                <!-- Tasks: style can be found in dropdown.less --
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-flag-o"></i>
@@ -77,9 +77,9 @@
                     <ul class="dropdown-menu">
                         <li class="header">You have 9 tasks</li>
                         <li>
-                            <!-- inner menu: contains the actual data -->
+                            <!-- inner menu: contains the actual data ------
                             <ul class="menu">
-                                <li><!-- Task item -->
+                                <li><!-- Task item --
                                     <a href="#">
                                         <h3>
                                             Design some buttons
@@ -92,7 +92,7 @@
                                         </div>
                                     </a>
                                 </li>
-                                <!-- end task item -->
+                                <!-- end task item --
                             </ul>
                         </li>
                         <li class="footer">
@@ -103,8 +103,9 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <i class="fa fa-user fa-2x" aria-hidden="true" style="color: #FFF;"></i>
+                        <span class="hidden-xs">Admin</span>
+                        <span class="hidden-xs"><i class="fa fa-circle text-success"></i> Online</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->

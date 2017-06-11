@@ -5,6 +5,9 @@ class Index extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model("Admin_model");
+        if($this->_is_admin_loged_in()==FALSE){
+            $this->_show_admin_login();
+        }
     }
     
     function index(){
@@ -17,10 +20,35 @@ class Index extends MY_Controller {
     }
     
     function admin_home(){
-        $this->_show_admin_home();
+        if($this->_is_admin_loged_in()==TRUE){
+            $this->_show_admin_home();
+        }else{
+            $this->login();
+        }
     }
 
     public function login(){
-        $this->_show_admin_login();
+        if($this->_is_admin_loged_in()==FALSE){
+            $this->_show_admin_login();
+        }else{
+            redirect(base_url().'webadmin/index/admin_home');
+        }
+    }
+    
+    function logout(){
+        $this->session->unset_userdata('ADMIN_SESSION_VAR');
+        $this->session->unset_userdata('ADMIN_SESSION_USERNAME_VAR');
+        $this->session->unset_userdata('ADMIN_SESSION_VAR_FNAME');
+        $this->session->unset_userdata('ADMIN_SESSION_UDATA');
+        $this->session->set_flashdata('LoginPageMsg', 'You are logout successfully');
+        redirect(base_url().'webadmin/index/admin_home');
+    }
+    
+    function dashboard(){
+        if($this->_is_admin_loged_in()==TRUE){
+            $this->_show_admin_home();
+        }else{
+            $this->login();
+        }
     }
 }

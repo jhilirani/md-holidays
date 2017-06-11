@@ -26,9 +26,9 @@ class Ajax_controller extends MY_Controller{
             //print_r($DataArr);die;
             if(count($DataArr)>0){
                 //$roleArr=$this->User_model->get_roles_for_user($DataArr[0]->userId);
-                $this->session->set_userdata('ADMIN_SESSION_VAR',$DataArr[0]->userId);
+                $this->session->set_userdata('ADMIN_SESSION_VAR',$DataArr[0]->adminId);
                 $this->session->set_userdata('ADMIN_SESSION_USERNAME_VAR',$UserName);
-                $this->session->set_userdata('ADMIN_SESSION_VAR_FNAME',$DataArr[0]->firstName);
+                $this->session->set_userdata('ADMIN_SESSION_VAR_FNAME',$DataArr[0]->fullName);
                 //$this->session->set_userdata('FE_SESSION_USERNAME_VAR',$UserName);
                // $this->session->set_userdata('ADMIN_SESSION_VAR_TYPE','seller');
                 $this->session->set_userdata('ADMIN_SESSION_UDATA',$DataArr[0]);

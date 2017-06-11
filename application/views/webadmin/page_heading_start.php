@@ -3,13 +3,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Pace page
-            <small>Loading example</small>
+            <?php echo $pageTitle; ?>
+            <small id="PageHeading"><?php echo $pageSubtitle; ?></small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Pace page</li>
+            <li><a href="<?php echo ADMIN_BASE_URL;?>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?php echo ADMIN_BASE_URL;?><?php echo $contName.'/'.$contAction;?>" class="active"><?php echo $contNameLabel;?></a></li>
+            <!--<li class="active">Pace page</li> -->
         </ol>
     </section>
     

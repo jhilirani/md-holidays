@@ -90,7 +90,8 @@ if(substr($confi_http_host_var,-1)=='.'){
     $confi_http_host_var=  substr($confi_http_host_var,0,-1);
 }
 
-define('SITE_SUB_DOMAIN','maldives-holidays/');
+define("SITE_NAME", 'md-holidays');
+define('SITE_SUB_DOMAIN','md-holidays/');
 define('CAPTCHA_COOKIE_NAME','secret');
 define('BASE_URL','http://'.$confi_http_host_var.'/'.SITE_SUB_DOMAIN);
 define('FE_BASE_URL',BASE_URL);
