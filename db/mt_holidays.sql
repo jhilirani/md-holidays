@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2017 at 04:27 AM
+-- Generation Time: Jun 11, 2017 at 09:22 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -67,7 +67,6 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 INSERT INTO `category` (`categoryId`, `parrentCategoryId`, `categoryName`, `image`, `status`) VALUES
-(2, 0, 'Belt Test', NULL, 1),
 (3, 0, 'Kamakhya Nagar Branch', NULL, 1),
 (4, 0, 'National Level Chamipaship', NULL, 1);
 
@@ -352,6 +351,199 @@ INSERT INTO `country` (`countryId`, `countryCode`, `countryName`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `facility`
+--
+
+DROP TABLE IF EXISTS `facility`;
+CREATE TABLE IF NOT EXISTS `facility` (
+  `facilityId` int(11) NOT NULL,
+  `facility` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `factfile`
+--
+
+DROP TABLE IF EXISTS `factfile`;
+CREATE TABLE IF NOT EXISTS `factfile` (
+  `factfileId` bigint(20) NOT NULL,
+  `factfile` varchar(40) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_category`
+--
+
+DROP TABLE IF EXISTS `menu_category`;
+CREATE TABLE IF NOT EXISTS `menu_category` (
+  `menuCategoryId` int(11) NOT NULL AUTO_INCREMENT,
+  `menuCategoryName` varchar(50) NOT NULL,
+  `menuParentCategoryId` int(11) NOT NULL,
+  `status` tinyint(2) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`menuCategoryId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resort`
+--
+
+DROP TABLE IF EXISTS `resort`;
+CREATE TABLE IF NOT EXISTS `resort` (
+  `resortId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(350) NOT NULL,
+  `shortDescription` varchar(150) NOT NULL,
+  `Description` text NOT NULL,
+  `factfile` int(11) NOT NULL,
+  `facility` int(11) NOT NULL,
+  `overview` int(11) NOT NULL,
+  `mapZoomLevel` tinyint(1) NOT NULL DEFAULT '1',
+  `latitude` varchar(30) DEFAULT NULL,
+  `longitude` varchar(30) DEFAULT NULL,
+  `addedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`resortId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resort_enjay_type`
+--
+
+DROP TABLE IF EXISTS `resort_enjay_type`;
+CREATE TABLE IF NOT EXISTS `resort_enjay_type` (
+  `resortEnjoyTypeId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` int(11) NOT NULL,
+  `img` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`resortEnjoyTypeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resort_enjay_type_ratting`
+--
+
+DROP TABLE IF EXISTS `resort_enjay_type_ratting`;
+CREATE TABLE IF NOT EXISTS `resort_enjay_type_ratting` (
+  `resortEnjayTypeRattingId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `resortEnjayTypeId` int(11) NOT NULL,
+  `ratting` int(11) NOT NULL,
+  `IP` varchar(30) NOT NULL,
+  `addedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`resortEnjayTypeRattingId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resort_image`
+--
+
+DROP TABLE IF EXISTS `resort_image`;
+CREATE TABLE IF NOT EXISTS `resort_image` (
+  `resortImageId` int(11) NOT NULL AUTO_INCREMENT,
+  `resortId` int(11) NOT NULL,
+  `image` varchar(250) NOT NULL,
+  `caption` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`resortImageId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resort_ratting`
+--
+
+DROP TABLE IF EXISTS `resort_ratting`;
+CREATE TABLE IF NOT EXISTS `resort_ratting` (
+  `resortRattingId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `resortId` bigint(20) NOT NULL,
+  `ratting` tinyint(4) NOT NULL,
+  `IP` varchar(25) NOT NULL,
+  `rate_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`resortRattingId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resort_room`
+--
+
+DROP TABLE IF EXISTS `resort_room`;
+CREATE TABLE IF NOT EXISTS `resort_room` (
+  `resortRoomId` int(11) NOT NULL AUTO_INCREMENT,
+  `rootTypeId` int(11) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `title` int(11) NOT NULL,
+  `orderNo` int(11) DEFAULT NULL,
+  `totalNosRoom` int(11) DEFAULT NULL,
+  `taxAndServiceCharges` int(11) NOT NULL,
+  PRIMARY KEY (`resortRoomId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resort_room_charges`
+--
+
+DROP TABLE IF EXISTS `resort_room_charges`;
+CREATE TABLE IF NOT EXISTS `resort_room_charges` (
+  `resortRoomChargesId` int(11) NOT NULL AUTO_INCREMENT,
+  `resortRoomId` int(11) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  `extradaysCharges` int(11) NOT NULL,
+  `childRate` int(11) NOT NULL,
+  `maxChieldren` int(11) NOT NULL,
+  `infantRate` int(11) NOT NULL,
+  `maxInfant` int(11) NOT NULL,
+  `childInfantExtraDayCharges` int(11) NOT NULL,
+  PRIMARY KEY (`resortRoomChargesId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_details`
+--
+
+DROP TABLE IF EXISTS `room_details`;
+CREATE TABLE IF NOT EXISTS `room_details` (
+  `roomDetailsId` int(11) NOT NULL AUTO_INCREMENT,
+  `title` int(50) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`roomDetailsId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `root_type`
+--
+
+DROP TABLE IF EXISTS `root_type`;
+CREATE TABLE IF NOT EXISTS `root_type` (
+  `roomTypeId` int(11) NOT NULL AUTO_INCREMENT,
+  `roomType` varchar(100) NOT NULL,
+  PRIMARY KEY (`roomTypeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `state`
 --
 
@@ -361,7 +553,7 @@ CREATE TABLE IF NOT EXISTS `state` (
   `stateName` varchar(255) DEFAULT NULL,
   `countryId` int(11) NOT NULL,
   PRIMARY KEY (`stateId`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `state`
