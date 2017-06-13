@@ -1,13 +1,11 @@
-<?php echo $AdminHomeLeftPanel;
-
-//print_r($UserDataArr);die;?>
+<?php echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
 <table cellspacing=5 cellpadding=5 width=90% border=0 >
   <tr>
     <td style="padding-left:50px;">&nbsp;</td>
   </tr>
   
 <tr>
-    <td style="padding-left:5px;"><span class="PageHeading">Course Edit for <?php echo $dataArr[0]->Title?></span></td>
+    <td style="padding-left:5px;"><span class="PageHeading">Course Edit for <?php echo $dataArr[0]->title?></span></td>
   </tr>
   
   <tr>
@@ -23,7 +21,7 @@
   </tr>
   
   <tr>
-    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?=base_url()?>admin/cms/edit" >
+    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?=base_url()?>webadmin/cms/edit" >
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="AddBox">
   <tr>
     <th width="9%" align="left" valign="top" scope="col">&nbsp;</th>
@@ -35,7 +33,7 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable"> CMS Title </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><input name="Title" type="text" id="Title"  class="required" value="<?php echo $dataArr[0]->Title; ?>"/></td>
+    <td align="left" valign="top"><input name="title" type="text" id="title"  class="required form-control" value="<?php echo $dataArr[0]->title; ?>"/></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -48,7 +46,7 @@
     <td align="left" valign="top" class="ListHeadingLable">CMS Short Content</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top">
-	<textarea name="ShortBody" id="ShortBody" ><?php echo $dataArr[0]->ShortBody; ?></textarea>
+        <textarea name="shortBody" id="shortBody" class="form-control"><?php echo $dataArr[0]->shortBody; ?></textarea>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -61,7 +59,7 @@
     <td align="left" valign="top" class="ListHeadingLable">CMS Content</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top">
-	<textarea name="Body" id="Body" ><?php echo $dataArr[0]->Body;?></textarea>
+	<textarea name="body" id="body" ><?php echo $dataArr[0]->body;?></textarea>
 	<?php echo display_ckeditor($ckeditor);?></td>
   </tr>
   
@@ -75,7 +73,7 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta Title </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><input name="MetaTitle" type="text" id="MetaTitle"  class="required" value="<?php echo $dataArr[0]->MetaTitle;?>"/></td>
+    <td align="left" valign="top"><input name="metaTitle" type="text" id="metaTitle"  class="required form-control" value="<?php echo $dataArr[0]->metaTitle;?>"/></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -87,7 +85,7 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta Key Word </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><textarea name="MetaKeyWord" id="MetaKeyWord" class="required"><?php echo $dataArr[0]->MetaKeyWord;?></textarea></td>
+    <td align="left" valign="top"><textarea name="metaKeyWord" id="metaKeyWord" class="required form-control"><?php echo $dataArr[0]->metaKeyWord;?></textarea></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -99,7 +97,7 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta Description </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><textarea name="MetaDescription" id="MetaDescription" class="required"><?php echo $dataArr[0]->MetaDescription;?></textarea></td>
+    <td align="left" valign="top"><textarea name="metaDescription" id="metaDescription" class="required form-control"><?php echo $dataArr[0]->metaDescription;?></textarea></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -109,12 +107,12 @@
   </tr>
   <tr class="ListHeadingLable">
     <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">Status</td>
+    <td align="left" valign="top">status</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top">Active
-      <input name="Status" type="radio" value="1"  class="required" <?php if($dataArr[0]->Status=='1'){ echo 'checked';}?>/>
-&nbsp;Inactive
-<input name="Status" type="radio" value="0"  class="required" <?php if($dataArr[0]->Status=='0'){ echo 'checked';}?>/></td>
+    <td align="left" valign="top">
+        <label class="radio-inline"><input type="radio" name="status" value="1" <?php if($dataArr[0]->status=='1'){ echo 'checked';}?> class="required">Active</label>
+        <label class="radio-inline"><input type="radio" name="status" value="0" <?php if($dataArr[0]->status=='0'){ echo 'checked';}?>  class="required">Active</label>
+        </td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -127,8 +125,8 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top"><label></label></td>
     <td align="left" valign="top"><input type="submit" name="Submit3" value="Submit" class="common_button"/>&nbsp;&nbsp;&nbsp;
-      <input type="button" name="Submit22" value="Cancel" onclick="location.href='<?php echo base_url()?>admin/cms/viewlist/';" class="common_button"/>
-	  <input  type="hidden" name="CMSID" id="CMSID" value="<?php echo $dataArr[0]->CMSID;?>"/>
+      <input type="button" name="Submit22" value="Cancel" onclick="location.href='<?php echo base_url()?>webadmin/cms/viewlist/';" class="common_button"/>
+	  <input  type="hidden" name="cmsId" id="cmsId" value="<?php echo $dataArr[0]->cmsId;?>"/>
 	  </td>
   </tr>
   <tr>
@@ -159,7 +157,7 @@
   </tr>
 
 </table>
-<?php echo $AdminHomeRest;?>
+<?php echo $page_heading_end.$footer;?>
 <script>
 $(document).ready(function(){
 	$("#AdminAdd").validate();	

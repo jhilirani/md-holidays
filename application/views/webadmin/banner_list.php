@@ -1,21 +1,10 @@
-<?php echo $AdminHomeLeftPanel;
-
-//print_r($UserDataArr);die;?>
+<?php echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
 <table cellspacing=5 cellpadding=5 width=90% border=0 >
-  
-  <tr id="PageHeading">
-    <td class="PageHeading" >Banner Manager</td>
-  </tr>
-
-  
   <tr>
     <td style="padding-left:50px;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="padding-left:50px;"><div id="MessaeBox" style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#009900; text-decoration:blink; text-align:center;"><?php echo $this->session->flashdata('Message');?></div></td>
-  </tr>
-  <tr>
-    <td style="padding-left:10px;"><input type="button" name="AddBtn" id="AddBtn" value="Add Banner" onclick="ShowAddAdminBox();" class="common_button"/></td>
+    <td style="padding-left:10px;"><input type="button" name="AddBtn" id="AddBtn" value="Add Banner" onclick="ShowAddAdminBox();" class="btn btn-primary"/></td>
   </tr>
 <script language="javascript">
 
@@ -24,7 +13,7 @@ function ShowAddAdminBox(){
 	$('#EditBox').hide();
 	$('#AddBtn').hide();
 	$('#PageHeading').hide();
-	$('#ListBox').fadeOut(500);
+	$('#ListBox_wrapper').fadeOut(500);
 	$('#AddBox').fadeIn(3500);
 }
  function ShowEditBox(id)
@@ -33,7 +22,7 @@ function ShowAddAdminBox(){
 	$('#AddBtn').fadeOut();
 	$('#PageHeading').fadeOut();
 	$('#AddBox').fadeOut();
-	$('#ListBox').fadeOut(400);
+	$('#ListBox_wrapper').fadeOut(400);
 	
 	$('#EditBox').fadeIn(2500);
 	$('#EditImage').val(DataArr[id]['Image']);
@@ -51,7 +40,7 @@ function ShowAddAdminBox(){
  {
 	$('#AddBox').hide();
 	$('#PageHeading').fadeIn(3000);
-	$('#ListBox').fadeIn(3000);
+	$('#ListBox_wrapper').fadeIn(3000);
 	$('#AddBtn').fadeIn(3000);
 	$('#EditBox').fadeOut(3500);
 	return false;
@@ -61,18 +50,24 @@ function ShowAddAdminBox(){
  	$('#AddBox').fadeOut('fast');
  	$('#EditBox').hide();
 	$('#PageHeading').fadeIn(3000);
-	$('#ListBox').fadeIn(3000);
+	$('#ListBox_wrapper').fadeIn(3000);
 	$('#AddBtn').fadeIn(3000);
 	return false;
  }
  
-function AskDelete(id)
-{
-	if(confirm('Are you sure to delete(Y/N) ?'))
-	{
-		location.href='<?php echo base_url()?>admin/banner/delete/'+id;
-	}
-	return false;
+function AskDelete(id){
+    swal({
+		title: myJsMain.SystemMessageName,
+		text: "Are you sure to delete(Y/N) ?",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: '#DD6B55',
+		confirmButtonText: 'Yes, delete it!',
+		closeOnConfirm: false
+	},
+	function(){
+		location.href='<?php echo base_url()?>webadmin/banner/delete/'+id;
+	});
 }
  </script>
   <tr>
@@ -81,7 +76,7 @@ function AskDelete(id)
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td>
-	<table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" id="ListBox" style="border:#FBE554 1px solid;">
+        <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" id="ListBox" style="border:#FBE554 1px solid;" class="table-bordered table-striped">
   <tr class="ListHeadingLable" bgcolor="#FBE554" height="25px;">
     <td width="10%">Sl No </td>
     <td width="50%">Image</td>

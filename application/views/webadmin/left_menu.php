@@ -92,6 +92,7 @@
             <li><a href="<?php echo ADMIN_BASE_URL.'category';?>"><i class="fa fa-tags"></i><i class="fa fa-tasks"></i><span>Category Manager</span></a></li>
             <!--<li class="header">LABELS</li>-->
             <li><a href="<?php echo ADMIN_BASE_URL.'cms/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-tasks"></i><span>Static Page Manager</span></a></li>
+            <li><a href="<?php echo ADMIN_BASE_URL.'banner/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-picture-o"></i><span>Banner Manager</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

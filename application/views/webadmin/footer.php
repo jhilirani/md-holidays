@@ -1,8 +1,8 @@
 <footer class="main-footer">
-    <div class="pull-right hidden-xs">
+    <!--<div class="pull-right hidden-xs">
       <b>Version</b> 2.3.8
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+    </div>--->
+    <strong>Copyright &copy; 2011-<?php echo date('Y');?> <a href="http://maldivestraver.mv">maldivestraveller.mv</a>.</strong> All rights
     reserved.
   </footer>
 

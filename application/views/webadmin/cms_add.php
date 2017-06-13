@@ -1,6 +1,4 @@
-<?php echo $AdminHomeLeftPanel;
-
-//print_r($UserDataArr);die;?>
+<?php echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
 <table cellspacing=5 cellpadding=5 width=90% border=0 >
   
   <tr>
@@ -23,7 +21,7 @@
     <td></td>
   </tr>
   <tr>
-    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?=base_url()?>admin/cms/add" >
+    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?=base_url()?>webadmin/cms/add" >
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="AddBox">
   <tr>
     <th width="9%" align="left" valign="top" scope="col">&nbsp;</th>
@@ -40,9 +38,9 @@
   
   <tr>
     <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top" class="ListHeadingLable"> CMS Page Title </td>
+    <td align="left" valign="top" class="ListHeadingLable"> CMS Page title </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><input name="Title" type="text" id="Title"  class="required" /></td>
+    <td align="left" valign="top"><input name="title" type="text" id="title"  class="required form-control" /></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -55,7 +53,7 @@
     <td align="left" valign="top" class="ListHeadingLable">CMS Short Content</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top">
-	<textarea name="ShortBody" id="ShortBody" ></textarea>
+        <textarea name="shortBody" id="shortBody" class="form-control"></textarea>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -68,7 +66,7 @@
     <td align="left" valign="top" class="ListHeadingLable">CMS Content</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top">
-	<textarea name="Body" id="Body" ></textarea>
+	<textarea name="body" id="body" ></textarea>
 	<?php echo display_ckeditor($ckeditor);?></td>
   </tr>
   <tr>
@@ -79,9 +77,9 @@
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top" class="ListHeadingLable">Meta Title </td>
+    <td align="left" valign="top" class="ListHeadingLable">Meta title </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><input name="MetaTitle" type="text" id="MetaTitle"  class="required"/></td>
+    <td align="left" valign="top"><input name="metaTitle" type="text" id="metaTitle"  class="required form-control"/></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -93,7 +91,7 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta Key Word </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><textarea name="MetaKeyWord" id="MetaKeyWord" class="required"></textarea></td>
+    <td align="left" valign="top"><textarea name="metaKeyWord" id="metaKeyWord" class="required form-control"></textarea></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -105,7 +103,7 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta Description </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><textarea name="MetaDescription" id="MetaDescription" class="required"></textarea></td>
+    <td align="left" valign="top"><textarea name="metaDescription" id="metaDescription" class="required form-control"></textarea></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -117,10 +115,10 @@
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">Status</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top">Active
-      <input name="Status" type="radio" value="1"  class="required" checked=""/>
-&nbsp;Inactive
-<input name="Status" type="radio" value="0"  class="required"/></td>
+    <td align="left" valign="top">
+        <label class="radio-inline"><input type="radio" name="status" value="1">Active</label>
+        <label class="radio-inline"><input type="radio" name="status" value="0">Active</label>
+      <input name="Status" type="radio" value="1"  class="required" checked=""/></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -157,7 +155,7 @@
   </tr>
 
 </table>
-<?php echo $AdminHomeRest;?>
+<?php echo $page_heading_end.$footer;?>
 <script>
 $(document).ready(function(){
 	$("#AdminAdd").validate();	

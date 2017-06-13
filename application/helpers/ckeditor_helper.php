@@ -61,8 +61,8 @@ function cke_create_instance($data = array()) {
 	    			else {
 	    				$return .= $k . " : '" . $v . "'";
 	    			}
-
-	    			if($k !== end(array_keys($data['config']))) {
+                                $arrKey=array_keys($data['config']);
+	    			if($k !== end($arrKey)) {
 						
 						$return .= ",";
 					}		    			
@@ -109,16 +109,16 @@ function display_ckeditor($data = array())
 	    		foreach($v['styles'] as $k2=>$v2) {
 	    			
 	    			$return .= "'" . $k2 . "' : '" . $v2 . "'";
-	    			
-					if($k2 !== end(array_keys($v['styles']))) {
+                                $ArrKey=array_keys($v['styles']);    
+					if($k2 !== end($ArrKey)) {
 						 $return .= ",";
 					}
 	    		} 
     		} 
 	    
 	    	$return .= '} }';
-	    	
-	    	if($k !== end(array_keys($data['styles']))) {
+	    	$ArrKey1=array_keys($data['styles']);
+	    	if($k !== end($ArrKey1)) {
 				$return .= ',';
 			}	    	
 	    	

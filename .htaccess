@@ -1,6 +1,6 @@
 DirectoryIndex index.php
 RewriteEngine on
-RewriteCond $1 !^(index\.php|uploads|navneet|resources|css|js|lib|img|bootstrap|robots\.txt|favicon\.ico)
+RewriteCond $1 !^(index\.php|uploads|navneet|assets|resources|css|js|lib|img|bootstrap|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
