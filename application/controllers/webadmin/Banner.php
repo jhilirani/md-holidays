@@ -75,7 +75,6 @@ class Banner extends MY_Controller{
 	
 	
 	public function edit(){
-            $EditImage=$this->input->post('EditImage',TRUE);
             $Editcaption=$this->input->post('Editcaption',TRUE);
             $status=$this->input->post('Editstatus',TRUE);
             $url=$this->input->post('Editurl',TRUE);

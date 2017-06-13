@@ -16,8 +16,7 @@ function ShowAddAdminBox(){
 	$('#ListBox_wrapper').fadeOut(500);
 	$('#AddBox').fadeIn(3500);
 }
- function ShowEditBox(id)
- {
+ function ShowEditBox(id){
  	$('#MessaeBox').html("");
 	$('#AddBtn').fadeOut();
 	$('#PageHeading').fadeOut();
@@ -25,14 +24,15 @@ function ShowAddAdminBox(){
 	$('#ListBox_wrapper').fadeOut(400);
 	
 	$('#EditBox').fadeIn(2500);
-	$('#EditImage').val(DataArr[id]['Image']);
+	$('#Editcaption').val(DataArr[id]['caption']);
+	$('#Editurl').val(DataArr[id]['url']);
 	if(document.AdminEdit.EditStatus[0].value==DataArr[id]['Status'])
 	{
 		document.AdminEdit.EditStatus[0].checked=true;
 	}else{
 		document.AdminEdit.EditStatus[1].checked=true;
 	}
-	$('#BannerID').val(DataArr[id]['BannerID']);
+	$('#bannerId').val(DataArr[id]['bannerId']);
 	
  }
 
@@ -57,16 +57,16 @@ function ShowAddAdminBox(){
  
 function AskDelete(id){
     swal({
-		title: myJsMain.SystemMessageName,
-		text: "Are you sure to delete(Y/N) ?",
-		type: "warning",
-		showCancelButton: true,
-		confirmButtonColor: '#DD6B55',
-		confirmButtonText: 'Yes, delete it!',
-		closeOnConfirm: false
+            title: myJsMain.SystemMessageName,
+            text: "Are you sure to delete(Y/N) ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes, delete it!',
+            closeOnConfirm: false
 	},
 	function(){
-		location.href='<?php echo base_url()?>webadmin/banner/delete/'+id;
+            location.href='<?php echo base_url()?>webadmin/banner/delete/'+id;
 	});
 }
  </script>
@@ -77,43 +77,55 @@ function AskDelete(id){
   <tr>
     <td>
         <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" id="ListBox" style="border:#FBE554 1px solid;" class="table-bordered table-striped">
+            <thead>
   <tr class="ListHeadingLable" bgcolor="#FBE554" height="25px;">
     <td width="10%">Sl No </td>
     <td width="50%">Image</td>
     <td width="10%">Status</td>
     <td width="30%">Action</td>
   </tr>
+  </thead>
   <script language="javascript">
   var DataArr=new Array(<?=count($DataArr)?>);
   </script>
   <?php $val=0; 
-  if(count($DataArr)>0){
-  foreach($DataArr as $InerArr){?>
+  if(count($DataArr)>0){?>
+  <tbody>
+  <?php foreach($DataArr as $InerArr){?>
   <tr class="ListTestLable" height="20px;">
     <td><?php echo $val+1;?></td>
     <td><img src="<?php echo $SiteResourcesURL.'banner/'.$InerArr->Image;?>" alt="" height="70px" width="130px"/></td>
     <td><?php echo ($InerArr->Status=='1')?'Active':'Inactive';?></td>
     <td>
 	<?php if($InerArr->Status=='1'){$action=0;}else{$action=1;}?>
-	<a href="<?php echo base_url().'admin/banner/change_status/'.$InerArr->BannerID.'/'.$action;?>" class="AdminDashBoardLinkText"><?php if($InerArr->Status=='1'){?><img src="<?php echo $SiteImagesURL.'admin/';?>active1.png" alt="Inactive" title="Active" /><?php }else{?><img src="<?php echo $SiteImagesURL.'admin/';?>inactive1.png" alt="Inactive" title="Inactive" /><?php }?></a>
+	<a href="<?php echo base_url().'admin/banner/change_status/'.$InerArr->bannerId.'/'.$action;?>" class="AdminDashBoardLinkText"><?php if($InerArr->Status=='1'){?><img src="<?php echo $SiteImagesURL.'admin/';?>active1.png" alt="Inactive" title="Active" /><?php }else{?><img src="<?php echo $SiteImagesURL.'admin/';?>inactive1.png" alt="Inactive" title="Inactive" /><?php }?></a>
 	&nbsp;&nbsp;
-	<a href="javascript:void(0);" onclick="ShowEditBox('<?php echo $InerArr->BannerID;?>');" class="AdminDashBoardLinkText"><img src="<?php echo $SiteImagesURL.'admin/';?>edit.png" width="15" height="15" title="Edit"/></a>
+	<a href="javascript:void(0);" onclick="ShowEditBox('<?php echo $InerArr->bannerId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo $SiteImagesURL.'admin/';?>edit.png" width="15" height="15" title="Edit"/></a>
 	&nbsp;&nbsp;
-	<a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->BannerID;?>');" class="AdminDashBoardLinkText"><img src="<?php echo $SiteImagesURL.'admin/';?>delete.png" width="15" height="15" title="Delete"/></a>
+	<a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->bannerId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo $SiteImagesURL.'admin/';?>delete.png" width="15" height="15" title="Delete"/></a>
 	</td> 
   </tr>
   <script language="javascript">
-  DataArr[<?php echo $InerArr->BannerID?>]=new Array();
-  DataArr[<?php echo $InerArr->BannerID?>]['BannerID']='<?php echo $InerArr->BannerID?>';
-  DataArr[<?php echo $InerArr->BannerID?>]['Image']='<?php echo $InerArr->Image?>';
-  DataArr[<?php echo $InerArr->BannerID?>]['Status']='<?php echo $InerArr->Status?>';
+  DataArr[<?php echo $InerArr->bannerId?>]=new Array();
+  DataArr[<?php echo $InerArr->bannerId?>]['bannerId']='<?php echo $InerArr->bannerId?>';
+  DataArr[<?php echo $InerArr->bannerId?>]['Image']='<?php echo $InerArr->Image?>';
+  DataArr[<?php echo $InerArr->bannerId?>]['Status']='<?php echo $InerArr->Status?>';
   </script>
-  <?php $val++;}
-  }else{?>
+  <?php $val++;}?>
+  </tbody>
+  <?php }else{?>
   <tr class="ListHeadingLable">
     <td colspan="6" style="text-align: center; height: 40px;"> No Report Found</td>
   </tr>
   <?php }?>
+  <tfoot>
+    <tr class="ListHeadingLable" bgcolor="#FBE554" height="25px;">
+        <td width="10%">Sl No </td>
+        <td width="50%">Image</td>
+        <td width="10%">Status</td>
+        <td width="30%">Action</td>
+    </tr>
+  </tfoot>
 </table></td>
   </tr>
  
@@ -162,7 +174,7 @@ function AskDelete(id){
     <td align="left" valign="top"><label></label></td>
     <td align="left" valign="top"><input type="submit" name="Submit3" value="Submit" class="common_button"/>&nbsp;&nbsp;&nbsp;
       <input type="button" name="Submit22" value="Cancel" onclick="return CancelAdd();" class="common_button"/>
-	  <input  type="hidden" name="BannerID"  id="BannerID" value=""/>
+	  <input  type="hidden" name="bannerId"  id="bannerId" value=""/>
 	  <input  type="hidden" name="EditImage" id="EditImage" value=""/></td>
   </tr>
   <tr>
@@ -261,6 +273,14 @@ function AskDelete(id){
 <?php echo $AdminHomeRest;?>
 <script>
 $(document).ready(function(){
-	$("#AdminAdd").validate();	
+	$("#AdminAdd").validate();
+    $("#ListBox").DataTable({
+      "paging": true,
+      //"lengthChange": false,
+      //"searching": false,
+      "ordering": false,
+      "info": true,
+      "autoWidth": false
+    });
 });
 </script>
