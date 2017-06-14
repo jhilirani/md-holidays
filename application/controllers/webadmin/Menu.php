@@ -2,7 +2,7 @@
 class Menu extends MY_Controller{
 	public function __construct(){
             parent::__construct();
-            $this->load->model('Category_model');
+            $this->load->model('Menu_category_model');
             $this->_admin_auth();
 	}
 	
@@ -12,69 +12,74 @@ class Menu extends MY_Controller{
 	
 	public function viewlist(){
             $data=$this->_show_admin_logedin_layout();
-            $data['pageTitle']="Category Manager";
-            $data['pageSubtitle']="Category List";
-            $data['contName']="category";
+            $data['pageTitle']="Menu Category Manager";
+            $data['pageSubtitle']="Maneu Category List";
+            $data['contName']="menu";
             $data['contAction']="viewlist";
-            $data['contNameLabel']="Category Manager";
+            $data['contNameLabel']="Menu Category Manager";
             $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
-            $data['DataArr']=$this->Category_model->get_all();
-            $this->load->view('webadmin/category_list',$data);
+            $data['DataArr']=$this->Menu_category_model->get_all();
+            $this->load->view('webadmin/menu_category_list',$data);
 	}
 	
 	public function add(){
-            $categoryName=$this->input->post('categoryName',TRUE);
-            $parrentCategoryId=$this->input->post('parrentCategoryId',TRUE);
+            $menuCategoryName=$this->input->post('menuCategoryName',TRUE);
+            $menuParentCategoryId=$this->input->post('menuParentCategoryId',TRUE);
             $status=$this->input->post('status',TRUE);
-
+            if($menuParentCategoryId==""){
+                $menuParentCategoryId=0;
+            }
+            if($status==""){
+                $status=1;
+            }
             $dataArr=array(
-            'categoryName'=>$categoryName,
-            'parrentCategoryId'=>$parrentCategoryId,
+            'menuCategoryName'=>$menuCategoryName,
+            'menuParentCategoryId'=>$menuParentCategoryId,
             'status'=>$status
             );
 
             //print_r($dataArr);die;
-            $this->Category_model->add($dataArr);
+            $this->Menu_category_model->add($dataArr);
 
-            $this->session->set_flashdata('Message','Category added successfully.');
-            redirect(base_url().'webadmin/category/viewlist');
+            $this->session->set_flashdata('Message','Menu Category added successfully.');
+            redirect(base_url().'webadmin/menu/viewlist');
 	}
 	
 	
 	public function edit(){
-            $categoryName=$this->input->post('EditcategoryName',TRUE);
+            $menuCategoryName=$this->input->post('EditmenuCategoryName',TRUE);
             $status=$this->input->post('Editstatus',TRUE);
             $categoryId=$this->input->post('categoryId',TRUE);
 
             $dataArr=array(
-                'categoryName'=>$categoryName,
+                'menuCategoryName'=>$menuCategoryName,
                 'status'=>$status
             );
 
             //print_r($categoryId);die;
-            $this->Category_model->edit($dataArr,$categoryId);
-            $this->session->set_flashdata('Message','Category updated successfully.');
-            redirect(base_url().'webadmin/category/viewlist');
+            $this->Menu_category_model->edit($dataArr,$categoryId);
+            $this->session->set_flashdata('Message','Menu Category updated successfully.');
+            redirect(base_url().'webadmin/menu/viewlist');
 	}
 	
 	
-	public function change_status($CategoryID,$Action){
-            $this->Category_model->change_category_status($CategoryID,$Action);
+	public function change_status($menuCategoryId,$Action){
+            $this->Menu_category_model->change_category_status($menuCategoryId,$Action);
 
-            $this->session->set_flashdata('Message','Category status updated successfully.');
-            redirect(base_url().'webadmin/category/viewlist');
+            $this->session->set_flashdata('Message','Menu Category status updated successfully.');
+            redirect(base_url().'webadmin/menu/viewlist');
 	}
 	
-	public function delete($CategoryID){
-		$this->Category_model->delete($CategoryID);
+	public function delete($menuCategoryId){
+		$this->Menu_category_model->delete($menuCategoryId);
 		
-		$this->session->set_flashdata('Message','Category deleted successfully.');
-		redirect(base_url().'webadmin/category/viewlist');
+		$this->session->set_flashdata('Message','Menu Category deleted successfully.');
+		redirect(base_url().'webadmin/menu/viewlist');
 	}
         
-        public function featured($CategoryID){
-            $this->Category_model->featured($CategoryID);
-            $this->session->set_flashdata('Message','Category featured successfully.');
-            redirect(base_url().'webadmin/category/viewlist');
+        public function featured($menuCategoryId){
+            $this->Menu_category_model->featured($menuCategoryId);
+            $this->session->set_flashdata('Message','Menu Category featured successfully.');
+            redirect(base_url().'webadmin/menu/viewlist');
         }
 }

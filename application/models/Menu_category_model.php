@@ -1,8 +1,8 @@
 <?php
 
-class Category_model extends CI_Model {
+class Menu_category_model extends CI_Model {
 
-    public $_table = 'category';
+    public $_table = 'menu_category';
 
     function __construct() {
         parent::__construct();
@@ -28,20 +28,20 @@ class Category_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function edit($DataArr, $categoryId) {
-        $this->db->where('categoryId', $categoryId);
+    public function edit($DataArr, $menuCategoryId) {
+        $this->db->where('menuCategoryId', $menuCategoryId);
         $this->db->update($this->_table, $DataArr);
         //echo $this->db->last_query();die;
         return TRUE;
     }
 
-    public function get_id_by_name($categoryName) {
-        $this->db->select('categoryId')->from($this->_table)->like('categoryName', $categoryName);
+    public function get_id_by_name($menuCategoryName) {
+        $this->db->select('menuCategoryId')->from($this->_table)->like('menuCategoryName', $menuCategoryName);
         return $this->db->get()->result();
     }
 
-    public function check_category_name_exists($categoryName) {
-        $dataArr = $this->db->select("categoryId")->from($this->_table)->where('categoryName', $categoryName)->get()->result();
+    public function check_category_name_exists($menuCategoryName) {
+        $dataArr = $this->db->select("menuCategoryId")->from($this->_table)->where('menuCategoryName', $menuCategoryName)->get()->result();
         if (count($dataArr) > 0) {
             return TRUE;
         } else {
@@ -49,8 +49,8 @@ class Category_model extends CI_Model {
         }
     }
 
-    public function check_edit_category_name_exists($categoryName, $categoryId) {
-        $dataArr = $this->db->select("categoryId")->from($this->_table)->where('categoryName', $categoryName)->where('categoryId <>', $categoryId)->get()->result();
+    public function check_edit_category_name_exists($menuCategoryName, $menuCategoryId) {
+        $dataArr = $this->db->select("menuCategoryId")->from($this->_table)->where('menuCategoryName', $menuCategoryName)->where('menuCategoryId <>', $menuCategoryId)->get()->result();
         if (count($dataArr) > 0) {
             return TRUE;
         } else {
@@ -58,19 +58,19 @@ class Category_model extends CI_Model {
         }
     }
 
-    public function change_category_status($categoryId, $status) {
-        $this->db->where('categoryId', $categoryId);
+    public function change_category_status($menuCategoryId, $status) {
+        $this->db->where('menuCategoryId', $menuCategoryId);
         $this->db->update($this->_table, array('status' => $status));
         return TRUE;
     }
 
-    public function delete($categoryId) {
-        $this->db->delete($this->_table, array('categoryId' => $categoryId));
+    public function delete($menuCategoryId) {
+        $this->db->delete($this->_table, array('menuCategoryId' => $menuCategoryId));
         return TRUE;
     }
 
-    public function featured($categoryId) {
-        $this->db->where('categoryId', $categoryId);
+    public function featured($menuCategoryId) {
+        $this->db->where('menuCategoryId', $menuCategoryId);
         $this->db->update($this->_table, array('featured' => '1'));
         return TRUE;
     }

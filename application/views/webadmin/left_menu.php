@@ -94,6 +94,8 @@
             <li><a href="<?php echo ADMIN_BASE_URL.'cms/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-tasks"></i><span>Static Page Manager</span></a></li>
             <li><a href="<?php echo ADMIN_BASE_URL.'banner/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-picture-o"></i><span>Banner Manager</span></a></li>
             <li><a href="<?php echo ADMIN_BASE_URL.'adminuser/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-user-circle-o"></i><span>Adminuser Manager</span></a></li>
+            <li><a href="<?php echo ADMIN_BASE_URL.'menu/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-bars"></i><span>Menu Manager</span></a></li>
+            <li><a href="<?php echo ADMIN_BASE_URL.'site_config/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-cogs"></i><span>Site Config Manager</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->
