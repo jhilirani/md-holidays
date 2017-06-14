@@ -4,11 +4,12 @@ class Banner extends MY_Controller{
 	public function __construct(){
             parent::__construct();
             $this->load->model('Banner_model');
-            $this->_resize_file_array=array('75X75');
+            $this->_resize_file_array=array('150X150');
+            $this->_admin_auth();
 	}
 	
 	public function index(){
-            redirect(base_url().'admin');
+            $this->viewlist();
 	}
 	
 	public function viewlist(){
@@ -25,8 +26,7 @@ class Banner extends MY_Controller{
 	
 	public function add(){
             if($_FILES['banner']['name']!=""){
-                $upload_path=SiteAssetsURL.'banner/';
-                
+                $upload_path=AssetsPath.'banner/';
                 $config['upload_path'] = $upload_path;
                 $config['allowed_types'] = 'jpg|png|gif';
                 $config['max_size'] = '0';
@@ -57,7 +57,7 @@ class Banner extends MY_Controller{
                 }
                 $dataArr=array(
                 'image'=>$image_data['file_name'],
-                'status'=>$status,
+                'status'=>1,
                 'caption'=>$caption,
                 'url'=>$url,
                 );
@@ -75,13 +75,14 @@ class Banner extends MY_Controller{
 	
 	
 	public function edit(){
-            $Editcaption=$this->input->post('Editcaption',TRUE);
+            $caption=$this->input->post('Editcaption',TRUE);
             $status=$this->input->post('Editstatus',TRUE);
             $url=$this->input->post('Editurl',TRUE);
             $bannerId=$this->input->post('bannerId',TRUE);
+            $Editimage=$this->input->post('Editimage',TRUE);
             $image_data = array();
             if($_FILES['Editbanner']['name']!=""){
-                $upload_path=SiteAssetsURL.'banner/';
+                $upload_path=AssetsPath.'banner/';
                 $config['upload_path'] = $upload_path;
                 $config['allowed_types'] = 'jpg|png|gif';
                 $config['max_size'] = '0';
@@ -112,13 +113,13 @@ class Banner extends MY_Controller{
             
             if(!empty($image_data)){
                 $dataArr['image']=$image_data['file_name'];
-                $this->delete_image($EditImage);
+                $this->delete_image($Editimage);
             }
             
-            $dataArr['caption']=$Editcaption;
-            $dataArr['url']=$Editurl;
+            $dataArr['caption']=$caption;
+            $dataArr['url']=$url;
             $dataArr['status']=$status;
-            //print_r($bannerId);die;
+            //print_r($dataArr);die;
             $this->Banner_model->edit($dataArr,$bannerId);
 
             $this->session->set_flashdata('Message','Banner updated successfully.');
@@ -152,7 +153,7 @@ class Banner extends MY_Controller{
         function resize_image($full_path,$file_name){
             $is_file_error=FALSE;
             foreach($this->_resize_file_array As $k){
-                $upload_path=SiteAssetsURL.'banner/';
+                $upload_path=AssetsPath.'banner/';
                 $imagePathArr=  explode('X', $k);
                 
                 $config2['image_library'] = 'gd2';

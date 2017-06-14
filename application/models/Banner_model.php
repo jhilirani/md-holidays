@@ -3,9 +3,8 @@
 class Banner_model extends CI_Model {
 
     public $_table = 'banner';
-
     function __construct() {
-        
+        parent::__construct();
     }
 
     public function get_all() {
