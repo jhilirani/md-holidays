@@ -96,6 +96,25 @@
             <li><a href="<?php echo ADMIN_BASE_URL.'adminuser/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-user-circle-o"></i><span>Adminuser Manager</span></a></li>
             <li><a href="<?php echo ADMIN_BASE_URL.'menu/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-bars"></i><span>Menu Manager</span></a></li>
             <li><a href="<?php echo ADMIN_BASE_URL.'site_config/viewlist';?>"><i class="fa fa-tags"></i><i class="fa fa-cogs"></i><span>Site Config Manager</span></a></li>
+            <li class="treeview">
+                <a href="javascript:void(0);">
+                    <i class="fa fa-tags"></i><i class="fa fa-cutlery"></i><i class="fa fa-bed"></i><i class="fa fa-beer"></i><span>Resort</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo ADMIN_BASE_URL.'resort/viewlist';?>"><i class="fa fa-cutlery"></i> <i class="fa fa-bed"></i><i class="fa fa-beer"></i>Resort Manager</a></li>
+                    <li><a href="<?php echo ADMIN_BASE_URL.'facility/viewlist';?>"><i class="fa fa-building"></i>Facility</a></li>
+                    <li><a href="<?php echo ADMIN_BASE_URL.'factfile/viewlist';?>"><i class="fa fa-circle-o"></i> Factfile</a></li>
+                    <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+                    <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+                    <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                    <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+                    <li><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                    <li class="active"><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                </ul>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

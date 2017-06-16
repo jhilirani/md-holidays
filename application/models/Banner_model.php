@@ -3,6 +3,7 @@
 class Banner_model extends CI_Model {
 
     public $_table = 'banner';
+    private $_id="banerId";
     function __construct() {
         parent::__construct();
     }
@@ -13,8 +14,8 @@ class Banner_model extends CI_Model {
     }
 
     public function get_for_fe() {
-        $this->db->select('*')->from($this->_table)->where('status', '1');
-        return $this->db->get()->result();
+        $rs=  $this->db->get_where($this->_table,array('status'=>1))->result();
+        return $rs;
     }
 
     public function add($dataArr) {
@@ -22,21 +23,21 @@ class Banner_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function edit($DataArr, $bannerId) {
-        $this->db->where('bannerId', $bannerId);
+    public function edit($DataArr, $id) {
+        $this->db->where($this->_id, $id);
         $this->db->update($this->_table, $DataArr);
         //echo $this->db->last_query();die;
         return TRUE;
     }
 
-    public function change_status($bannerId, $status) {
-        $this->db->where('bannerId', $bannerId);
+    public function change_status($Id, $status) {
+        $this->db->where($this->_id, $id);
         $this->db->update($this->_table, array('status' => $status));
         return TRUE;
     }
 
-    public function delete($bannerId) {
-        $this->db->delete($this->_table, array('bannerId' => $bannerId));
+    public function delete($id) {
+        $this->db->delete($this->_table, array($this->_id => $id));
         return TRUE;
     }
 }

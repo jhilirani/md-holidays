@@ -58,22 +58,22 @@ class Category extends MY_Controller{
 	}
 	
 	
-	public function change_status($CategoryID,$Action){
-            $this->Category_model->change_category_status($CategoryID,$Action);
+	public function change_status($categoryId,$Action){
+            $this->Category_model->change_category_status($categoryId,$Action);
 
             $this->session->set_flashdata('Message','Category status updated successfully.');
             redirect(base_url().'webadmin/category/viewlist');
 	}
 	
-	public function delete($CategoryID){
-		$this->Category_model->delete($CategoryID);
+	public function delete($categoryId){
+		$this->Category_model->delete($categoryId);
 		
 		$this->session->set_flashdata('Message','Category deleted successfully.');
 		redirect(base_url().'webadmin/category/viewlist');
 	}
         
-        public function featured($CategoryID){
-            $this->Category_model->featured($CategoryID);
+        public function featured($categoryId){
+            $this->Category_model->featured($categoryId);
             $this->session->set_flashdata('Message','Category featured successfully.');
             redirect(base_url().'webadmin/category/viewlist');
         }
