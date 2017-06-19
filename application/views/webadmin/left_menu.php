@@ -107,8 +107,8 @@
                     <li><a href="<?php echo ADMIN_BASE_URL.'resort/viewlist';?>"><i class="fa fa-cutlery"></i> <i class="fa fa-bed"></i><i class="fa fa-beer"></i>Resort Manager</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'facility/viewlist';?>"><i class="fa fa-building"></i>Facility</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'factfile/viewlist';?>"><i class="fa fa-circle-o"></i> Factfile</a></li>
-                    <li><a href="<?php echo ADMIN_BASE_URL.'Resort_enjay_type/viewlist';?>"><i class="fa fa-circle-o"></i> Resort Enjay Type</a></li>
-                    <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+                    <li><a href="<?php echo ADMIN_BASE_URL.'resort_enjay_type/viewlist';?>"><i class="fa fa-circle-o"></i> Resort Enjay Type</a></li>
+                    <li><a href="<?php echo ADMIN_BASE_URL.'room_details/viewlist';?>"><i class="fa fa-circle-o"></i> Room Details</a></li>
                     <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
                     <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
                     <li><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>

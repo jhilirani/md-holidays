@@ -3,7 +3,7 @@
 class Banner_model extends CI_Model {
 
     public $_table = 'banner';
-    private $_id="banerId";
+    private $_id="bannerId";
     function __construct() {
         parent::__construct();
     }
@@ -31,7 +31,7 @@ class Banner_model extends CI_Model {
     }
 
     public function change_status($Id, $status) {
-        $this->db->where($this->_id, $id);
+        $this->db->where($this->_id, $Id);
         $this->db->update($this->_table, array('status' => $status));
         return TRUE;
     }

@@ -96,7 +96,7 @@ function AskDelete(id){
   <?php foreach($DataArr as $InerArr){?>
   <tr class="ListTestLable" height="20px;">
     <td><?php echo $val+1;?></td>
-    <td><img src="<?php echo SiteAssetsURL.'resort_enjay_type/150X150/'.$InerArr->image;?>" alt="" height="70px" width="130px"/></td>
+    <td><img src="<?php echo SiteAssetsURL.'resort_enjay_type/45X45/'.$InerArr->image;?>" alt="" class="img-responsive img-thumbnail"/></td>
     <td><?php echo $InerArr->name;?></td>
     <td><?php echo ($InerArr->status=='1')?'Active':'Inactive';?></td>
     <td>
@@ -113,7 +113,6 @@ function AskDelete(id){
   DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['resortEnjoyTypeId']='<?php echo $InerArr->resortEnjoyTypeId?>';
   DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['image']='<?php echo $InerArr->image?>';
   DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['name']='<?php echo $InerArr->name?>';
-  DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['url']='<?php echo $InerArr->url?>';
   DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['status']='<?php echo $InerArr->status?>';
   </script>
   <?php $val++;}?>
@@ -252,8 +251,8 @@ function AskDelete(id){
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">status</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><label class="radio-inline"><input type="radio" name="Editstatus" value="1" checked="" class="required">Active</label>
-        <label class="radio-inline"><input type="radio" name="Editstatus" value="0"  class="required">Active</label></td>
+    <td align="left" valign="top"><label class="radio-inline"><input type="radio" name="status" value="1" checked="" class="required">Active</label>
+        <label class="radio-inline"><input type="radio" name="status" value="0"  class="required">Active</label></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
