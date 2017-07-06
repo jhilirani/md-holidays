@@ -102,7 +102,11 @@ define('SiteUploadsURL',BASE_URL.'uploads/');
 define('SiteImagesURL',SiteAssetsURL.'images/');
 define('SiteCSSURL',SiteAssetsURL.'css/');
 define('SiteJSURL',SiteAssetsURL.'js/');
-define('AssetsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
+define('AsseUploadsPathtsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
+define('ResortURL',SiteAssetsURL.'resort/');
+define('ResortSmallImageURL',ResortURL.'100X100/');
+define('ResortModiumURL',ResortURL.'300X300/');
+
 define('UploadsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'uploads/');
 
 define("MTH_SHA1_SULT",'mTmVh');

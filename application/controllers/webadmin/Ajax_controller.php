@@ -44,4 +44,10 @@ class Ajax_controller extends MY_Controller{
             }
         }
     }
+    
+    function get_booking_period_element(){
+        $no=  $this->input->post("selected_no",TRUE);
+        $data['nos']=$no;
+        $this->load->view('webadmin/resort_rooms_booking_period',$data);
+    }
 }

@@ -5,7 +5,7 @@
   </tr>
   
 <tr>
-    <td style="padding-left:5px;"><span class="PageHeading">Course Edit for <?php echo $dataArr[0]->title?></span></td>
+    <td style="padding-left:5px;"><span class="PageHeading">Content Edit for <?php echo $dataArr[0]->title?></span></td>
   </tr>
   
   <tr>

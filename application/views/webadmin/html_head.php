@@ -36,7 +36,6 @@
             myJsMain.adminBaseURL = '<?php echo ADMIN_BASE_URL;?>';
             myJsMain.MainSiteBaseURL = '<?php echo BASE_URL;?>';
             myJsMain.baseURL = '<?php echo BASE_URL;?>';
-            myJsMain.baseURL = '<?php echo BASE_URL;?>';
             myJsMain.SystemMessageName='Maldives Traveller System Message'
         </script>
         <style>

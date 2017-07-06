@@ -54,18 +54,20 @@ if ( ! function_exists('pre')){
     }
 }
 
-if ( ! function_exists('multiple_array_search')){
-    function multiple_array_search($id,$column, $dataArray){ //die('rrr');
+if ( ! function_exists('jmultiple_array_search')){
+    function jmultiple_array_search($id,$column, $dataArray){ //die('rrr');
        foreach ($dataArray as $key => $val) {
-           //echo $val[$column].' = '.$id .'<br>';
-           if ($val[$column] === $id) {
-               //echo 'PP';
+           //pre($val);
+           //echo $column.'<br>';
+           //echo $val[$column].' = '.$id .'<br>';//die;
+           if ($val[$column] == $id) {
+               //echo $key;die;
                return $key;
            }else{
                //echo 'zzz';
            }
        }
-       return FALSE;
+       return -1;
     }
 }
 
