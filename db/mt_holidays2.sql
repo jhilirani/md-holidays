@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2017 at 04:26 AM
+-- Generation Time: Jun 14, 2017 at 09:02 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -60,14 +60,14 @@ CREATE TABLE IF NOT EXISTS `banner` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `url` varchar(350) DEFAULT NULL,
   PRIMARY KEY (`bannerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `banner`
 --
 
 INSERT INTO `banner` (`bannerId`, `caption`, `image`, `status`, `url`) VALUES
-(2, 'test caption', '28e5b986f75600bb94f22fd7f7439cea.JPG', 1, 'http://test.com/');
+(1, 'test caption1', '80f5dda7412d5c6aa2fba92648e0a563.JPG', 1, 'http://test.com1/');
 
 -- --------------------------------------------------------
 
@@ -386,18 +386,10 @@ INSERT INTO `country` (`countryId`, `countryCode`, `countryName`) VALUES
 
 DROP TABLE IF EXISTS `facility`;
 CREATE TABLE IF NOT EXISTS `facility` (
-  `facilityId` int(11) NOT NULL AUTO_INCREMENT,
+  `facilityId` int(11) NOT NULL,
   `facility` varchar(50) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`facilityId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `facility`
---
-
-INSERT INTO `facility` (`facilityId`, `facility`, `status`) VALUES
-(1, 'Facility11', 1);
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -407,18 +399,10 @@ INSERT INTO `facility` (`facilityId`, `facility`, `status`) VALUES
 
 DROP TABLE IF EXISTS `factfile`;
 CREATE TABLE IF NOT EXISTS `factfile` (
-  `factfileId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `factfileId` bigint(20) NOT NULL,
   `factfile` varchar(40) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`factfileId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `factfile`
---
-
-INSERT INTO `factfile` (`factfileId`, `factfile`, `status`) VALUES
-(1, 'Fact File1', 1);
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -474,18 +458,11 @@ CREATE TABLE IF NOT EXISTS `resort` (
 DROP TABLE IF EXISTS `resort_enjay_type`;
 CREATE TABLE IF NOT EXISTS `resort_enjay_type` (
   `resortEnjoyTypeId` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(110) NOT NULL,
-  `image` varchar(100) NOT NULL,
+  `name` int(11) NOT NULL,
+  `img` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`resortEnjoyTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resort_enjay_type`
---
-
-INSERT INTO `resort_enjay_type` (`resortEnjoyTypeId`, `name`, `image`, `status`) VALUES
-(5, 'testadacsacdcascdacascascs', '0ae6e41d7c298a8165aae176db9afac6.JPG', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -544,13 +521,12 @@ CREATE TABLE IF NOT EXISTS `resort_ratting` (
 DROP TABLE IF EXISTS `resort_room`;
 CREATE TABLE IF NOT EXISTS `resort_room` (
   `resortRoomId` int(11) NOT NULL AUTO_INCREMENT,
-  `roomTypeId` int(11) NOT NULL,
+  `rootTypeId` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
   `title` int(11) NOT NULL,
   `orderNo` int(11) DEFAULT NULL,
   `totalNosRoom` int(11) DEFAULT NULL,
   `taxAndServiceCharges` int(11) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`resortRoomId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -572,11 +548,6 @@ CREATE TABLE IF NOT EXISTS `resort_room_charges` (
   `infantRate` int(11) NOT NULL,
   `maxInfant` int(11) NOT NULL,
   `childInfantExtraDayCharges` int(11) NOT NULL,
-  `adult1` int(11) NOT NULL,
-  `adult2` int(11) NOT NULL,
-  `adult3` int(11) NOT NULL,
-  `adult4` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`resortRoomChargesId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -589,10 +560,10 @@ CREATE TABLE IF NOT EXISTS `resort_room_charges` (
 DROP TABLE IF EXISTS `room_details`;
 CREATE TABLE IF NOT EXISTS `room_details` (
   `roomDetailsId` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) NOT NULL,
+  `title` int(50) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`roomDetailsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -604,7 +575,6 @@ DROP TABLE IF EXISTS `room_type`;
 CREATE TABLE IF NOT EXISTS `room_type` (
   `roomTypeId` int(11) NOT NULL AUTO_INCREMENT,
   `roomType` varchar(100) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`roomTypeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
