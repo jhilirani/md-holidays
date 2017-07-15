@@ -1,8 +1,11 @@
 <?php echo $html_head;?>
+<style>
+    .content-wrapper, .right-side, .main-footer{margin-left:0px !important;text-align: center;background:none !important;}
+    </style>
 <body class="hold-transition login-page">
 <div class="login-box">
-  <div class="login-logo">
-    <a href="<?php echo ADMIN_BASE_URL;?>"><b><?php echo SITE_NAME;?></a>
+    <div class="login-logo" style="background-color: white;">
+      <a href="<?php echo ADMIN_BASE_URL;?>"><img src="<?php echo SiteImagesURL;?>logo.png" /><?php //echo SITE_NAME;?></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

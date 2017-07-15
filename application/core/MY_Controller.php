@@ -231,7 +231,7 @@ class MY_Controller extends CI_Controller {
             $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
             $this->load->view('webadmin/home', $data);
         } else {
-            $this->_show_admin_login();
+            redirect('webadmin/index');
         }
     }
 

@@ -5,9 +5,6 @@ class Index extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model("Admin_model");
-        if($this->_is_admin_loged_in()==FALSE){
-            $this->_show_admin_login();
-        }
     }
     
     function index(){
@@ -23,14 +20,14 @@ class Index extends MY_Controller {
         if($this->_is_admin_loged_in()==TRUE){
             $this->_show_admin_home();
         }else{
-            $this->login();
+            redirect('webadmin/index/login','refresh');
         }
     }
 
     public function login(){
         if($this->_is_admin_loged_in()==FALSE){
             $this->_show_admin_login();
-        }else{
+        }else{ die("kkk");
             redirect(base_url().'webadmin/index/admin_home');
         }
     }
