@@ -17,10 +17,17 @@
         float:left;
         min-height: 150px !important;
         border-radius: 4px;
+        border:1px solid #367FA9;
+        margin: 2px 3px;
     }
     .remove-file{
         color:#000000 !important;
     }
+    #upload-btn{
+        background-color: #008d4c !important;
+        color: #FFF !important;
+    }
+        
 </style>
 <table cellspacing=5 cellpadding=5 width=90% border=0 >
 
@@ -61,7 +68,7 @@
                 closeOnConfirm: false
             },
                     function () {
-                        location.href = '<?php echo base_url() ?>webadmin/resort/delete/' + id;
+                        location.href = '<?php echo base_url();?>webadmin/resort/delete/' + id;
                     });
             return false;
         }
@@ -72,8 +79,8 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" id="" style="border:#FBE554 1px solid;" class="table table-bordered table-striped">
-                            <tr height="20px;">
+                        <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" id="" class="table"><!-- table-bordered table-striped-->
+                            <tr>
                                 <td>
                                     <?php
                                     $val = 0;
@@ -122,8 +129,9 @@
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top" colspan="4">
-                                        <form action="<?php echo site_url("image_process/start_mulitple_upload") ?>" id="form-upload">            
-                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                        <form action="<?php echo site_url("image_process/start_mulitple_upload") ?>" id="form-upload"> 
+                                            <input type="hidden" name="resortId" id="resortId" value="<?php echo $details[0]->resortId;?>" />
+                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput" style="width:100% !important;">
                                                 <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
                                                 <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new"><i class="glyphicon glyphicon-paperclip"></i> Select file</span><span class="fileinput-exists"><i class="glyphicon glyphicon-repeat"></i> Change</span><input type="file" name="file"></span>
                                                 <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"><i class="glyphicon glyphicon-remove"></i> Remove</a>
@@ -161,6 +169,11 @@
                                     <td align="left" valign="top">&nbsp;</td>
                                     <td align="left" valign="top">&nbsp;</td>
                                     <td align="left" valign="top">&nbsp;</td>
+                                    <td align="left" valign="top">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top">&nbsp;</td>
+                                    <td align="left" valign="top" colspan="2"><input type="button" class="btn btn-success" value="Show Resort Image List" onclick="location.href='<?php echo ADMIN_BASE_URL.'resort/view_images/'.$details[0]->resortId;?>'"></td>
                                     <td align="left" valign="top">&nbsp;</td>
                                 </tr>
                             </table>

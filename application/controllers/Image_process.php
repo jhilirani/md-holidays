@@ -9,9 +9,9 @@ class Image_process extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->_resize_bulk_file_array = array('100X100');
-        $this->_resize_file_array = array('100X100');
-        $this->_image_main_path_bulk = 'resort_images/bulk_directory/';
+        //$this->_resize_bulk_file_array = array('100X100');
+        $this->_resize_file_array = array('100X100','200X200');
+        $this->_image_main_path = 'resort_images/';
     }
 
     function start_mulitple_upload() {
@@ -26,7 +26,8 @@ class Image_process extends MY_Controller {
     }
 
     private function mulitple_upload() {
-        $upload_path = AssetsPath . $this->_image_main_path_bulk ;
+        $resortId= $this->input->post('resortId');
+        $upload_path = AssetsPath . $this->_image_main_path ;
         //echo $upload_path;die;
         $config['upload_path'] = $upload_path;
         $config['allowed_types'] = 'jpg|png|gif';
@@ -46,26 +47,25 @@ class Image_process extends MY_Controller {
             die;
         } else {
             $image_data = $this->upload->data();
-            $is_resize_done = $this->resize_image($image_data['full_path'], $image_data['file_name'], 'yes');
+            $is_resize_done = $this->resize_image($image_data['full_path'], $image_data['file_name']);
             if ($is_resize_done != 1) {
                 echo $is_resize_done;
                 die;
             } else {
+                $this->load->model("Resort_image_model");
+                $this->Resort_image_model->add(array('resortId'=>$resortId,'image'=>$image_data["file_name"]));
                 echo $image_data["file_name"];
                 die;
             }
         }
     }
 
-    function resize_image($full_path, $file_name, $bulk = "no") {
+    function resize_image($full_path, $file_name) {
         $is_file_error = FALSE;
-        if ($bulk != 'no') {
-            $img_resise_arr = $this->_resize_bulk_file_array;
-        } else {
-            $img_resise_arr = $this->_resize_file_array;
-        }
+        $img_resise_arr = $this->_resize_file_array;
+        $this->load->library('image_lib');
         foreach ($this->_resize_file_array As $k) {
-            $upload_path = AssetsPath . $this->_image_main_path_bulk ;
+            $upload_path = AssetsPath . $this->_image_main_path ;
             
             $imagePathArr = explode('X', $k);
             $new_img_path=$upload_path . $k . '/' . $file_name;
@@ -79,32 +79,37 @@ class Image_process extends MY_Controller {
             $config2['height'] = $imagePathArr[1];
             $config2['new_image'] = $new_img_path;
             //$config['thumb_marker'] = '_thumb';
-            $config2['quality'] = '100';
-            //echo '<pre>';print_r($config2);//die;
+            $config2['quality'] = '60';
+            //echo '<pre>';print_r($config2);die;
             $this->image_lib->clear(); // added this line
             $this->image_lib->initialize($config2); // added this line
             //$this->load->library('image_lib', $config2);
             if (!$this->image_lib->resize()) {
                 $errMsg = $this->image_lib->display_errors();
-                //echo '<pre>';print_r($errMsg);
+                //echo '<pre>kkk';print_r($errMsg);die;
                 $is_file_error = TRUE;
+            }else{
+                
             }
         }
         if ($is_file_error == TRUE) {
-            return $errMsg;
+            return 1;
+            //return $errMsg;
         } else {
             return 1;
         }
     }
 
     function delete_image($file_name) {
-        foreach ($this->_resize_bulk_file_array As $k) {
-            $upload_path = AssetsPath . $this->_image_main_path_bulk;
+        foreach ($this->_resize_file_array As $k) {
+            $upload_path = AssetsPath . $this->_image_main_path;
             $full_img_path=$upload_path . $k . '/' . $file_name;
             //die($full_img_path);
             @unlink($full_img_path);
         }
         @unlink($upload_path . $file_name);
+        $this->load->model("Resort_image_model");
+        $this->Resort_image_model->delete_by_img($file_name);
     }
 
 }

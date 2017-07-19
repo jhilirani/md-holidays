@@ -13,6 +13,7 @@ $(function () {
 			// that would be sent to sever through ajax
 			var formData = new FormData();
 			formData.append("file", fileToUpload);
+			formData.append("resortId", $('#resortId').val());
 			progressBar.show();
 			// now upload the file using $.ajax
 			$.ajax({
@@ -22,6 +23,7 @@ $(function () {
 				processData: false,
 				contentType: false,
 				success: function(data) {
+					//alert(data);
 					//listFilesOnServer();
                                         showuploadedImage(data);
 				},
@@ -59,7 +61,8 @@ $(function () {
 
 	});
         function showuploadedImage(data){
-            var imgURL=myJsMain.baseURL+'assets/resort_images/bulk_directory/100X100/'+data;
+            var imgURL=myJsMain.baseURL+'assets/resort_images/100X100/'+data;
+			//alert(imgURL);
             var imgsEle='<div class="list-group-item1 col-md-3"><img src="'+imgURL+'" class="img-responsive img-thumbnail" /><div class="pull-right pull-right1"><a href="#" data-file="'+data+'" class="remove-file"><i class="glyphicon glyphicon-remove"></i></a></div></div>';
             $('.list-group1').append(imgsEle);
 			progressBar.hide();

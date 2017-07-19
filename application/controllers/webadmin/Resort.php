@@ -197,6 +197,7 @@ class Resort extends MY_Controller {
     
     function view_images($Id){
         $details=$this->Resort_model->details($Id);
+        //pre($details);die;
         $allImg=$this->Resort_model->get_images($Id);
         $this->load->helper("ckeditor");
         $data = $this->_show_admin_logedin_layout();

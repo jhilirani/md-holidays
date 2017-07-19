@@ -107,6 +107,8 @@ define('ResortURL',SiteAssetsURL.'resort/');
 define('ResortSmallImageURL',ResortURL.'100X100/');
 define('ResortModiumURL',ResortURL.'300X300/');
 
+define('AssetsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
+
 define('UploadsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'uploads/');
 
 define("MTH_SHA1_SULT",'mTmVh');
