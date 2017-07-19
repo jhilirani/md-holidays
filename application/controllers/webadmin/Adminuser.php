@@ -8,7 +8,7 @@ class Adminuser extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Admin_model');
-        $this->_admin_auth();
+        //$this->_admin_auth();
     }
 
     public function index() {

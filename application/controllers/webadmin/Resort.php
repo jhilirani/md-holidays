@@ -9,7 +9,7 @@ class Resort extends MY_Controller {
         $this->load->model('Factfile_model');
         $this->load->model('Facility_model');
         $this->load->model('Sports_recreation_model');
-        $this->_admin_auth();
+        //$this->_admin_auth();
         $this->_resize_file_array=array('150X150');
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');
         $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId');
