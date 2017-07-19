@@ -109,6 +109,7 @@
                     <li><a href="<?php echo ADMIN_BASE_URL.'factfile/viewlist';?>"><i class="fa fa-circle-o"></i> Factfile</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'resort_enjay_type/viewlist';?>"><i class="fa fa-cutlery"></i> Resort Enjay Type</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'room_details/viewlist';?>"><i class="fa fa-building"></i> Room Details</a></li>
+                    <li><a href="<?php echo ADMIN_BASE_URL.'room_type/viewlist';?>"><i class="fa fa-list-alt"></i>Room Type</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'sports_recreation/viewlist';?>"><i class="fa fa-gamepad"></i> Sports and recreation Details</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'resort/viewlist';?>"><i class="fa fa-bed"></i> <i class="fa fa-beer"></i>Manage Resort</a></li>
                     <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>

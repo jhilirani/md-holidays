@@ -32,19 +32,19 @@
 <div class="box">
     <div class="container dynamicTile">
         <div class="row">
-            <div class="col-sm-6 col-xs-12 col-md-4 col-lg-4">
+            <div class="col-sm-6 col-xs-12 col-md-3 col-lg-3">
                 <div class="tile tile10" data-color="green">
                     <div class="carousel slide" data-ride="carousel">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="item active">
-                                <h3 class="tilecaption"><i class="fa fa-building fa-3x"></i></h3>
+                                <h3 class="tilecaption"><a href="<?php echo ADMIN_BASE_URL.'facility/viewlist';?>"><i class="fa fa-building fa-3x"></i></a></h3>
                             </div>
                             <div class="item">
-                                <h3 class="tilecaption">Manage Facility</h3>
+                                <h3 class="tilecaption"><a href="<?php echo ADMIN_BASE_URL.'facility/viewlist';?>">Manage Facility</a></h3>
                             </div>
                             <div class="item">
-                                <h3 class="tilecaption">Create,Update and Facilities</h3>
+                                <h3 class="tilecaption"><a href="<?php echo ADMIN_BASE_URL.'facility/viewlist';?>">Create,Update and Facilities</a></h3>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="item active">
-                                <h3 class="tilecaption"><i class="fa fa-circle-o"></i></h3>
+                                <h3 class="tilecaption"><i class="fa fa-circle-o fa-3x"></i></h3>
                             </div>
                             <div class="item">
                                 <h3 class="tilecaption">Manage Factfile</h3>
@@ -76,13 +76,13 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="item active">
-                                <h3 class="tilecaption"><i class="fa fa-circle-o"></i></h3>
+                                <h3 class="tilecaption"><i class="fa fa-gamepad fa-3x"></i></h3>
                             </div>
                             <div class="item">
-                                <h3 class="tilecaption">Manage Factfile</h3>
+                                <h3 class="tilecaption">Manage Sports and Recreation</h3>
                             </div>
                             <div class="item">
-                                <h3 class="tilecaption">Create,Update and Factfile</h3>
+                                <h3 class="tilecaption">Create,Update and Sports and Recreation</h3>
                             </div>
                         </div>
                     </div>

@@ -260,7 +260,9 @@ class Resort extends MY_Controller {
         $data['resortTitle']=$allRooms[0]['resortTitle'];
         $data['pageTitle']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
         $data['pageSubtitle']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
-        $data['roomTypeDataArr']=$this->Resort_room_type_model->get_all();
+        $roomTypeDataArr=$this->Resort_room_type_model->get_all();
+        //pre($roomTypeDataArr);die;
+        $data['roomTypeDataArr']=$roomTypeDataArr;
         $data['contName']="resort";
         $data['contAction']="view_rooms";
         $data['contNameLabel']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
