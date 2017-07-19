@@ -9,7 +9,7 @@ class Resort extends MY_Controller {
         $this->load->model('Factfile_model');
         $this->load->model('Facility_model');
         $this->load->model('Sports_recreation_model');
-        $this->_admin_auth();
+        //$this->_admin_auth();
         $this->_resize_file_array=array('150X150');
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');
         $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId');
@@ -197,6 +197,7 @@ class Resort extends MY_Controller {
     
     function view_images($Id){
         $details=$this->Resort_model->details($Id);
+        //pre($details);die;
         $allImg=$this->Resort_model->get_images($Id);
         $this->load->helper("ckeditor");
         $data = $this->_show_admin_logedin_layout();
