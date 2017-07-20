@@ -61,16 +61,13 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
         }
 
         function showUpdateCaption(id) {
-            /*$('#MessaeBox').html("");
+            $('#MessaeBox').html("");
             $('#AddBtn').hide();
             $('#PageHeading').hide();
             $('#ListBox_wrapper').fadeOut(500);
-            //$('#ListBox').fadeOut(500);
-            //$('#AddBox').fadeIn(3500);*/
-            //myJsMain.commonFunction.showWebAdminPleaseWait();
-            alert('k');
-            $('#myModal').show();
-            alert('LL');
+            $('#ListBox').fadeOut(500);
+            $('#AddBox').fadeIn(3500);
+            myJsMain.commonFunction.showWebAdminPleaseWait();
             $.ajax({
                 url: '<?php echo ADMIN_BASE_URL.'ajax_controller/update_resort_img_caption/'?>',
                 type: 'POST',
@@ -78,7 +75,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                 success: function (data) {
                     myJsMain.commonFunction.hideWebAdminPleaseWait();
                     $('#caption').val(data);
-                    $('#myModal').show();
+                    $('#myModal').modal('show')
                 }
             });
         }
@@ -250,11 +247,11 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Update Caption data</h4>
+                <h4 style="color:red;"><span class="glyphicon glyphicon-header"></span> Update Caption data</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="usrname"><span class="glyphicon glyphicon-user"></span>Update Image Caption</label>
+                    <label for="usrname"><span class="glyphicon glyphicon-tags glyphicon-header"></span>Update Image Caption</label>
                     <input type="text" class="form-control" id="caption" name="caption" placeholder="Update Caption">
                 </div>
                 <button type="button" id="update-caption-btn" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Caption</button>
