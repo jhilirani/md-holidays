@@ -3,6 +3,10 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Resort extends MY_Controller {
+    private $_resize_file_array;
+    private $_image_main_path;
+    private $_ins_columnArr;
+    private $_ins_room_columnArr;
     public function __construct() {
         parent::__construct();
         $this->load->model('Resort_model');
@@ -10,7 +14,8 @@ class Resort extends MY_Controller {
         $this->load->model('Facility_model');
         $this->load->model('Sports_recreation_model');
         //$this->_admin_auth();
-        $this->_resize_file_array=array('150X150');
+        $this->_resize_file_array=array('100X100','200X200');
+        $this->_image_main_path='resort_images/';
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');
         $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId');
     }
@@ -173,6 +178,12 @@ class Resort extends MY_Controller {
         //echo 'comming for delete to id '.$id;die;
         $No = $this->Resort_model->delete($id);
         if ($No > 0) {
+            $this->load->model('Resort_image_model'); //delete_resort_image
+            $allResortImages=$this->Resort_image_model->get_data_generic_fun('*',array('resort_id'=>$id),'result_arr');
+            foreach ($allResortImages AS $k){
+                $this->delete_image($k->image);
+            }
+            $this->Resort_image_model->delete_all_image_by_resort_id($id);
             $this->Resort_model->remove_factfile($id);
             $this->Resort_model->remove_facility($id);
             $this->Resort_model->remove_sports_recreation($id);
@@ -195,16 +206,32 @@ class Resort extends MY_Controller {
         }
     }
     
+    public function image_change_status($resortId, $status,$resortImageId) {
+        $this->load->model("Resort_image_model");
+        $No = $this->Resort_image_model->edit(array('status'=>$status), $resortImageId);
+        if ($No > 0) {
+            $this->session->set_flashdata('UserListPageMsg', 'Record status changed successfully.');
+            redirect($this->config->item('base_url') . 'webadmin/resort/view_images/'.$resortId);
+        } else {
+            $this->session->set_flashdata('UserListPageMsg', 'Unable to changed the for this record,please try again .');
+            redirect($this->config->item('base_url') . 'webadmin/resort/view_images/'.$resortId);
+        }
+    }
+    
     function view_images($Id){
+        if($Id==""){
+            redirect(ADMIN_BASE_URL.'resort/viewlist');
+        }
         $details=$this->Resort_model->details($Id);
         //pre($details);die;
         $allImg=$this->Resort_model->get_images($Id);
+        //pre($allImg);die;
         $this->load->helper("ckeditor");
         $data = $this->_show_admin_logedin_layout();
         $data['pageTitle']="Manage Resort Images of ".$details[0]->title;
         $data['pageSubtitle']="Manage Resort Images of ".$details[0]->title;
         $data['contName']="resort";
-        $data['contAction']="view_images";
+        $data['contAction']="view_images/".$Id;
         $data['contNameLabel']="Manage Resort Images of ".$details[0]->title;
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         
@@ -213,9 +240,23 @@ class Resort extends MY_Controller {
         $this->load->view('webadmin/resort_images_list', $data);
     }
     
+    function delete_resort_image($resortImageId,$resortId){
+        $this->load->model("Resort_image_model");
+        $imageArr=$this->Resort_image_model->get_data_generic_fun('*',array('resortImageId'=>$resortImageId));
+        //pre($imageArr);die;
+        $act=  $this->Resort_image_model->delete($resortImageId);
+        if($act){
+            foreach($imageArr AS $k){
+                $this->delete_image($k->image);
+            }
+        }
+        $this->session->set_flashdata('UserListPageMsg', 'Record deleted successfully.');
+        redirect(ADMIN_BASE_URL.'resort/view_images/'.$resortId);
+    }
+    
     function delete_image($file_name){
         foreach($this->_resize_file_array As $k){
-            $upload_path=AssetsPath.'banner/';
+            $upload_path=AssetsPath.$this->_image_main_path;
             @unlink($upload_path.$k.'/'.$file_name);
         }
         @unlink($upload_path.$file_name);
@@ -225,7 +266,7 @@ class Resort extends MY_Controller {
         $this->load->library('image_lib');
         $is_file_error=FALSE;
         foreach($this->_resize_file_array As $k){
-            $upload_path=AssetsPath.$this->_image_main_path.'/';
+            $upload_path=AssetsPath.$this->_image_main_path;
             $imagePathArr=  explode('X', $k);
 
             $config2['image_library'] = 'gd2';
@@ -248,6 +289,7 @@ class Resort extends MY_Controller {
             }
         }
         if($is_file_error==TRUE){
+            //return $errMsg;
             return $errMsg;
         }else{
             return 1;

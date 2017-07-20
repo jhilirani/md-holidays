@@ -9,7 +9,7 @@ for($i=1;$i<($nos+1);$i++){?>
                   <div class="col-md-2">3 Adult</div>
                   <div class="col-md-2">4 Adult</div>
                   <div class="col-md-3">Extra Days Charge</div>
-              </div>
+              </div> 
           </div>
           <div class="row">
               <div class="col-md-4"><input type="text" name="bookingStartDate<?php echo $i;?>" id="bookingStartDate<?php echo $i;?>" class="form-control datepicker" /></div>

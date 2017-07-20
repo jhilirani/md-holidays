@@ -37,6 +37,9 @@ $(function () {
 							$('.progress').show();
 							progressBar.css({width: percentComplete + "%"});
 							progressBar.text(percentComplete + '%');
+                                                        if(parseInt(percentComplete)>98){
+                                                            myJsMain.commonFunction.showPleaseWait();
+                                                        }
 						};
 					}, false);
 
@@ -65,7 +68,9 @@ $(function () {
 			//alert(imgURL);
             var imgsEle='<div class="list-group-item1 col-md-3"><img src="'+imgURL+'" class="img-responsive img-thumbnail" /><div class="pull-right pull-right1"><a href="#" data-file="'+data+'" class="remove-file"><i class="glyphicon glyphicon-remove"></i></a></div></div>';
             $('.list-group1').append(imgsEle);
-			progressBar.hide();
+            progressBar.hide();
+            $('.clearFileData').trigger('click');
+            myJsMain.commonFunction.hidePleaseWait();
         }
 	function listFilesOnServer () {
 		var items = [];

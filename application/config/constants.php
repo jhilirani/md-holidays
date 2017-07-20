@@ -103,9 +103,13 @@ define('SiteImagesURL',SiteAssetsURL.'images/');
 define('SiteCSSURL',SiteAssetsURL.'css/');
 define('SiteJSURL',SiteAssetsURL.'js/');
 define('AsseUploadsPathtsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
-define('ResortURL',SiteAssetsURL.'resort/');
-define('ResortSmallImageURL',ResortURL.'100X100/');
-define('ResortModiumURL',ResortURL.'300X300/');
+define('ResortImgURL',SiteAssetsURL.'resort_images/');
+define('ResortSmallImageURL',ResortImgURL.'100X100/');
+define('ResortModiumURL',ResortImgURL.'300X300/');
+
+define('ResortRoomImgURL',SiteAssetsURL.'resort_room_images/');
+define('ResortRoomImgSmallImageURL',ResortRoomImgURL.'100X100/');
+define('ResortRoomImgModiumURL',ResortRoomImgURL.'300X300/');
 
 define('AssetsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
 

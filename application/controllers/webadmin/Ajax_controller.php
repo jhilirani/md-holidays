@@ -50,4 +50,15 @@ class Ajax_controller extends MY_Controller{
         $data['nos']=$no;
         $this->load->view('webadmin/resort_rooms_booking_period',$data);
     }
+    
+    function update_resort_img_caption(){
+        $resortImageId=  $this->input->post("resortImageId",true);
+        $this->load->model("Resort_image_model");
+        $imageDetails=  $this->Resort_image_model->get_data_generic_fun('*',array('resortImageId'=>$resortImageId),'result_array');
+        if(!empty($imageDetails)){
+            echo $imageDetails[0]['caption'];
+        }else{
+            echo '';
+        }
+    }
 }
