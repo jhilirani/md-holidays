@@ -34,7 +34,10 @@ class Resort_model extends CI_Model {
     }
 
     function get_all_admin() {
-        $rs = $this->db->get($this->_table)->result();
+        $this->db->select('r.*,ri.image')->from($this->_table." as r");
+        $this->db->join($this->_table_image." AS ri",'ri.resortId=r.resortId','left');
+        $rs=$this->db->where('r.status',1)->get()->result();
+        //echo $this->db->last_query();die;
         return $rs;
     }
 

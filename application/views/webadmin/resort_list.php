@@ -68,7 +68,13 @@ function AskDelete(id){
     <td><?php echo $val+1;?></td>
     <td><?php echo $InerArr->title;?></td>
     <td>
-        <img src="" alt="<?php echo $InerArr->title;?>" class="img-responsive img-thumbnail" />
+        <?php $images = AsseUploadsPathtsPath . 'resort_images/100X100/';
+        //echo $images.$InerArr->image;die;
+        if (file_exists($images . $InerArr->image) && $InerArr->image!="") { ?>
+        <img alt="<?php echo $InerArr->title;?>" src="<?php echo ResortSmallImageURL.$InerArr->image;?>" class="img-responsive img-thumbnail" />
+        <?php }else{?>
+        <img alt="<?php echo $InerArr->title;?>" src="<?php echo SiteImagesURL.'no-image-100.png';?>" class="img-responsive img-thumbnail" />
+        <?php }?>
     </td>
     <td><?php echo $InerArr->location;?></td>
     <td><?php echo ($InerArr->status=='1')?'Active':'Inactive';?></td>

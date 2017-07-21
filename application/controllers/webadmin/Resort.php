@@ -14,7 +14,7 @@ class Resort extends MY_Controller {
         $this->load->model('Facility_model');
         $this->load->model('Sports_recreation_model');
         //$this->_admin_auth();
-        $this->_resize_file_array=array('100X100','200X200');
+        $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='resort_images/';
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');
         $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId');
@@ -231,8 +231,13 @@ class Resort extends MY_Controller {
         $data['pageTitle']="Manage Resort Images of ".$details[0]->title;
         $data['pageSubtitle']="Manage Resort Images of ".$details[0]->title;
         $data['contName']="resort";
-        $data['contAction']="view_images/".$Id;
-        $data['contNameLabel']="Manage Resort Images of ".$details[0]->title;
+        $data['contAction']="viewlist/";
+        $data['contNameLabel']="Manage Resort";
+        
+        $data['secondContName']="resort";
+        $data['secondContAction']="view_images/".$Id;
+        $data['secondContNameLabel']="Manage Resort Images of ".$details[0]->title;
+        
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         
         $data["details"] = $details;

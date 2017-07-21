@@ -10,7 +10,7 @@ class Image_process extends MY_Controller {
     public function __construct() {
         parent::__construct();
         //$this->_resize_bulk_file_array = array('100X100');
-        $this->_resize_file_array = array('100X100','200X200');
+        $this->_resize_file_array = array('100X100','200X200','300X300');
         $this->_image_main_path = 'resort_images/';
     }
 
