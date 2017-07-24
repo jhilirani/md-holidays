@@ -307,7 +307,7 @@ class MY_Controller extends CI_Controller {
     
     public function _admin_auth(){
         if($this->_is_admin_loged_in()==FALSE){
-            $this->_show_admin_login();
+            redirect(ADMIN_BASE_URL.'index/login','refresh');
         }else{
             return FALSE;
         }

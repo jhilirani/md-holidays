@@ -7,6 +7,7 @@ class User extends MY_Controller {
         $this->load->model('User_model');
         $this->load->model('Country');
         $this->load->model('Demo_model');
+        $this->_admin_auth();
     }
 
     public function index() {

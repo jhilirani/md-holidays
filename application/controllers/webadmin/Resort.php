@@ -13,7 +13,7 @@ class Resort extends MY_Controller {
         $this->load->model('Factfile_model');
         $this->load->model('Facility_model');
         $this->load->model('Sports_recreation_model');
-        //$this->_admin_auth();
+        $this->_admin_auth();
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='resort_images/';
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');

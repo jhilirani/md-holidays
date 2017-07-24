@@ -1,3 +1,7 @@
+<style>
+    .navbar-nav>.user-menu>.dropdown-menu{width: 180px!important;}
+    .dropdown-menu>li>a{padding: 3px 5px !important;}
+</style>
 <header class="main-header">
     <!-- Logo -->
     <a href="<?php echo ADMIN_BASE_URL;?>" class="logo" style="height: 60px !important;">
@@ -135,13 +139,21 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            <?php /*<div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat"> <i class="fa fa-user"></i> Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="<?php echo ADMIN_BASE_URL.'index/logout';?>" class="btn btn-default btn-flat">Sign out</a>
-                            </div>
+                                <a href="<?php echo ADMIN_BASE_URL.'index/logout';?>" class="btn btn-default btn-flat"> <i class="fa fa-sign-out"></i> Sign out</a>
+                            </div> */?>
+                            <a href="<?php echo ADMIN_BASE_URL.'adminuser/manage_profile';?>" class="btn btn-default btn-flat"> <i class="fa fa-user"></i>Manage Profile</a>
                         </li>
+                        <li class="user-footer">
+                            <a href="<?php echo ADMIN_BASE_URL.'adminuser/change_password';?>" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i>Change Password</a>
+                        </li>
+                        <li class="user-footer">
+                            <a href="<?php echo ADMIN_BASE_URL.'index/logout';?>" class="btn btn-default btn-flat"> <i class="fa fa-sign-out"></i>Sign out</a>
+                        </li>
+                        
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->

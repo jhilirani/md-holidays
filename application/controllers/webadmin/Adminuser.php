@@ -8,7 +8,7 @@ class Adminuser extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Admin_model');
-        //$this->_admin_auth();
+        $this->_admin_auth();
     }
 
     public function index() {
@@ -173,6 +173,14 @@ class Adminuser extends MY_Controller {
         $insights = array_combine($insights_keys, $insights_values);
 
         print_r($insights);
+    }
+    
+    function change_password(){
+        die("under cosntruction");
+    }
+    
+    function manage_profile(){
+        die("under cosntruction");
     }
 
 }
