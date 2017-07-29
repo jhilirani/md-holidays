@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2017 at 04:53 PM
+-- Generation Time: Jul 12, 2017 at 04:33 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mt_holidays`
 --
+CREATE DATABASE IF NOT EXISTS `mt_holidays` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mt_holidays`;
 
 -- --------------------------------------------------------
 
@@ -26,14 +28,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `adminId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `adminId` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(50) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `fullName` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `email` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `password` varchar(220) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`adminId`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Dumping data for table `admin`
@@ -48,13 +52,15 @@ INSERT INTO `admin` (`adminId`, `userName`, `fullName`, `email`, `password`, `st
 -- Table structure for table `banner`
 --
 
-CREATE TABLE `banner` (
-  `bannerId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE IF NOT EXISTS `banner` (
+  `bannerId` int(11) NOT NULL AUTO_INCREMENT,
   `caption` varchar(350) DEFAULT NULL,
   `image` varchar(370) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
-  `url` varchar(350) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `url` varchar(350) DEFAULT NULL,
+  PRIMARY KEY (`bannerId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `banner`
@@ -69,13 +75,15 @@ INSERT INTO `banner` (`bannerId`, `caption`, `image`, `status`, `url`) VALUES
 -- Table structure for table `category`
 --
 
-CREATE TABLE `category` (
-  `categoryId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `categoryId` int(11) NOT NULL AUTO_INCREMENT,
   `parrentCategoryId` int(11) NOT NULL,
   `categoryName` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `image` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+  `status` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`categoryId`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Dumping data for table `category`
@@ -91,16 +99,18 @@ INSERT INTO `category` (`categoryId`, `parrentCategoryId`, `categoryName`, `imag
 -- Table structure for table `cms`
 --
 
-CREATE TABLE `cms` (
-  `cmsId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `cms`;
+CREATE TABLE IF NOT EXISTS `cms` (
+  `cmsId` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
   `metaTitle` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `metaKeyWord` text COLLATE latin1_general_ci NOT NULL,
   `metaDescription` text COLLATE latin1_general_ci NOT NULL,
   `shortBody` text COLLATE latin1_general_ci NOT NULL,
   `body` longtext COLLATE latin1_general_ci,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`cmsId`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Dumping data for table `cms`
@@ -115,11 +125,13 @@ INSERT INTO `cms` (`cmsId`, `title`, `metaTitle`, `metaKeyWord`, `metaDescriptio
 -- Table structure for table `country`
 --
 
-CREATE TABLE `country` (
-  `countryId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `country`;
+CREATE TABLE IF NOT EXISTS `country` (
+  `countryId` int(11) NOT NULL AUTO_INCREMENT,
   `countryCode` varchar(3) NOT NULL DEFAULT '',
-  `countryName` varchar(200) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `countryName` varchar(200) NOT NULL DEFAULT '',
+  PRIMARY KEY (`countryId`)
+) ENGINE=MyISAM AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `country`
@@ -372,11 +384,13 @@ INSERT INTO `country` (`countryId`, `countryCode`, `countryName`) VALUES
 -- Table structure for table `facility`
 --
 
-CREATE TABLE `facility` (
-  `facilityId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `facility`;
+CREATE TABLE IF NOT EXISTS `facility` (
+  `facilityId` int(11) NOT NULL AUTO_INCREMENT,
   `facility` varchar(50) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`facilityId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `facility`
@@ -397,11 +411,13 @@ INSERT INTO `facility` (`facilityId`, `facility`, `status`) VALUES
 -- Table structure for table `factfile`
 --
 
-CREATE TABLE `factfile` (
-  `factfileId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `factfile`;
+CREATE TABLE IF NOT EXISTS `factfile` (
+  `factfileId` bigint(20) NOT NULL AUTO_INCREMENT,
   `factfile` varchar(40) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`factfileId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `factfile`
@@ -421,12 +437,14 @@ INSERT INTO `factfile` (`factfileId`, `factfile`, `status`) VALUES
 -- Table structure for table `menu_category`
 --
 
-CREATE TABLE `menu_category` (
-  `menuCategoryId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `menu_category`;
+CREATE TABLE IF NOT EXISTS `menu_category` (
+  `menuCategoryId` int(11) NOT NULL AUTO_INCREMENT,
   `menuCategoryName` varchar(50) NOT NULL,
   `menuParentCategoryId` int(11) NOT NULL DEFAULT '0',
-  `status` tinyint(2) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` tinyint(2) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`menuCategoryId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `menu_category`
@@ -441,8 +459,9 @@ INSERT INTO `menu_category` (`menuCategoryId`, `menuCategoryName`, `menuParentCa
 -- Table structure for table `resort`
 --
 
-CREATE TABLE `resort` (
-  `resortId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `resort`;
+CREATE TABLE IF NOT EXISTS `resort` (
+  `resortId` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(350) NOT NULL,
   `shortBody` varchar(350) DEFAULT NULL,
   `body` text,
@@ -456,15 +475,16 @@ CREATE TABLE `resort` (
   `metaKeywords` varchar(300) DEFAULT NULL,
   `metaTitle` varchar(150) NOT NULL,
   `location` varchar(100) NOT NULL,
-  `contactInfo` varchar(350) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `contactInfo` varchar(350) NOT NULL,
+  PRIMARY KEY (`resortId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort`
 --
 
 INSERT INTO `resort` (`resortId`, `title`, `shortBody`, `body`, `overview`, `mapZoomLevel`, `latitude`, `longitude`, `addedDate`, `status`, `metaDescription`, `metaKeywords`, `metaTitle`, `location`, `contactInfo`) VALUES
-(3, 'Bandos Maldives', NULL, NULL, 'Bandos Maldives', 1, '25.299999', '28.299999', '2017-06-30 16:47:43', 1, 'Bandos Maldives meta description', 'Bandos Maldives meta', 'Bandos Maldives meta title', 'Hulumale Island', '<p>\r\n value="</p>\r\n<p>\r\n Bandos Maldives<br>\r\n  </p>\r\n<p>\r\n "</p>');
+(3, 'Bandos Maldives', NULL, NULL, 'Bandos Maldives', 1, '25.299999', '28.299999', '2017-06-30 16:47:43', 0, 'Bandos Maldives meta description', 'Bandos Maldives meta', 'Bandos Maldives meta title', 'Hulumale Island', '<p>\r\n value="</p>\r\n<p>\r\n Bandos Maldives<br>\r\n  </p>\r\n<p>\r\n "</p>');
 
 -- --------------------------------------------------------
 
@@ -472,12 +492,14 @@ INSERT INTO `resort` (`resortId`, `title`, `shortBody`, `body`, `overview`, `map
 -- Table structure for table `resort_enjay_type`
 --
 
-CREATE TABLE `resort_enjay_type` (
-  `resortEnjoyTypeId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `resort_enjay_type`;
+CREATE TABLE IF NOT EXISTS `resort_enjay_type` (
+  `resortEnjoyTypeId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(110) NOT NULL,
   `image` varchar(100) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`resortEnjoyTypeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_enjay_type`
@@ -499,12 +521,14 @@ INSERT INTO `resort_enjay_type` (`resortEnjoyTypeId`, `name`, `image`, `status`)
 -- Table structure for table `resort_enjay_type_ratting`
 --
 
-CREATE TABLE `resort_enjay_type_ratting` (
-  `resortEnjayTypeRattingId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `resort_enjay_type_ratting`;
+CREATE TABLE IF NOT EXISTS `resort_enjay_type_ratting` (
+  `resortEnjayTypeRattingId` bigint(20) NOT NULL AUTO_INCREMENT,
   `resortEnjayTypeId` int(11) NOT NULL,
   `ratting` int(11) NOT NULL,
   `IP` varchar(30) NOT NULL,
-  `addedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `addedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`resortEnjayTypeRattingId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -513,11 +537,13 @@ CREATE TABLE `resort_enjay_type_ratting` (
 -- Table structure for table `resort_facility`
 --
 
-CREATE TABLE `resort_facility` (
-  `resortFacilityId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `resort_facility`;
+CREATE TABLE IF NOT EXISTS `resort_facility` (
+  `resortFacilityId` bigint(20) NOT NULL AUTO_INCREMENT,
   `resortId` int(11) NOT NULL,
-  `facilityId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `facilityId` int(11) NOT NULL,
+  PRIMARY KEY (`resortFacilityId`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_facility`
@@ -543,11 +569,13 @@ INSERT INTO `resort_facility` (`resortFacilityId`, `resortId`, `facilityId`) VAL
 -- Table structure for table `resort_factfile`
 --
 
-CREATE TABLE `resort_factfile` (
-  `resortFactfileId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `resort_factfile`;
+CREATE TABLE IF NOT EXISTS `resort_factfile` (
+  `resortFactfileId` bigint(20) NOT NULL AUTO_INCREMENT,
   `resortId` int(11) NOT NULL,
-  `factfileId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `factfileId` int(11) NOT NULL,
+  PRIMARY KEY (`resortFactfileId`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_factfile`
@@ -573,21 +601,16 @@ INSERT INTO `resort_factfile` (`resortFactfileId`, `resortId`, `factfileId`) VAL
 -- Table structure for table `resort_image`
 --
 
-CREATE TABLE `resort_image` (
-  `resortImageId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `resort_image`;
+CREATE TABLE IF NOT EXISTS `resort_image` (
+  `resortImageId` int(11) NOT NULL AUTO_INCREMENT,
   `resortId` int(11) NOT NULL,
   `image` varchar(250) NOT NULL,
-  `caption` varchar(150) DEFAULT NULL,
+  `caption` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
-  `featured` tinyint(1) NOT NULL DEFAULT '0'
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`resortImageId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resort_image`
---
-
-INSERT INTO `resort_image` (`resortImageId`, `resortId`, `image`, `caption`, `status`, `featured`) VALUES
-(16, 3, 'a7ff9b9e4502856f155464d2282a3e29.jpg', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -595,12 +618,14 @@ INSERT INTO `resort_image` (`resortImageId`, `resortId`, `image`, `caption`, `st
 -- Table structure for table `resort_ratting`
 --
 
-CREATE TABLE `resort_ratting` (
-  `resortRattingId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `resort_ratting`;
+CREATE TABLE IF NOT EXISTS `resort_ratting` (
+  `resortRattingId` bigint(20) NOT NULL AUTO_INCREMENT,
   `resortId` bigint(20) NOT NULL,
   `ratting` tinyint(4) NOT NULL,
   `IP` varchar(25) NOT NULL,
-  `rate_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `rate_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`resortRattingId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -609,8 +634,9 @@ CREATE TABLE `resort_ratting` (
 -- Table structure for table `resort_room`
 --
 
-CREATE TABLE `resort_room` (
-  `resortRoomId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `resort_room`;
+CREATE TABLE IF NOT EXISTS `resort_room` (
+  `resortRoomId` int(11) NOT NULL AUTO_INCREMENT,
   `roomTypeId` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
   `title` int(11) NOT NULL,
@@ -620,7 +646,7 @@ CREATE TABLE `resort_room` (
   `status` int(1) NOT NULL DEFAULT '1',
   `roomDescription` varchar(500) DEFAULT NULL,
   `resortId` int(11) NOT NULL,
-  `needPay` tinyint(1) NOT NULL DEFAULT '1'
+  PRIMARY KEY (`resortRoomId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -629,8 +655,9 @@ CREATE TABLE `resort_room` (
 -- Table structure for table `resort_room_charges`
 --
 
-CREATE TABLE `resort_room_charges` (
-  `resortRoomPricesId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `resort_room_charges`;
+CREATE TABLE IF NOT EXISTS `resort_room_charges` (
+  `resortRoomPricesId` bigint(20) NOT NULL AUTO_INCREMENT,
   `resortRoomId` int(11) NOT NULL,
   `bookingStartDate` date NOT NULL,
   `bookingEndDate` date NOT NULL,
@@ -643,7 +670,8 @@ CREATE TABLE `resort_room_charges` (
   `maxChild` tinyint(1) NOT NULL DEFAULT '1',
   `infantRate` int(11) NOT NULL,
   `maxInfant` tinyint(1) NOT NULL DEFAULT '1',
-  `extraChargesForInfantChild` int(11) NOT NULL
+  `extraChargesForInfantChild` int(11) NOT NULL,
+  PRIMARY KEY (`resortRoomPricesId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -652,11 +680,13 @@ CREATE TABLE `resort_room_charges` (
 -- Table structure for table `resort_sports_recreation`
 --
 
-CREATE TABLE `resort_sports_recreation` (
-  `resortSportsRecreationId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `resort_sports_recreation`;
+CREATE TABLE IF NOT EXISTS `resort_sports_recreation` (
+  `resortSportsRecreationId` bigint(20) NOT NULL AUTO_INCREMENT,
   `resortId` int(11) NOT NULL,
-  `sportsRecreationId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `sportsRecreationId` int(11) NOT NULL,
+  PRIMARY KEY (`resortSportsRecreationId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_sports_recreation`
@@ -668,32 +698,15 @@ INSERT INTO `resort_sports_recreation` (`resortSportsRecreationId`, `resortId`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `room_details`
---
-
-CREATE TABLE `room_details` (
-  `roomDetailsId` int(11) NOT NULL,
-  `title` varchar(30) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `room_details`
---
-
-INSERT INTO `room_details` (`roomDetailsId`, `title`, `status`) VALUES
-(1, 'Facing to beach', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `room_type`
 --
 
-CREATE TABLE `room_type` (
-  `roomTypeId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `room_type`;
+CREATE TABLE IF NOT EXISTS `room_type` (
+  `roomTypeId` int(11) NOT NULL AUTO_INCREMENT,
   `roomType` varchar(100) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`roomTypeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -702,11 +715,13 @@ CREATE TABLE `room_type` (
 -- Table structure for table `sports_recreation`
 --
 
-CREATE TABLE `sports_recreation` (
-  `sportsRecreationId` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `sports_recreation`;
+CREATE TABLE IF NOT EXISTS `sports_recreation` (
+  `sportsRecreationId` bigint(20) NOT NULL AUTO_INCREMENT,
   `sportsRecreation` varchar(70) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`sportsRecreationId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sports_recreation`
@@ -721,10 +736,12 @@ INSERT INTO `sports_recreation` (`sportsRecreationId`, `sportsRecreation`, `stat
 -- Table structure for table `state`
 --
 
-CREATE TABLE `state` (
-  `stateId` bigint(11) NOT NULL,
+DROP TABLE IF EXISTS `state`;
+CREATE TABLE IF NOT EXISTS `state` (
+  `stateId` bigint(11) NOT NULL AUTO_INCREMENT,
   `stateName` varchar(255) DEFAULT NULL,
-  `countryId` int(11) NOT NULL
+  `countryId` int(11) NOT NULL,
+  PRIMARY KEY (`stateId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -842,12 +859,15 @@ INSERT INTO `state` (`stateId`, `stateName`, `countryId`) VALUES
 -- Table structure for table `system_constants`
 --
 
-CREATE TABLE `system_constants` (
-  `constantId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `system_constants`;
+CREATE TABLE IF NOT EXISTS `system_constants` (
+  `constantId` int(11) NOT NULL AUTO_INCREMENT,
   `constantName` varchar(200) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `constantValue` varchar(200) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `description` varchar(240) COLLATE latin1_general_ci DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+  `description` varchar(240) COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`constantId`),
+  UNIQUE KEY `ConstantName` (`constantName`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Dumping data for table `system_constants`
@@ -862,268 +882,6 @@ INSERT INTO `system_constants` (`constantId`, `constantName`, `constantValue`, `
 (6, 'MetaDescription', 'Maldive traverller  For You Description', ''),
 (7, 'ContactNo', '9556644964', NULL);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`adminId`);
-
---
--- Indexes for table `banner`
---
-ALTER TABLE `banner`
-  ADD PRIMARY KEY (`bannerId`);
-
---
--- Indexes for table `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`categoryId`);
-
---
--- Indexes for table `cms`
---
-ALTER TABLE `cms`
-  ADD PRIMARY KEY (`cmsId`);
-
---
--- Indexes for table `country`
---
-ALTER TABLE `country`
-  ADD PRIMARY KEY (`countryId`);
-
---
--- Indexes for table `facility`
---
-ALTER TABLE `facility`
-  ADD PRIMARY KEY (`facilityId`);
-
---
--- Indexes for table `factfile`
---
-ALTER TABLE `factfile`
-  ADD PRIMARY KEY (`factfileId`);
-
---
--- Indexes for table `menu_category`
---
-ALTER TABLE `menu_category`
-  ADD PRIMARY KEY (`menuCategoryId`);
-
---
--- Indexes for table `resort`
---
-ALTER TABLE `resort`
-  ADD PRIMARY KEY (`resortId`);
-
---
--- Indexes for table `resort_enjay_type`
---
-ALTER TABLE `resort_enjay_type`
-  ADD PRIMARY KEY (`resortEnjoyTypeId`);
-
---
--- Indexes for table `resort_enjay_type_ratting`
---
-ALTER TABLE `resort_enjay_type_ratting`
-  ADD PRIMARY KEY (`resortEnjayTypeRattingId`);
-
---
--- Indexes for table `resort_facility`
---
-ALTER TABLE `resort_facility`
-  ADD PRIMARY KEY (`resortFacilityId`);
-
---
--- Indexes for table `resort_factfile`
---
-ALTER TABLE `resort_factfile`
-  ADD PRIMARY KEY (`resortFactfileId`);
-
---
--- Indexes for table `resort_image`
---
-ALTER TABLE `resort_image`
-  ADD PRIMARY KEY (`resortImageId`);
-
---
--- Indexes for table `resort_ratting`
---
-ALTER TABLE `resort_ratting`
-  ADD PRIMARY KEY (`resortRattingId`);
-
---
--- Indexes for table `resort_room`
---
-ALTER TABLE `resort_room`
-  ADD PRIMARY KEY (`resortRoomId`);
-
---
--- Indexes for table `resort_room_charges`
---
-ALTER TABLE `resort_room_charges`
-  ADD PRIMARY KEY (`resortRoomPricesId`);
-
---
--- Indexes for table `resort_sports_recreation`
---
-ALTER TABLE `resort_sports_recreation`
-  ADD PRIMARY KEY (`resortSportsRecreationId`);
-
---
--- Indexes for table `room_details`
---
-ALTER TABLE `room_details`
-  ADD PRIMARY KEY (`roomDetailsId`);
-
---
--- Indexes for table `room_type`
---
-ALTER TABLE `room_type`
-  ADD PRIMARY KEY (`roomTypeId`);
-
---
--- Indexes for table `sports_recreation`
---
-ALTER TABLE `sports_recreation`
-  ADD PRIMARY KEY (`sportsRecreationId`);
-
---
--- Indexes for table `state`
---
-ALTER TABLE `state`
-  ADD PRIMARY KEY (`stateId`);
-
---
--- Indexes for table `system_constants`
---
-ALTER TABLE `system_constants`
-  ADD PRIMARY KEY (`constantId`),
-  ADD UNIQUE KEY `ConstantName` (`constantName`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `adminId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `banner`
---
-ALTER TABLE `banner`
-  MODIFY `bannerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `cms`
---
-ALTER TABLE `cms`
-  MODIFY `cmsId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `country`
---
-ALTER TABLE `country`
-  MODIFY `countryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
---
--- AUTO_INCREMENT for table `facility`
---
-ALTER TABLE `facility`
-  MODIFY `facilityId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT for table `factfile`
---
-ALTER TABLE `factfile`
-  MODIFY `factfileId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `menu_category`
---
-ALTER TABLE `menu_category`
-  MODIFY `menuCategoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `resort`
---
-ALTER TABLE `resort`
-  MODIFY `resortId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `resort_enjay_type`
---
-ALTER TABLE `resort_enjay_type`
-  MODIFY `resortEnjoyTypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `resort_enjay_type_ratting`
---
-ALTER TABLE `resort_enjay_type_ratting`
-  MODIFY `resortEnjayTypeRattingId` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `resort_facility`
---
-ALTER TABLE `resort_facility`
-  MODIFY `resortFacilityId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT for table `resort_factfile`
---
-ALTER TABLE `resort_factfile`
-  MODIFY `resortFactfileId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
---
--- AUTO_INCREMENT for table `resort_image`
---
-ALTER TABLE `resort_image`
-  MODIFY `resortImageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT for table `resort_ratting`
---
-ALTER TABLE `resort_ratting`
-  MODIFY `resortRattingId` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `resort_room`
---
-ALTER TABLE `resort_room`
-  MODIFY `resortRoomId` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `resort_room_charges`
---
-ALTER TABLE `resort_room_charges`
-  MODIFY `resortRoomPricesId` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `resort_sports_recreation`
---
-ALTER TABLE `resort_sports_recreation`
-  MODIFY `resortSportsRecreationId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `room_details`
---
-ALTER TABLE `room_details`
-  MODIFY `roomDetailsId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `room_type`
---
-ALTER TABLE `room_type`
-  MODIFY `roomTypeId` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `sports_recreation`
---
-ALTER TABLE `sports_recreation`
-  MODIFY `sportsRecreationId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `state`
---
-ALTER TABLE `state`
-  MODIFY `stateId` bigint(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `system_constants`
---
-ALTER TABLE `system_constants`
-  MODIFY `constantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
