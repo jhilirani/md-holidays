@@ -20,6 +20,7 @@ class Resort_room_model extends CI_Model {
         //echo $this->db->last_query();die;
         return TRUE;
     }
+    
 
     function delete($id) {
         $this->db->delete($this->_table, array($this->_id => $id));
