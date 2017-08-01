@@ -47,7 +47,7 @@ myJsMain.show_charges_details=function(){
                             }
                         });
                     }
-                }, 3000);
+                }, 2000);
             });
         
         
