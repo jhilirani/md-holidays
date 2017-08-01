@@ -72,7 +72,7 @@ class Ajax_controller extends MY_Controller{
         $data['resortRoomChargesDetails']=$resortRoomChargesDetails;
         $data['resortRoomDetails']=$resortRoomDetails;
         //pre($data);die;
-        $ret=$this->load->view('webadmin/room_details',$data,TRUE);
-        echo $ret;die;
+        $this->load->view('webadmin/room_details',$data);
+        //echo $ret;die;
     }
 }
