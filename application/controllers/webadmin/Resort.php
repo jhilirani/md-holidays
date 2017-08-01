@@ -5,6 +5,7 @@ if (!defined('BASEPATH'))
 class Resort extends MY_Controller {
     private $_resize_file_array;
     private $_image_main_path;
+    private $_room_image_main_path;
     private $_ins_columnArr;
     private $_ins_room_columnArr;
     public function __construct() {
@@ -16,8 +17,10 @@ class Resort extends MY_Controller {
         $this->_admin_auth();
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='resort_images/';
+        $this->_room_image_main_path='resort_room_image';
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');
-        $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId');
+        $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId','needPay');
+        $this->_ins_room_booking_columnArr=array('bookingStartDate','bookingEndDate','1adult','2adult','3adult','4adult','extraPerAdult','childRate','maxChild','infantRate','maxInfant','extraChargesForInfantChild');
     }
 
     public function index() {
@@ -259,19 +262,26 @@ class Resort extends MY_Controller {
         redirect(ADMIN_BASE_URL.'resort/view_images/'.$resortId);
     }
     
-    function delete_image($file_name){
+    function delete_image($file_name,$image_type='main'){
         foreach($this->_resize_file_array As $k){
-            $upload_path=AssetsPath.$this->_image_main_path;
+            if($image_type=='main')
+                $upload_path=AssetsPath.$this->_image_main_path;
+            else
+                $upload_path=AssetsPath.$this->_room_image_main_path.'/';
+            
             @unlink($upload_path.$k.'/'.$file_name);
         }
         @unlink($upload_path.$file_name);
     }
     
-    function resize_image($full_path,$file_name){
+    function resize_image($full_path,$file_name,$image_type='main'){
         $this->load->library('image_lib');
         $is_file_error=FALSE;
         foreach($this->_resize_file_array As $k){
-            $upload_path=AssetsPath.$this->_image_main_path;
+            if($image_type=='main')
+                $upload_path=AssetsPath.$this->_image_main_path;
+            else
+                $upload_path=AssetsPath.$this->_room_image_main_path.'/';
             $imagePathArr=  explode('X', $k);
 
             $config2['image_library'] = 'gd2';
@@ -304,6 +314,7 @@ class Resort extends MY_Controller {
     function view_rooms($id){ 
         $this->load->model('Resort_room_type_model');
         $allRooms=$this->Resort_model->get_rooms($id);
+        //pre($allRooms);die;
         $data = $this->_show_admin_logedin_layout();
         $data['resortTitle']=$allRooms[0]['resortTitle'];
         $data['pageTitle']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
@@ -321,7 +332,76 @@ class Resort extends MY_Controller {
     }
     
     function add_room(){
-        
+        $dataArr=array();
+        foreach($this->_ins_room_columnArr AS $k){
+            $colVal=trim($this->input->post($k, TRUE));
+            $dataArr[$k]=$colVal;
+        }
+        $resortId=$dataArr['resortId'];
+        $noOfBookingPeriod=  $this->input->post('noOfBookingPeriod');
+        //pre($resortId);
+        $allRoomChargesDataArr=array();
+        for($i=1;$i<$noOfBookingPeriod+1;$i++){
+            $roomChargesDataArr=array();
+            foreach($this->_ins_room_booking_columnArr AS $k){  //echo $k.' == '.$v.'<br>';
+                $colVal=trim($this->input->post($k.$i, TRUE));
+                $roomChargesDataArr[$k]=$colVal;
+            }
+            $allRoomChargesDataArr[]=$roomChargesDataArr;
+        }
+        //pre($allRoomChargesDataArr);
+        //pre($_FILES);die;
+        //echo $this->_room_image_main_path;die;
+        if($_FILES[$this->_room_image_main_path]['name']!=""){
+            $upload_path=AssetsPath.$this->_room_image_main_path."/";
+            $config['upload_path'] = $upload_path;
+            $config['allowed_types'] = 'jpg|png|gif';
+            $config['max_size'] = '0';
+            $config['max_filename'] = '255';
+            $config['encrypt_name'] = TRUE;
+            $config['quality'] = "50";
+            //pre($config);die;
+            $image_data = array();
+            //$is_file_error = FALSE;
+
+            //load the preferences
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload($this->_room_image_main_path)) {
+                //if file upload failed then catch the errors
+                $errMsg=$this->upload->display_errors();
+                //die($errMsg);
+                $this->session->set_flashdata('Message',$errMsg);
+                redirect(base_url().'webadmin/resort/view_rooms/'.$resortId);
+            }else{
+                $image_data = $this->upload->data();
+                $is_resize_done=$this->resize_image($image_data['full_path'],$image_data['file_name'],'room_image');
+            }
+            //die($is_resize_done);
+            if($is_resize_done != 1){
+                $this->session->set_flashdata('Message',$is_resize_done);
+                redirect(base_url().'webadmin/resort/view_rooms/'.$resortId);
+            }else{
+                $dataArr['image']=$image_data['file_name'];
+                $this->load->model('Resort_room_model');
+                $this->load->model('Resort_room_charges_model');
+                //pre($dataArr);die;
+                $resortRoomId=$this->Resort_room_model->add($dataArr);
+                $newAllRoomChargesDataArr=array();
+                foreach($allRoomChargesDataArr AS $k => $v){
+                    $v['resortRoomId']=$resortRoomId;
+                    $newAllRoomChargesDataArr[]=$v;
+                }
+                //pre($newAllRoomChargesDataArr);die;
+                $this->Resort_room_charges_model->add_bulk($newAllRoomChargesDataArr);
+            }
+        }else{
+            die('kkk');
+            $this->session->set_flashdata('Message','Invalid room image uploaded.');
+        }
+        redirect(base_url().'webadmin/resort/view_rooms/'.$resortId);	
+        //pre($dataArr);
+        die;
     }
     
     function view_edit_room($resortRoomId){

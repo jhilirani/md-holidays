@@ -106,6 +106,8 @@ class Resort_model extends CI_Model {
                 . " LEFT JOIN " . $this->_table_room_type . " AS rt ON(rt.roomTypeId=rr.roomTypeId) "
                 . " WHERE  re.resortId=" . $id;
         $rs = $this->db->query($sql)->result_array();
+        //pre($rs);die;
+        //echo $this->db->last_query();die;
         return $rs;
     }
 

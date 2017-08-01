@@ -14,3 +14,28 @@ myJsMain.load_booking_period=function(){
         });
     });
 }
+
+myJsMain.update_price=function(id,val){
+    $('#2adult'+id).val(val*2);
+    $('#3adult'+id).val(val*3);
+    $('#4adult'+id).val(val*4);
+    $('#extraPerAdult'+id).val(val);
+}
+
+myJsMain.show_charges_details=function(){
+    var roomId=jQuery('.viewChargesDetails').attr('alt');
+    if(roomId!=""){
+        var ajaxURL=myJsMain.adminBaseURL+'ajax_controller/show_room_charges_details/';
+        jQuery.ajax({
+            url:ajaxURL,
+            type:'POST',
+            data:'resortRoomId='+roomId,
+            success:function(msg){
+                if(msg!=""){
+                    
+                }
+            }
+        });
+    }
+    
+}
