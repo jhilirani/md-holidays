@@ -8,6 +8,11 @@ class Resort_room_charges_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
+    
+    function add_bulk($dataArr){
+        $this->db->insert_batch($this->_table,$dataArr);
+        return TRUE;
+    }
 
     function add($dataArr) {
         $this->db->insert($this->_table, $dataArr);
@@ -107,8 +112,12 @@ class Resort_room_charges_model extends CI_Model {
         } else {
             $rs = $this->db->get($this->_table)->result_array();
         }
-
+        //echo $this->db->last_query();die;
         return $rs;
     }
 
+    function delete_by_room_id($resortRoomId){
+        $this->db->delete($this->_table, array('resortRoomId' => $resortRoomId));
+        return TRUE;
+    }
 }

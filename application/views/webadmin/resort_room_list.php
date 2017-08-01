@@ -1,3 +1,4 @@
+<?php //pre($DataArr);die('kk');?>
 <?php echo $html_head . $body_start . $header . $left_menu . $page_heading_start; ?>
 <link rel="stylesheet" href="<?php echo SiteAssetsURL ?>plugins/datepicker/datepicker3.css">
 <table cellspacing=5 cellpadding=5 width=90% border=0 >
@@ -12,7 +13,7 @@
         </td>
     </tr>
     <script language="javascript">
-        function ShowAddAdminBox(){
+        function ShowAddAdminBox() {
             $('#MessaeBox').html("");
             $('#EditBox').hide();
             $('#AddBtn').hide();
@@ -21,7 +22,7 @@
             //$('#ListBox').fadeOut(500);
             $('#AddBox').fadeIn(3500);
         }
-        function CancelAdd(){
+        function CancelAdd() {
             $('#AddBox').fadeOut('fast');
             $('#EditBox').hide();
             $('#PageHeading').fadeIn(3000);
@@ -41,11 +42,11 @@
                 closeOnConfirm: false
             },
             function () {
-                location.href = '<?php echo base_url() ?>webadmin/facility/delete/' + id;
+                location.href = '<?php echo base_url() ?>webadmin/resort/delete_room/' + id+'/<?php echo $resortId;?>';
             });
             /*if(confirm('Are you sure to delete(Y/N) ?'))
              {
-             location.href='<?php //echo base_url() ?>admin/facility/delete/'+id;
+             location.href='<?php //echo base_url()   ?>admin/facility/delete/'+id;
              }*/
             return false;
         }
@@ -74,13 +75,17 @@
                             <script language="javascript">
                                 var DataArr = new Array(<?= count($DataArr) ?>);
                             </script>
-                            <?php $val = 0;
-                            if (count($DataArr) == 1 && $DataArr[0]['resortTitle'] != "") {
+                            <?php
+                            $val = 0;
+                            if (count($DataArr) == 1 && $DataArr[0]['title'] == "") {
+                                //pre($DataArr);die('mmmm');
                                 ?>
                                 <tr class="ListHeadingLable">
                                     <td colspan="9" style="text-align: center; height: 40px;"> No Report Found</td>
                                 </tr>
-                            <?php } else {
+                                <?php
+                            } else {
+                                //pre($DataArr);die('kkkk');
                                 foreach ($DataArr as $InerArr) {
                                     ?>
                                     <tr class="ListTestLable" height="20px;">
@@ -88,27 +93,39 @@
                                         <td><?php echo $InerArr['title']; ?></td>
                                         <td><?php echo $InerArr['roomType']; ?></td>
                                         <td><?php echo $InerArr['orderNo']; ?></td>
-                                        <td><img src=""></td>
+                                        <td>
+                                            <?php $imagePath=AssetsPath.'resort_room_image/100X100/'.$InerArr['image'];
+                                            if(file_exists($imagePath)):?>
+                                            <img src="<?php echo SiteAssetsURL.'resort_room_image/100X100/'.$InerArr['image'];?>" alt="<?php echo $InerArr['title']; ?>" title="<?php echo $InerArr['title']; ?>">
+                                            <?php else:?>
+                                            <img src="<?php echo SiteImagesURL.'no-image-100.png';?>" alt="<?php echo $InerArr['title']; ?>" title="<?php echo $InerArr['title']; ?>">
+                                            <?php endif;?>
+                                        </td>
                                         <td><?php echo $InerArr['taxAndServiceCharges']; ?></td>
                                         <td><?php echo $InerArr['totalNosRoom']; ?></td>
                                         <td><?php echo ($InerArr['status'] == '1') ? 'Active' : 'Inactive'; ?></td>
                                         <td>
-        <?php if ($InerArr['status'] == '1') {
-            $action = 0;
-        } else {
-            $action = 1;
-        } ?>
+                                            <?php
+                                            if ($InerArr['status'] == '1') {
+                                                $action = 0;
+                                            } else {
+                                                $action = 1;
+                                            }
+                                            ?>
                                             <a href="<?php echo ADMIN_BASE_URL . 'resort/change_room_status/' . $InerArr['resortRoomId'] . '/' . $action; ?>" class="AdminDashBoardLinkText"><?php if ($InerArr['status'] == '1') { ?><i class="fa fa-check-circle fa-lg" title="Active"></i><?php } else { ?><i class="fa fa-ban fa-lg" title="InActive"></i><?php } ?></a>
                                             &nbsp;&nbsp;
                                             <a href="<?php echo ADMIN_BASE_URL . 'resort/view_edit_room/' . $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
                                             &nbsp;&nbsp;
+                                            <a href="javascript:void(0);" alt="<?php echo $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText viewChargesDetails"><i class="fa fa-eye fa-lg" title="Edit"></i></a>
+                                            &nbsp;&nbsp;
                                             <a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr['resortRoomId']; ?>');" class="AdminDashBoardLinkText"><i class="fa fa-remove fa-lg" title="Delete"></i></a>
                                         </td> 
                                     </tr>
-        <?php $val++;
-    }
-}
-?>
+                                    <?php
+                                    $val++;
+                                }
+                            }
+                            ?>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -127,7 +144,7 @@
                 </tr>
 
                 <tr>
-                    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?= base_url() ?>webadmin/facility/add" >
+                    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?php echo base_url();?>webadmin/resort/add_room" enctype="multipart/form-data">
                             <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="AddBox" style="display:none;">
                                 <tr>
                                     <th width="13%" align="left" valign="top" scope="col">&nbsp;</th>
@@ -160,9 +177,9 @@
                                     <td align="left" valign="top">
                                         <select class="form-control" name="roomTypeId" id="roomTypeId">
                                             <option value="">Select</option>
-<?php foreach ($roomTypeDataArr AS $k): ?>
+                                            <?php foreach ($roomTypeDataArr AS $k): ?>
                                                 <option value="<?php echo $k->roomTypeId; ?>"><?php echo $k->roomType; ?></option>
-<?php endforeach; ?>
+                                            <?php endforeach; ?>
                                         </select>
                                     </td>
                                 </tr>
@@ -224,7 +241,7 @@
                                     <td align="left" valign="top">&nbsp;</td>
                                     <td align="left" valign="top">Browse room image</td>
                                     <td align="left" valign="top"><label><strong>:</strong></label></td>
-                                    <td align="left" valign="top"><input type="file" name="image" id="image" class="form-control"></td>
+                                    <td align="left" valign="top"><input type="file" name="resort_room_image" id="resort_room_image" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top">&nbsp;</td>
@@ -251,6 +268,7 @@
                                     <td align="left" valign="top"><label><strong>:</strong></label></td>
                                     <td align="left" valign="top"><label class="radio-inline"><input type="radio" name="needPay" value="1" checked="" class="required">Yes</label>
                                         <label class="radio-inline"><input type="radio" name="needPay" value="0"  class="required">No</label></td>
+                                <input type="hidden" name="resortId" id="resortId" value="<?php echo $resortId;?>">
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top">&nbsp;</td>
@@ -280,7 +298,7 @@
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top" class="bookingPeriodBox" colspan="4">
-<?php for ($i = 1; $i < 3; $i++): ?>
+                                        <?php for ($i = 1; $i < 3; $i++): ?>
                                             <div class="row">
                                                 <div class="col-md-4">Booking period <?php echo $i; ?> start date</div>
                                                 <div class="col-md-8">
@@ -294,10 +312,10 @@
                                             <div class="row">
                                                 <div class="col-md-4"><input type="text" name="bookingStartDate<?php echo $i; ?>" id="bookingStartDate<?php echo $i; ?>" class="form-control datepicker" /></div>
                                                 <div class="col-md-8">
-                                                    <div class="col-md-2"><input type="text" class="form-control" name="1adult<?php echo $i; ?>" id="1adult<?php echo $i; ?>"/></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control" name="2adult<?php echo $i; ?>" id="2adult<?php echo $i; ?>"/></div>
-                                                    <div class="col-md-2"><input type="text" class="form-control" name="3adult<?php echo $i; ?>" id="3adult<?php echo $i; ?>"/></div>
-                                                    <div class="col-md-2"><input type="text" class="form-control" name="4adult<?php echo $i; ?>" id="4adult<?php echo $i; ?>"/></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control" name="oneAdult<?php echo $i; ?>" id="oneAdult<?php echo $i; ?>" onblur="myJsMain.update_price('<?php echo $i; ?>', this.value);"/></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control" name="twoAdult<?php echo $i; ?>" id="twoAdult<?php echo $i; ?>"/></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control" name="threeAdult<?php echo $i; ?>" id="threeAdult<?php echo $i; ?>"/></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control" name="fourAdult<?php echo $i; ?>" id="fourAdult<?php echo $i; ?>"/></div>
                                                     <div class="col-md-3"><input type="text" class="form-control" name="extraPerAdult<?php echo $i; ?>" id="extraPerAdult<?php echo $i; ?>"/></div>
                                                 </div>
                                             </div>
@@ -314,14 +332,14 @@
                                             <div class="row">
                                                 <div class="col-md-4"><input type="text" name="bookingEndDate<?php echo $i; ?>" id="bookingEndDate<?php echo $i; ?>" class="form-control datepicker" /></div>
                                                 <div class="col-md-8">
-                                                    <div class="col-md-2"><input type="text" class="form-control" name="childRate<?php echo $i; ?>" id="childRate<?php echo $i; ?>"/></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control" name="childRate<?php echo $i; ?>" id="childRate<?php echo $i; ?>" onblur="$('#extraChargesForInfantChild<?php echo $i; ?>').val(this.value);$('#infantRate<?php echo $i; ?>').val(this.value);"/></div>
                                                     <div class="col-md-3"><input type="text" class="form-control" name="maxChild<?php echo $i; ?>" id="maxChild<?php echo $i; ?>"/></div>
                                                     <div class="col-md-2"><input type="text" class="form-control" name="infantRate<?php echo $i; ?>" id="infantRate<?php echo $i; ?>"/></div>
                                                     <div class="col-md-2"><input type="text" class="form-control" name="maxInfant<?php echo $i; ?>" id="maxInfant<?php echo $i; ?>"/></div>
                                                     <div class="col-md-3"><input type="text" class="form-control" name="extraChargesForInfantChild<?php echo $i; ?>" id="extraChargesForInfantChild<?php echo $i; ?>"/></div>
                                                 </div>
                                             </div>
-<?php endfor; ?>
+                                        <?php endfor; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -357,20 +375,22 @@
 <script type="text/javascript" src="<?php echo SiteAssetsURL; ?>plugins/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="<?php echo SiteJSURL; ?>webadmin/misc-webadmin.js"></script>
 <script>
-                                            $(document).ready(function () {
-                                                $("#ListBox").DataTable({
-                                                    "paging": true,
-                                                    //"lengthChange": false,
-                                                    //"searching": false,
-                                                    "ordering": false,
-                                                    "info": true,
-                                                    "autoWidth": false
-                                                });
-                                                $("#AdminAdd").validate();
-                                                jQuery('#bookingStartDate1').datepicker({format: 'dd/mm/yyyy', todayHighlight: 'TRUE', autoclose: true, });
-                                                jQuery('#bookingEndDate1').datepicker({format: 'dd/mm/yyyy', todayHighlight: 'TRUE', autoclose: true, });
-                                                jQuery('#bookingStartDate2').datepicker({format: 'dd/mm/yyyy', todayHighlight: 'TRUE', autoclose: true, });
-                                                jQuery('#bookingEndDate2').datepicker({format: 'dd/mm/yyyy', todayHighlight: 'TRUE', autoclose: true, });
-                                            });
-                                            myJsMain.load_booking_period();
+    $(document).ready(function () {
+        $("#ListBox").DataTable({
+            "paging": true,
+            //"lengthChange": false,
+            //"searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false
+        });
+        $("#AdminAdd").validate();
+        jQuery('#bookingStartDate1').datepicker({format: 'dd-mm-yyyy', todayHighlight: 'TRUE', autoclose: true, });
+        jQuery('#bookingEndDate1').datepicker({format: 'dd-mm-yyyy', todayHighlight: 'TRUE', autoclose: true, });
+        jQuery('#bookingStartDate2').datepicker({format: 'dd-mm-yyyy', todayHighlight: 'TRUE', autoclose: true, });
+        jQuery('#bookingEndDate2').datepicker({format: 'dd-mm-yyyy', todayHighlight: 'TRUE', autoclose: true, });
+        
+    });
+    myJsMain.load_booking_period();
+    myJsMain.show_charges_details();
 </script>

@@ -111,4 +111,15 @@ class Resort_room_model extends CI_Model {
         return $rs;
     }
 
+    function get_room_details($resortRoomId){
+        $sql="SELECT rr.*,rrt.roomType FROM ".$this->_table." AS rr,room_type AS rrt WHERE rr.roomTypeId=rrt.roomTypeId AND rr.resortRoomId=".$resortRoomId;
+        $rs=  $this->db->query($sql)->result();
+        return $rs;
+    }
+    
+    function all_rooms_by_resort_id($resortId){
+        $rs=  $this->db->get_where($this->_table,array('resortId'=>$resortId))->result();
+        echo $this->db->last_query();die;
+        return $rs;
+    }
 }

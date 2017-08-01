@@ -14,3 +14,42 @@ myJsMain.load_booking_period=function(){
         });
     });
 }
+
+myJsMain.update_price=function(id,val){
+    $('#twoAdult'+id).val(val*2);
+    $('#threeAdult'+id).val(val*3);
+    $('#fourAdult'+id).val(val*4);
+    $('#extraPerAdult'+id).val(val);
+}
+
+myJsMain.show_charges_details=function(){
+    jQuery('.viewChargesDetails').on('click',function(){
+            var dialog = bootbox.dialog({
+                title: '<b>Selected Room Details</b>',
+                message: '<p><i class="fa fa-spin fa-spinner"></i> Loading...</p>',
+                size:'large'
+            });
+            dialog.init(function(){
+                setTimeout(function(){
+                    var roomId=jQuery('.viewChargesDetails').attr('alt');
+                    if(roomId!=""){
+                        var ajaxURL=myJsMain.adminBaseURL+'ajax_controller/show_room_charges_details/';
+                        jQuery.ajax({
+                            url:ajaxURL,
+                            type:'POST',
+                            data:'resortRoomId='+roomId,
+                            success:function(msg){
+                                if(msg!=""){ 
+                                    dialog.find('.bootbox-body').html(msg);
+                                }else{
+                                    dialog.modal('hide');
+                                }
+                            }
+                        });
+                    }
+                }, 3000);
+            });
+        
+        
+    });
+}
