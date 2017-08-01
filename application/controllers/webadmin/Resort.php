@@ -14,13 +14,14 @@ class Resort extends MY_Controller {
         $this->load->model('Factfile_model');
         $this->load->model('Facility_model');
         $this->load->model('Sports_recreation_model');
+        $this->load->model('Sports_recreation_model');
         $this->_admin_auth();
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='resort_images/';
         $this->_room_image_main_path='resort_room_image';
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');
         $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId','needPay');
-        $this->_ins_room_booking_columnArr=array('bookingStartDate','bookingEndDate','1adult','2adult','3adult','4adult','extraPerAdult','childRate','maxChild','infantRate','maxInfant','extraChargesForInfantChild');
+        $this->_ins_room_booking_columnArr=array('bookingStartDate','bookingEndDate','oneAdult','twoAdult','threeAdult','fourAdult','extraPerAdult','childRate','maxChild','infantRate','maxInfant','extraChargesForInfantChild');
     }
 
     public function index() {
@@ -190,6 +191,7 @@ class Resort extends MY_Controller {
             $this->Resort_model->remove_factfile($id);
             $this->Resort_model->remove_facility($id);
             $this->Resort_model->remove_sports_recreation($id);
+            $this->delete_all_rooms($id);
             $this->session->set_flashdata('UserListPageMsg', 'Record deleted successfully.');
             redirect($this->config->item('base_url') . 'webadmin/resort/');
         } else {
@@ -396,12 +398,9 @@ class Resort extends MY_Controller {
                 $this->Resort_room_charges_model->add_bulk($newAllRoomChargesDataArr);
             }
         }else{
-            die('kkk');
             $this->session->set_flashdata('Message','Invalid room image uploaded.');
         }
         redirect(base_url().'webadmin/resort/view_rooms/'.$resortId);	
-        //pre($dataArr);
-        die;
     }
     
     function view_edit_room($resortRoomId){
@@ -413,7 +412,20 @@ class Resort extends MY_Controller {
     }
     
     function delete_room($resortRoomId){
-        
+        $this->load->model('Resort_room_model');
+        $this->load->model('Resort_room_charges_model');
+        $resortRoomDetails=$this->Resort_room_model->get_room_details($resortRoomId);
+        $this->delete_image($resortRoomDetails[0]->image,'room_image');
+        $this->Resort_room_model->delete($resortRoomId);
+        $this->Resort_room_charges_model->delete_by_room_id($resortRoomId);
+    }
+    
+    function delete_all_rooms($resortId){
+        $this->load->model('Resort_room_model');
+        $allRooms=  $this->Resort_room_model->all_rooms_by_resort_id($resortId);
+        foreach ($allRooms As $k){
+            $this->delete_room($k->resortRoomId);
+        }
     }
     
     function change_room_status($resortRoomId){

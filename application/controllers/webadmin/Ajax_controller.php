@@ -64,8 +64,15 @@ class Ajax_controller extends MY_Controller{
     
     function show_room_charges_details(){
         $resortRoomId=  $this->input->post('resortRoomId');
+        //pre($resortRoomId);die;
         $this->load->model('Resort_room_charges_model');
+        $this->load->model('Resort_room_model');
         $resortRoomChargesDetails=$this->Resort_room_charges_model->get_data_generic_fun('*',array('resortRoomId'=>$resortRoomId));
-        pre($resortRoomChargesDetails);
+        $resortRoomDetails=$this->Resort_room_model->get_room_details($resortRoomId);
+        $data['resortRoomChargesDetails']=$resortRoomChargesDetails;
+        $data['resortRoomDetails']=$resortRoomDetails;
+        //pre($data);die;
+        $ret=$this->load->view('webadmin/room_details',$data,TRUE);
+        echo $ret;die;
     }
 }

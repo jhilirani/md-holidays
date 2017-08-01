@@ -116,4 +116,8 @@ class Resort_room_charges_model extends CI_Model {
         return $rs;
     }
 
+    function delete_by_room_id($resortRoomId){
+        $this->db->delete($this->_table, array('resortRoomId' => $resortRoomId));
+        return TRUE;
+    }
 }

@@ -77,7 +77,7 @@
                             </script>
                             <?php
                             $val = 0;
-                            if (count($DataArr) == 1 && $DataArr[0]['resortTitle'] == "") {
+                            if (count($DataArr) == 1 && $DataArr[0]['title'] == "") {
                                 //pre($DataArr);die('mmmm');
                                 ?>
                                 <tr class="ListHeadingLable">
@@ -93,7 +93,14 @@
                                         <td><?php echo $InerArr['title']; ?></td>
                                         <td><?php echo $InerArr['roomType']; ?></td>
                                         <td><?php echo $InerArr['orderNo']; ?></td>
-                                        <td><img src=""></td>
+                                        <td>
+                                            <?php $imagePath=AssetsPath.'resort_room_image/100X100/'.$InerArr['image'];
+                                            if(file_exists($imagePath)):?>
+                                            <img src="<?php echo SiteAssetsURL.'resort_room_image/100X100/'.$InerArr['image'];?>" alt="<?php echo $InerArr['title']; ?>" title="<?php echo $InerArr['title']; ?>">
+                                            <?php else:?>
+                                            <img src="<?php echo SiteImagesURL.'no-image-100.png';?>" alt="<?php echo $InerArr['title']; ?>" title="<?php echo $InerArr['title']; ?>">
+                                            <?php endif;?>
+                                        </td>
                                         <td><?php echo $InerArr['taxAndServiceCharges']; ?></td>
                                         <td><?php echo $InerArr['totalNosRoom']; ?></td>
                                         <td><?php echo ($InerArr['status'] == '1') ? 'Active' : 'Inactive'; ?></td>
@@ -109,7 +116,7 @@
                                             &nbsp;&nbsp;
                                             <a href="<?php echo ADMIN_BASE_URL . 'resort/view_edit_room/' . $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
                                             &nbsp;&nbsp;
-                                            <a href="javascript:void(0);" alt="<?php echo $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText viewChargesDetails"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                                            <a href="javascript:void(0);" alt="<?php echo $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText viewChargesDetails"><i class="fa fa-eye fa-lg" title="Edit"></i></a>
                                             &nbsp;&nbsp;
                                             <a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr['resortRoomId']; ?>');" class="AdminDashBoardLinkText"><i class="fa fa-remove fa-lg" title="Delete"></i></a>
                                         </td> 
@@ -305,10 +312,10 @@
                                             <div class="row">
                                                 <div class="col-md-4"><input type="text" name="bookingStartDate<?php echo $i; ?>" id="bookingStartDate<?php echo $i; ?>" class="form-control datepicker" /></div>
                                                 <div class="col-md-8">
-                                                    <div class="col-md-2"><input type="text" class="form-control" name="1adult<?php echo $i; ?>" id="1adult<?php echo $i; ?>" onblur="myJsMain.update_price('<?php echo $i; ?>', this.value);"/></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control" name="2adult<?php echo $i; ?>" id="2adult<?php echo $i; ?>"/></div>
-                                                    <div class="col-md-2"><input type="text" class="form-control" name="3adult<?php echo $i; ?>" id="3adult<?php echo $i; ?>"/></div>
-                                                    <div class="col-md-2"><input type="text" class="form-control" name="4adult<?php echo $i; ?>" id="4adult<?php echo $i; ?>"/></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control" name="oneAdult<?php echo $i; ?>" id="oneAdult<?php echo $i; ?>" onblur="myJsMain.update_price('<?php echo $i; ?>', this.value);"/></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control" name="twoAdult<?php echo $i; ?>" id="twoAdult<?php echo $i; ?>"/></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control" name="threeAdult<?php echo $i; ?>" id="threeAdult<?php echo $i; ?>"/></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control" name="fourAdult<?php echo $i; ?>" id="fourAdult<?php echo $i; ?>"/></div>
                                                     <div class="col-md-3"><input type="text" class="form-control" name="extraPerAdult<?php echo $i; ?>" id="extraPerAdult<?php echo $i; ?>"/></div>
                                                 </div>
                                             </div>
