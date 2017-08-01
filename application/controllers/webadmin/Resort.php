@@ -324,9 +324,14 @@ class Resort extends MY_Controller {
         $roomTypeDataArr=$this->Resort_room_type_model->get_all();
         //pre($roomTypeDataArr);die;
         $data['roomTypeDataArr']=$roomTypeDataArr;
+        
         $data['contName']="resort";
-        $data['contAction']="view_rooms";
-        $data['contNameLabel']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
+        $data['contAction']="viewlist/";
+        $data['contNameLabel']="Manage Resort";
+        
+        $data['secondContName']="resort";
+        $data['secondContAction']="view_rooms/".$id;
+        $data['secondContNameLabel']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         $data["DataArr"] = $allRooms;
         $data["resortId"] = $id;
