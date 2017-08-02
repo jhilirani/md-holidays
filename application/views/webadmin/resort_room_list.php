@@ -112,7 +112,7 @@
                                                 $action = 1;
                                             }
                                             ?>
-                                            <a href="<?php echo ADMIN_BASE_URL . 'resort/change_room_status/' . $InerArr['resortRoomId'] . '/' . $action; ?>" class="AdminDashBoardLinkText"><?php if ($InerArr['status'] == '1') { ?><i class="fa fa-check-circle fa-lg" title="Active"></i><?php } else { ?><i class="fa fa-ban fa-lg" title="InActive"></i><?php } ?></a>
+                                            <a href="<?php echo ADMIN_BASE_URL . 'resort/change_room_status/' . $InerArr['resortRoomId'] . '/' . $action.'/'.$resortId; ?>" class="AdminDashBoardLinkText"><?php if ($InerArr['status'] == '1') { ?><i class="fa fa-check-circle fa-lg" title="Active"></i><?php } else { ?><i class="fa fa-ban fa-lg" title="InActive"></i><?php } ?></a>
                                             &nbsp;&nbsp;
                                             <a href="<?php echo ADMIN_BASE_URL . 'resort/view_edit_room/' . $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
                                             &nbsp;&nbsp;
