@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2017 at 08:05 PM
+-- Generation Time: Aug 07, 2017 at 05:32 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mt_holidays`
 --
+CREATE DATABASE IF NOT EXISTS `mt_holidays` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mt_holidays`;
 
 -- --------------------------------------------------------
 
@@ -80,16 +82,19 @@ CREATE TABLE IF NOT EXISTS `category` (
   `categoryName` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `image` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
+  `type` int(11) NOT NULL,
   PRIMARY KEY (`categoryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`categoryId`, `parrentCategoryId`, `categoryName`, `image`, `status`) VALUES
-(3, 0, 'Kamakhya Nagar Branch', NULL, 1),
-(4, 0, 'National Level Chamipaship', NULL, 1);
+INSERT INTO `category` (`categoryId`, `parrentCategoryId`, `categoryName`, `image`, `status`, `type`) VALUES
+(5, 0, 'Standard  & Medium Resort', NULL, 1, 1),
+(3, 0, 'Tour & Package', NULL, 1, 2),
+(4, 0, 'Cheap Holidays', NULL, 1, 1),
+(6, 0, 'Luxurey & Supper Luxury Resort', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -379,6 +384,35 @@ INSERT INTO `country` (`countryId`, `countryCode`, `countryName`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `enjay_type`
+--
+
+DROP TABLE IF EXISTS `enjay_type`;
+CREATE TABLE IF NOT EXISTS `enjay_type` (
+  `enjoyTypeId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(110) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`enjoyTypeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `enjay_type`
+--
+
+INSERT INTO `enjay_type` (`enjoyTypeId`, `name`, `image`, `status`) VALUES
+(13, 'Honeymoon', 'ee1bb5acb055f13e052fb3c71d87cd2b.png', 1),
+(14, 'Diving', 'd8e80f6c21b36d8c0ebb73f38dc59a54.png', 1),
+(15, 'Family', 'b7cde38f0bd15d096badb539fd4d8800.png', 1),
+(16, 'Business', 'a61db79ac6574a01cf5efa374a056f0e.png', 1),
+(17, 'Leisure', '3538b506c45440923b4570072db0693c.png', 1),
+(18, 'Excursion', '2bb48c798c052e3de0680158bea59a6d.png', 1),
+(19, 'Restaurant', 'ada3429125c79d84c59beff8dd954253.png', 1),
+(20, 'Bar', '3959a1c5e19bdfc7f8be1c0b16bbb88d.png', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `facility`
 --
 
@@ -474,6 +508,7 @@ CREATE TABLE IF NOT EXISTS `resort` (
   `metaTitle` varchar(150) NOT NULL,
   `location` varchar(100) NOT NULL,
   `contactInfo` varchar(350) NOT NULL,
+  `categoryId` int(11) NOT NULL,
   PRIMARY KEY (`resortId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
@@ -481,8 +516,8 @@ CREATE TABLE IF NOT EXISTS `resort` (
 -- Dumping data for table `resort`
 --
 
-INSERT INTO `resort` (`resortId`, `title`, `shortBody`, `body`, `overview`, `mapZoomLevel`, `latitude`, `longitude`, `addedDate`, `status`, `metaDescription`, `metaKeywords`, `metaTitle`, `location`, `contactInfo`) VALUES
-(3, 'Bandos Maldives', NULL, NULL, 'Bandos Maldives', 1, '25.299999', '28.299999', '2017-06-30 16:47:43', 1, 'Bandos Maldives meta description', 'Bandos Maldives meta', 'Bandos Maldives meta title', 'Hulumale Island', '<p>\r\n value="</p>\r\n<p>\r\n Bandos Maldives<br>\r\n  </p>\r\n<p>\r\n "</p>');
+INSERT INTO `resort` (`resortId`, `title`, `shortBody`, `body`, `overview`, `mapZoomLevel`, `latitude`, `longitude`, `addedDate`, `status`, `metaDescription`, `metaKeywords`, `metaTitle`, `location`, `contactInfo`, `categoryId`) VALUES
+(3, 'Bandos Maldives', NULL, NULL, 'Bandos Maldives', 1, '25.299999', '28.299999', '2017-06-30 16:47:43', 1, 'Bandos Maldives meta description', 'Bandos Maldives meta', 'Bandos Maldives meta title', 'Hulumale Island', '<p>\r\n value="</p>\r\n<p>\r\n Bandos Maldives<br>\r\n  </p>\r\n<p>\r\n "</p>', 0);
 
 -- --------------------------------------------------------
 
@@ -492,26 +527,11 @@ INSERT INTO `resort` (`resortId`, `title`, `shortBody`, `body`, `overview`, `map
 
 DROP TABLE IF EXISTS `resort_enjay_type`;
 CREATE TABLE IF NOT EXISTS `resort_enjay_type` (
-  `resortEnjoyTypeId` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(110) NOT NULL,
-  `image` varchar(100) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`resortEnjoyTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resort_enjay_type`
---
-
-INSERT INTO `resort_enjay_type` (`resortEnjoyTypeId`, `name`, `image`, `status`) VALUES
-(5, 'Honeymoon', '313302198ad63f0a4afbe06ce985c70c.png', 1),
-(6, 'Diving', '71963dbc51151d363f5b3c609083e263.png', 1),
-(7, 'Family', 'b1df4a022c3f8f7eb4a0595ba0a13146.png', 1),
-(8, 'Business', '1134f2707b2c9675b5b8d40b3a36c5d0.png', 1),
-(9, 'Leisure', 'fc831bf7ad04787ab760b0357e8275a8.png', 1),
-(10, 'Excursion', '2c2395f851eda70f001127affd9ac8cf.png', 1),
-(11, 'Resturant', '83b77bbb1ee8383cb7ede3d4a5aa855d.png', 1),
-(12, 'Bar', '1ae42efcca0aaaf249aaedc1dc619007.png', 1);
+  `resortEnjayTypeId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `resortId` int(11) NOT NULL,
+  `enjayTypeId` int(11) NOT NULL,
+  PRIMARY KEY (`resortEnjayTypeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -653,14 +673,7 @@ CREATE TABLE IF NOT EXISTS `resort_room` (
   `resortId` int(11) NOT NULL,
   `needPay` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`resortRoomId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resort_room`
---
-
-INSERT INTO `resort_room` (`resortRoomId`, `roomTypeId`, `image`, `title`, `orderNo`, `totalNosRoom`, `taxAndServiceCharges`, `status`, `roomDescription`, `resortId`, `needPay`) VALUES
-(2, 3, '7eeaf8e6ae201789c87f967adabdf094.jpg', 'Facing to beach', 12, 250, 50, 1, 'Description', 3, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -685,16 +698,7 @@ CREATE TABLE IF NOT EXISTS `resort_room_charges` (
   `maxInfant` tinyint(1) NOT NULL DEFAULT '1',
   `extraChargesForInfantChild` int(11) NOT NULL,
   PRIMARY KEY (`resortRoomChargesId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resort_room_charges`
---
-
-INSERT INTO `resort_room_charges` (`resortRoomChargesId`, `resortRoomId`, `bookingStartDate`, `bookingEndDate`, `oneAdult`, `twoAdult`, `threeAdult`, `fourAdult`, `extraPerAdult`, `childRate`, `maxChild`, `infantRate`, `maxInfant`, `extraChargesForInfantChild`) VALUES
-(3, 2, '0000-00-00', '0000-00-00', 200, 400, 600, 800, 200, 180, 2, 180, 2, 180),
-(4, 2, '0000-00-00', '0000-00-00', 250, 500, 750, 1000, 250, 200, 2, 200, 2, 200),
-(5, 2, '0000-00-00', '0000-00-00', 350, 700, 1050, 1400, 350, 220, 2, 220, 2, 220);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

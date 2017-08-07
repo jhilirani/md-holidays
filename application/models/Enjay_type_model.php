@@ -1,9 +1,9 @@
 <?php
 
-class Resort_enjay_type_model extends CI_Model {
+class Enjay_type_model extends CI_Model {
 
-    private $_table = 'resort_enjay_type';
-    private $_id = "resortEnjoyTypeId";
+    private $_table = 'enjay_type';
+    private $_id = "enjoyTypeId";
 
     function __construct() {
         parent::__construct();

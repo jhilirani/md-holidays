@@ -15,12 +15,11 @@ class Resort extends MY_Controller {
         $this->load->model('Factfile_model');
         $this->load->model('Facility_model');
         $this->load->model('Sports_recreation_model');
-        $this->load->model('Sports_recreation_model');
         $this->_admin_auth();
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='resort_images/';
         $this->_room_image_main_path='resort_room_image';
-        $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo');
+        $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo','categoryId');
         $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId','needPay');
         $this->_ins_room_booking_columnArr=array('oneAdult','twoAdult','threeAdult','fourAdult','extraPerAdult','childRate','maxChild','infantRate','maxInfant','extraChargesForInfantChild');
     }
@@ -30,6 +29,8 @@ class Resort extends MY_Controller {
     }
 
     public function viewlist() {
+        $this->load->model('Enjay_type_model');
+        $this->load->model('Category_model');
         $data = $this->_show_admin_logedin_layout();
         $this->load->helper("ckeditor");
         $data['pageTitle']="Resort Manager";
@@ -39,7 +40,10 @@ class Resort extends MY_Controller {
         $data['contNameLabel']="Resort Manager";
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         $dataArr=$this->Resort_model->get_all_admin();
+        $resortEnjayTypeArr=$this->Enjay_type_model->get_all();
         $data['DataArr'] = $dataArr;
+        $data['resortEnjayTypeArr'] = $resortEnjayTypeArr;
+        $data['categoryArr'] = $this->Category_model->get_data_generic_fun('*',array('type'=>1));
         $data['ckeditor'] = array(
             //ID of the textarea that will be replaced
             'id' => 'contactInfo',
@@ -69,6 +73,7 @@ class Resort extends MY_Controller {
         $factfile=  $this->input->post('factfile',TRUE);
         $facility=  $this->input->post('facility',TRUE);
         $sportsRecreation=  $this->input->post('sportsRecreation',TRUE);
+        $enjayType=  $this->input->post('enjoyType',TRUE);
         
         //pre($dataArr);die;
         $resortId=$this->Resort_model->add($dataArr);
@@ -93,12 +98,21 @@ class Resort extends MY_Controller {
         }
         if(!empty($sportsBatchArr))
             $this->Resort_model->add_sports_recreation($sportsBatchArr);
+        
+        $enjayTypesBatchArr=array();
+        foreach($enjayType As $k=>$v){
+            $enjayTypesBatchArr[]=array('resortId'=>$resortId,'enjayTypeId'=>$v);
+        }
+        if(!empty($enjayTypesBatchArr))
+            $this->Resort_model->add_enjay_type($enjayTypesBatchArr);
 
         $this->session->set_flashdata('Message', 'Resort added successfully.');
         redirect(base_url() . 'webadmin/resort/viewlist');
     }
 
     public function view_edit($resortId) {
+        $this->load->model('Enjay_type_model');
+        $this->load->model('Category_model');
         $details=$this->Resort_model->details($resortId);
         $this->load->helper("ckeditor");
         $data = $this->_show_admin_logedin_layout();
@@ -110,6 +124,7 @@ class Resort extends MY_Controller {
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         
         $data["dataArr"] = $details;
+        $data['categoryArr'] = $this->Category_model->get_data_generic_fun('*',array('type'=>1));
         $data['ckeditor'] = array(
             //ID of the textarea that will be replaced
             'id' => 'contactInfo',
@@ -128,9 +143,11 @@ class Resort extends MY_Controller {
         $data['factfileDataArr']=  $this->Factfile_model->get_all();
         $data['facilityDataArr']=  $this->Facility_model->get_all();
         $data['sportsRecreationDataArr']=  $this->Sports_recreation_model->get_all();
-        
+        $resortEnjayTypeArr=$this->Enjay_type_model->get_all();
+        $data['resortEnjayTypeArr'] = $resortEnjayTypeArr;
         $data['selectedFactfileDataArr']=  $this->Resort_model->get_factfile($resortId);
         $data['selectedFacilityDataArr']=  $this->Resort_model->get_facility($resortId);
+        $data['selectedEnjayTypeDataArr']=  $this->Resort_model->get_enjay_type($resortId);
         $data['selectedSportsRecreationDataArr']=  $this->Resort_model->get_sports_recreation($resortId);
         
         $this->load->view('webadmin/resort_edit', $data);
@@ -150,6 +167,7 @@ class Resort extends MY_Controller {
         $factfile=  $this->input->post('factfile',TRUE);
         $facility=  $this->input->post('facility',TRUE);
         $sportsRecreation=  $this->input->post('sportsRecreation',TRUE);
+        $enjayType=  $this->input->post('enjoyType',TRUE);
         
         $factfileBatchArr=array();
         foreach($factfile As $k=>$v){
@@ -159,6 +177,7 @@ class Resort extends MY_Controller {
             $this->Resort_model->remove_factfile($resortId);
             $this->Resort_model->add_factfile($factfileBatchArr);
         }
+        
         $facilityBatchArr=array();
         foreach($facility As $k=>$v){
             $facilityBatchArr[]=array('resortId'=>$resortId,'facilityId'=>$v);
@@ -167,6 +186,7 @@ class Resort extends MY_Controller {
             $this->Resort_model->remove_facility($resortId);
             $this->Resort_model->add_facility($facilityBatchArr);
         }
+        
         $sportsBatchArr=array();
         foreach($sportsRecreation As $k=>$v){
             $sportsBatchArr[]=array('resortId'=>$resortId,'sportsRecreationId'=>$v);
@@ -175,6 +195,16 @@ class Resort extends MY_Controller {
             $this->Resort_model->remove_sports_recreation($resortId);
             $this->Resort_model->add_sports_recreation($sportsBatchArr);
         }
+        
+        $enjayTypeBatchArr=array();
+        foreach($enjayType As $k=>$v){
+            $enjayTypeBatchArr[]=array('resortId'=>$resortId,'enjayTypeId'=>$v);
+        }
+        if(!empty($enjayTypeBatchArr)){
+            $this->Resort_model->remove_enjay_type($resortId);
+            $this->Resort_model->add_enjay_type($enjayTypeBatchArr);
+        }
+        
         $this->session->set_flashdata('Message', 'Resort edited successfully.');
         redirect(base_url() . 'webadmin/resort/viewlist');
     }

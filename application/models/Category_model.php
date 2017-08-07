@@ -18,11 +18,6 @@ class Category_model extends CI_Model {
         return $this->db->get()->result();
     }
 
-    public function get_for_course() {
-        $this->db->select('*')->from($this->_table)->where('status', '1');
-        return $this->db->get()->result();
-    }
-
     public function add($dataArr) {
         $this->db->insert($this->_table, $dataArr);
         return $this->db->insert_id();

@@ -4,7 +4,7 @@
     <td style="padding-left:50px;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="padding-left:10px;"><input type="button" name="AddBtn" id="AddBtn" value="Add Resort enjay type" onclick="ShowAddAdminBox();" class="btn btn-primary"/></td>
+    <td style="padding-left:10px;"><input type="button" name="AddBtn" id="AddBtn" value="Add Enjay type" onclick="ShowAddAdminBox();" class="btn btn-primary" accesskey="x"/></td>
   </tr>
 <script language="javascript">
 
@@ -33,7 +33,7 @@ function ShowAddAdminBox(){
 	}else{
 		document.AdminEdit.Editstatus[1].checked=true;
 	}
-	$('#resortEnjoyTypeId').val(DataArr[id]['resortEnjoyTypeId']);
+	$('#enjoyTypeId').val(DataArr[id]['enjoyTypeId']);
 	
  }
 
@@ -67,7 +67,7 @@ function AskDelete(id){
             closeOnConfirm: false
 	},
 	function(){
-            location.href='<?php echo base_url()?>webadmin/resort_enjay_type/delete/'+id;
+            location.href='<?php echo base_url()?>webadmin/enjay_type/delete/'+id;
 	});
 }
  </script>
@@ -101,19 +101,19 @@ function AskDelete(id){
     <td><?php echo ($InerArr->status=='1')?'Active':'Inactive';?></td>
     <td>
 	<?php if($InerArr->status=='1'){$action=0;}else{$action=1;}?>
-	<a href="<?php echo base_url().'webadmin/resort_enjay_type/change_status/'.$InerArr->resortEnjoyTypeId.'/'.$action;?>" class="AdminDashBoardLinkText"><?php if($InerArr->status=='1'){?><img src="<?php echo SiteImagesURL.'webadmin/';?>active1.png" alt="Inactive" title="Active" /><?php }else{?><img src="<?php echo SiteImagesURL.'webadmin/';?>inactive1.png" alt="Inactive" title="Inactive" /><?php }?></a>
+	<a href="<?php echo base_url().'webadmin/enjay_type/change_status/'.$InerArr->enjoyTypeId.'/'.$action;?>" class="AdminDashBoardLinkText"><?php if($InerArr->status=='1'){?><img src="<?php echo SiteImagesURL.'webadmin/';?>active1.png" alt="Inactive" title="Active" /><?php }else{?><img src="<?php echo SiteImagesURL.'webadmin/';?>inactive1.png" alt="Inactive" title="Inactive" /><?php }?></a>
 	&nbsp;&nbsp;
-	<a href="javascript:void(0);" onclick="ShowEditBox('<?php echo $InerArr->resortEnjoyTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>edit.png" width="15" height="15" title="Edit"/></a>
+	<a href="javascript:void(0);" onclick="ShowEditBox('<?php echo $InerArr->enjoyTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>edit.png" width="15" height="15" title="Edit"/></a>
 	&nbsp;&nbsp;
-	<a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->resortEnjoyTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>delete.png" width="15" height="15" title="Delete"/></a>
+	<a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->enjoyTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>delete.png" width="15" height="15" title="Delete"/></a>
 	</td> 
   </tr>
   <script language="javascript">
-  DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]=new Array();
-  DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['resortEnjoyTypeId']='<?php echo $InerArr->resortEnjoyTypeId?>';
-  DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['image']='<?php echo $InerArr->image?>';
-  DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['name']='<?php echo $InerArr->name?>';
-  DataArr[<?php echo $InerArr->resortEnjoyTypeId?>]['status']='<?php echo $InerArr->status?>';
+  DataArr[<?php echo $InerArr->enjoyTypeId?>]=new Array();
+  DataArr[<?php echo $InerArr->enjoyTypeId?>]['enjoyTypeId']='<?php echo $InerArr->enjoyTypeId?>';
+  DataArr[<?php echo $InerArr->enjoyTypeId?>]['image']='<?php echo $InerArr->image?>';
+  DataArr[<?php echo $InerArr->enjoyTypeId?>]['name']='<?php echo $InerArr->name?>';
+  DataArr[<?php echo $InerArr->enjoyTypeId?>]['status']='<?php echo $InerArr->status?>';
   </script>
   <?php $val++;}?>
   </tbody>
@@ -135,7 +135,7 @@ function AskDelete(id){
   </tr>
  
   <tr>
-    <td><form name="AdminEdit" id="AdminEdit" method="post" action="<?=base_url()?>webadmin/resort_enjay_type/edit/" enctype="multipart/form-data">
+    <td><form name="AdminEdit" id="AdminEdit" method="post" action="<?=base_url()?>webadmin/enjay_type/edit/" enctype="multipart/form-data">
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="EditBox" style="display:none;">
   <tr>
     <th colspan="4"><span class="PageHeading">Resort enjay type Edit Form</span></th>
@@ -189,7 +189,7 @@ function AskDelete(id){
     <td align="left" valign="top"><label></label></td>
     <td align="left" valign="top"><input type="submit" name="Submit3" value="Submit" class="btn btn-success"/>&nbsp;&nbsp;&nbsp;
       <input type="button" name="Submit22" value="Cancel" onclick="return CancelAdd();" class="btn btn-primary"/>
-	  <input  type="hidden" name="resortEnjoyTypeId"  id="resortEnjoyTypeId" value=""/>
+	  <input  type="hidden" name="enjoyTypeId"  id="enjoyTypeId" value=""/>
 	  <input  type="hidden" name="Editimage" id="Editimage" value=""/></td>
   </tr>
   <tr>
@@ -208,7 +208,7 @@ function AskDelete(id){
 </form></td>
   </tr>
   <tr>
-    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?=base_url()?>webadmin/resort_enjay_type/add"  enctype="multipart/form-data">
+    <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?=base_url()?>webadmin/enjay_type/add"  enctype="multipart/form-data">
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="AddBox" style="display:none;">
   <tr>
     <th width="13%" align="left" valign="top" scope="col">&nbsp;</th>

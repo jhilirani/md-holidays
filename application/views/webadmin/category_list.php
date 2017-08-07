@@ -6,7 +6,11 @@
   </tr>
   
   <tr>
-    <td style="padding-left:10px;padding-bottom:10px;"><input type="button" name="AddBtn" id="AddBtn" value="Add Category" onclick="ShowAddAdminBox();" class="btn btn-primary"/></td>
+        <td style="padding-left:10px;padding-bottom:10px;">
+            <?php if(count($DataArr)<4):?>
+            <input type="button" name="AddBtn" id="AddBtn" value="Add Category" onclick="ShowAddAdminBox();" class="btn btn-primary"/>
+            <?php endif;?>
+        </td>
   </tr>
 <script language="javascript">
 
@@ -31,6 +35,7 @@ function ShowAddAdminBox()
 	$('#EditBox').fadeIn(2500);
 	$('#EditUserFullName').text(DataArr[id]['categoryName']+' '+DataArr[id]['categoryName']);
 	$('#EditcategoryName').val(DataArr[id]['categoryName']);
+        $('#Edittype').val(DataArr[id]['type']);
 	//$('#EditDescription').val(UserDataArr[id]['Description']);
 	if(document.AdminEdit.Editstatus[0].value==DataArr[id]['status'])
 	{
@@ -92,7 +97,7 @@ function AskDelete(id){
   <tr class="ListHeadingLable" bgcolor="#FBE554" height="25px;">
     <td width="5%">Sl No </td>
     <td width="35%">Category Name </td>
-    <!--<td width="20%">Featured status </td>-->
+    <td width="20%">Type </td>
     <td width="20%">status</td>
     <td width="20%">Action</td>
   </tr>
@@ -107,9 +112,7 @@ function AskDelete(id){
   <tr class="ListTestLable" height="20px;">
     <td><?php echo $val+1;?></td>
     <td><?php echo $InerArr->categoryName;?></td>
-    <?php /*<td>if($InerArr->Featured=='1'){echo 'Featured';}else{?>
-        <a href="<?php echo ADMIN_BASE_URL.'category/featured/'.$InerArr->categoryId;?>" class="AdminDashBoardLinkText"> Make Featured </a>
-    <?php }</td>*/?>
+    <td><?php echo ($InerArr->type==1) ? 'Resort' : 'Tour';?></td>
     <td><?php echo ($InerArr->status=='1')?'Active':'Inactive';?></td>
     <td>
 	<?php if($InerArr->status=='1'){$action=0;}else{$action=1;}?>
@@ -124,6 +127,7 @@ function AskDelete(id){
   DataArr[<?php echo $InerArr->categoryId?>]=new Array();
   DataArr[<?php echo $InerArr->categoryId?>]['categoryId']='<?php echo $InerArr->categoryId?>';
   DataArr[<?php echo $InerArr->categoryId?>]['categoryName']='<?php echo $InerArr->categoryName?>';
+  DataArr[<?php echo $InerArr->categoryId?>]['type']='<?php echo $InerArr->type?>';
   DataArr[<?php echo $InerArr->categoryId?>]['status']='<?php echo $InerArr->status?>';
   </script>
   
@@ -138,7 +142,7 @@ function AskDelete(id){
   <tr>
     <td width="5%">Sl No </td>
     <td width="35%">Category Name </td>
-    <!--<td width="20%">Featured status </td>-->
+    <td width="20%">Type</td>
     <td width="20%">status</td>
     <td width="20%">Action</td>
   </tr>
@@ -160,9 +164,27 @@ function AskDelete(id){
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top" class="ListHeadingLable"> categoryName </td>
+    <td align="left" valign="top" class="ListHeadingLable"> Category Name </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top"><input name="EditcategoryName" type="text" id="EditcategoryName"  class="required form-control" /></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top" height="40px;">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Type </td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top">
+        <select name="Edittype" id="Edittype" class="form-control" required="required">
+            <option value="" selected>Select</option>
+            <option value="1">Resort</option>
+            <option value="2">Tour</option>
+        </select></td>
+    </td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
@@ -228,6 +250,24 @@ function AskDelete(id){
     <td align="left" valign="top" class="ListHeadingLable"> Category Name </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top"><input name="categoryName" type="text" id="categoryName"  class="required form-control"  /></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top" height="40px;">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Type </td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top">
+        <select name="type" id="type" class="form-control" required="required">
+            <option value="1" selected>1</option>
+            <option value="1">Resort</option>
+            <option value="2">Tour</option>
+        </select></td>
+    </td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>

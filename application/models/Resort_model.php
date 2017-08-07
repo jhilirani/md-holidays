@@ -11,6 +11,7 @@ class Resort_model extends CI_Model {
     private $_table_factfile = "resort_factfile";
     private $_table_facility = "resort_facility";
     private $_table_sports = "resort_sports_recreation";
+    private $_table_enjay_type = "resort_enjay_type";
 
     function __construct() {
         parent::__construct();
@@ -81,6 +82,14 @@ class Resort_model extends CI_Model {
     function remove_sports_recreation($id) {
         $this->db->delete($this->_table_sports, array($this->_id => $id));
     }
+    
+    function add_enjay_type($batchDataArr) {
+        $this->db->insert_batch($this->_table_enjay_type, $batchDataArr);
+    }
+
+    function remove_enjay_type($id) {
+        $this->db->delete($this->_table_enjay_type, array($this->_id => $id));
+    }
 
     function get_factfile($id) {
         $rs = $this->db->get_where($this->_table_factfile, array($this->_id => $id))->result_array();
@@ -96,6 +105,12 @@ class Resort_model extends CI_Model {
 
     function get_sports_recreation($id) {
         $rs = $this->db->get_where($this->_table_sports, array($this->_id => $id))->result_array();
+        //echo $this->db->last_query();
+        return $rs;
+    }
+    
+    function get_enjay_type($id){
+        $rs = $this->db->get_where($this->_table_enjay_type, array($this->_id => $id))->result_array();
         //echo $this->db->last_query();
         return $rs;
     }

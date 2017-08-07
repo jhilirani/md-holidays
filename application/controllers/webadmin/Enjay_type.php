@@ -1,12 +1,12 @@
 <?php
 
-class Resort_enjay_type extends MY_Controller {
+class Enjay_type extends MY_Controller {
     private $_resize_file_array;    
     private $_image_main_path;    
     private $_ins_columnArr;
     public function __construct() {
         parent::__construct();
-        $this->load->model('Resort_enjay_type_model');
+        $this->load->model('Enjay_type_model');
         $this->_admin_auth();
         $this->_ins_columnArr=array('name','status');
         $this->_resize_file_array=array('45X45');
@@ -19,14 +19,14 @@ class Resort_enjay_type extends MY_Controller {
 
     public function viewlist() {
         $data = $this->_show_admin_logedin_layout();
-        $data['pageTitle'] = "Resort enjay type Manager";
-        $data['pageSubtitle'] = "Resort enjay type List";
-        $data['contName'] = "resort_enjay_type";
+        $data['pageTitle'] = "Enjay type Manager";
+        $data['pageSubtitle'] = "Enjay type List";
+        $data['contName'] = "enjay_type";
         $data['contAction'] = "viewlist";
-        $data['contNameLabel'] = "Resort enjay type Manager";
+        $data['contNameLabel'] = "Enjay type Manager";
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
-        $data['DataArr'] = $this->Resort_enjay_type_model->get_all_admin();
-        $this->load->view('webadmin/resort_enjay_type_list', $data);
+        $data['DataArr'] = $this->Enjay_type_model->get_all_admin();
+        $this->load->view('webadmin/enjay_type_list', $data);
     }
 
     public function add() {
@@ -48,7 +48,8 @@ class Resort_enjay_type extends MY_Controller {
                 //if file upload failed then catch the errors
                 $errMsg=$this->upload->display_errors();
                 $this->session->set_flashdata('Message',$errMsg);
-                redirect(base_url().'webadmin/banner/viewlist');
+                redirect(base_url().'webadmin/enjay_type/viewlist');
+                
             }else{
                 $image_data = $this->upload->data();
                 $is_resize_done=$this->resize_image($image_data['full_path'],$image_data['file_name']);
@@ -56,7 +57,7 @@ class Resort_enjay_type extends MY_Controller {
             
             if($is_resize_done != 1){
                 $this->session->set_flashdata('Message',$is_resize_done);
-                redirect(base_url().'webadmin/resort_enjay_type/viewlist');
+                redirect(base_url().'webadmin/enjay_type/viewlist');
             }
             $dataArr=array();
             foreach($this->_ins_columnArr AS $k){
@@ -64,14 +65,14 @@ class Resort_enjay_type extends MY_Controller {
                 $dataArr[$k]=$colVal;
             }
             $dataArr['image']=$image_data['file_name'];
-            $this->Resort_enjay_type_model->add($dataArr);
+            $this->Enjay_type_model->add($dataArr);
 
             $this->session->set_flashdata('Message', 'Resort enjay type added successfully.');
         }else{
             $this->session->set_flashdata('Message', 'Invalid Resort enjay type image added successfully.');
         }
         //die("kk");
-        redirect(base_url() . 'webadmin/resort_enjay_type/viewlist');
+        redirect(base_url() . 'webadmin/enjay_type/viewlist');
     }
 
     public function edit() {
@@ -81,7 +82,7 @@ class Resort_enjay_type extends MY_Controller {
             $colVal=trim($this->input->post('Edit'.$k, TRUE));
             $dataArr[$k]=$colVal;
         }
-        $resortEnjoyTypeId = $this->input->post('resortEnjoyTypeId', TRUE);
+        $enjoyTypeId = $this->input->post('enjoyTypeId', TRUE);
         $Editimage = $this->input->post('Editimage', TRUE);
         if($_FILES['Edit'.$this->_image_main_path]['name']!=""){
             $upload_path=AssetsPath.$this->_image_main_path.'/';
@@ -100,7 +101,7 @@ class Resort_enjay_type extends MY_Controller {
                 //if file upload failed then catch the errors
                 $errMsg=$this->upload->display_errors();
                 $this->session->set_flashdata('Message',$errMsg);
-                redirect(base_url().'webadmin/resort_enjay_type/viewlist');
+                redirect(base_url().'webadmin/enjay_type/viewlist');
             } else {
                 //store the file info
                 $image_data = $this->upload->data();
@@ -109,7 +110,7 @@ class Resort_enjay_type extends MY_Controller {
 
             if($is_resize_done != 1){
                 $this->session->set_flashdata('Message',$is_resize_done);
-                redirect(base_url().'webadmin/resort_enjay_type/viewlist');
+                redirect(base_url().'webadmin/enjay_type/viewlist');
             }
         }
         if(!empty($image_data)){
@@ -117,24 +118,24 @@ class Resort_enjay_type extends MY_Controller {
             $this->delete_image($Editimage);
         }
         //print_r($dataArr);die;
-        $this->Resort_enjay_type_model->edit($dataArr, $resortEnjoyTypeId);
+        $this->Enjay_type_model->edit($dataArr, $enjoyTypeId);
         $this->session->set_flashdata('Message', 'Resort enjay type  updated successfully.');
-        redirect(base_url() . 'webadmin/resort_enjay_type/viewlist');
+        redirect(base_url() . 'webadmin/enjay_type/viewlist');
     }
 
-    public function change_status($resortEnjoyTypeId, $Action) {
-        $this->Resort_enjay_type_model->edit(array('status'=>$Action), $resortEnjoyTypeId);
+    public function change_status($enjoyTypeId, $Action) {
+        $this->Enjay_type_model->edit(array('status'=>$Action), $enjoyTypeId);
 
         $this->session->set_flashdata('Message', 'Resort enjay type  status updated successfully.');
-        redirect(base_url() . 'webadmin/resort_enjay_type/viewlist');
+        redirect(base_url() . 'webadmin/enjay_type/viewlist');
     }
 
-    public function delete($resortEnjoyTypeId) {
-        $rs=  $this->db->get_where('resort_enjay_type',array('resortEnjoyTypeId'=>$resortEnjoyTypeId))->result();
-        $this->Resort_enjay_type_model->delete($resortEnjoyTypeId);
+    public function delete($enjoyTypeId) {
+        $rs=  $this->db->get_where('enjay_type',array('enjoyTypeId'=>$enjoyTypeId))->result();
+        $this->Enjay_type_model->delete($enjoyTypeId);
         $this->delete_image($rs[0]->image);
         $this->session->set_flashdata('Message', 'Resort enjay type  deleted successfully.');
-        redirect(base_url() . 'webadmin/resort_enjay_type/viewlist');
+        redirect(base_url() . 'webadmin/enjay_type/viewlist');
     }
 
     function delete_image($file_name){

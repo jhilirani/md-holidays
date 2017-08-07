@@ -221,6 +221,24 @@ function AskDelete(id){
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Menue where show the Resort </td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top">
+        <select name="categoryId" id="categoryId" class="form-control" required="required">
+            <option value="1" selected>Select Menu Category</option>
+            <?php foreach($categoryArr as $k):?>
+            <option value="<?php echo $k->categoryId;?>"><?php echo $k->categoryName;?></option>
+            <?php endforeach;?>
+        </select></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta title </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top"><input name="metaTitle" type="text" id="metaTitle"  class="required form-control"/></td>
@@ -231,6 +249,7 @@ function AskDelete(id){
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">&nbsp;</td>
   </tr>
+  
   <tr>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta Key Word </td>
@@ -303,7 +322,25 @@ function AskDelete(id){
         <?php endforeach;?>
     </td>
   </tr>
-  
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <?php //pre($resortEnjayTypeArr);?>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Select Enjay type</td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top">
+        <?php foreach($resortEnjayTypeArr AS $k):?>
+            <label class="checkbox-inline col-md-3">
+                <input type="checkbox" name="enjoyType[]" required="required" value="<?php echo $k->enjoyTypeId;?>"><?php echo $k->name;?>
+            </label>
+        <?php endforeach;?>
+    </td>
+  </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">&nbsp;</td>

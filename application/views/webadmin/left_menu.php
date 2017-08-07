@@ -112,10 +112,10 @@
                     <li><a href="<?php echo ADMIN_BASE_URL.'room_type/viewlist';?>"><i class="fa fa-list-alt"></i>Room Type</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'sports_recreation/viewlist';?>"><i class="fa fa-gamepad"></i> Sports and recreation Details</a></li>
                     <li><a href="<?php echo ADMIN_BASE_URL.'resort/viewlist';?>"><i class="fa fa-bed"></i> <i class="fa fa-beer"></i>Manage Resort</a></li>
-                    <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                    <!--<li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
                     <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
                     <li><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                    <li class="active"><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                    <li class="active"><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>-->
                 </ul>
             </li>
         </ul>
