@@ -25,11 +25,19 @@ class Category extends MY_Controller{
 	public function add(){
             $categoryName=$this->input->post('categoryName',TRUE);
             $parrentCategoryId=$this->input->post('parrentCategoryId',TRUE);
+            $type=$this->input->post('type',TRUE);
+            if($parrentCategoryId==""){
+                $parrentCategoryId=0;
+            }
             $status=$this->input->post('status',TRUE);
-
+            if($status==""){
+                $status=1;
+            }
+            
             $dataArr=array(
             'categoryName'=>$categoryName,
             'parrentCategoryId'=>$parrentCategoryId,
+            'type'=>$type,
             'status'=>$status
             );
 
@@ -44,10 +52,12 @@ class Category extends MY_Controller{
 	public function edit(){
             $categoryName=$this->input->post('EditcategoryName',TRUE);
             $status=$this->input->post('Editstatus',TRUE);
+            $type=$this->input->post('Edittype',TRUE);
             $categoryId=$this->input->post('categoryId',TRUE);
 
             $dataArr=array(
                 'categoryName'=>$categoryName,
+                'type'=>$type,
                 'status'=>$status
             );
 
