@@ -263,7 +263,7 @@ function AskDelete(id){
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top">
         <select name="type" id="type" class="form-control" required="required">
-            <option value="1" selected>1</option>
+            <option value="" selected>Select Category</option>
             <option value="1">Resort</option>
             <option value="2">Tour</option>
         </select></td>

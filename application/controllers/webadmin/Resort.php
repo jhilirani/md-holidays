@@ -73,7 +73,7 @@ class Resort extends MY_Controller {
         $factfile=  $this->input->post('factfile',TRUE);
         $facility=  $this->input->post('facility',TRUE);
         $sportsRecreation=  $this->input->post('sportsRecreation',TRUE);
-        $enjayType=  $this->input->post('enjoyType',TRUE);
+        $enjayType=  $this->input->post('enjayType',TRUE);
         
         //pre($dataArr);die;
         $resortId=$this->Resort_model->add($dataArr);
@@ -167,7 +167,7 @@ class Resort extends MY_Controller {
         $factfile=  $this->input->post('factfile',TRUE);
         $facility=  $this->input->post('facility',TRUE);
         $sportsRecreation=  $this->input->post('sportsRecreation',TRUE);
-        $enjayType=  $this->input->post('enjoyType',TRUE);
+        $enjayType=  $this->input->post('enjayType',TRUE);
         
         $factfileBatchArr=array();
         foreach($factfile As $k=>$v){
@@ -214,7 +214,7 @@ class Resort extends MY_Controller {
         $No = $this->Resort_model->delete($id);
         if ($No > 0) {
             $this->load->model('Resort_image_model'); //delete_resort_image
-            $allResortImages=$this->Resort_image_model->get_data_generic_fun('*',array('resort_id'=>$id),'result_arr');
+            $allResortImages=$this->Resort_image_model->get_data_generic_fun('*',array('resortId'=>$id),'result_arr');
             foreach ($allResortImages AS $k){
                 $this->delete_image($k->image);
             }

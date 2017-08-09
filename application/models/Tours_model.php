@@ -1,9 +1,13 @@
 <?php
 
-class Enjay_type_model extends CI_Model {
+class Tours_model extends CI_Model {
 
-    private $_table = 'enjay_type';
-    private $_id = "enjayTypeId";
+    private $_table = 'tours';
+    private $_table_image = 'tours_image';
+    private $_table_services = 'tours_services';
+    private $_table_rattings = 'tours_rattings';
+    private $_table_enjay_type = 'tours_enjay_type';
+    private $_id = "toursId";
 
     function __construct() {
         parent::__construct();
@@ -11,6 +15,21 @@ class Enjay_type_model extends CI_Model {
 
     function add($dataArr) {
         $this->db->insert($this->_table, $dataArr);
+        return $this->db->insert_id();
+    }
+    
+    function add_image($dataArr) {
+        $this->db->insert($this->_table_image, $dataArr);
+        return $this->db->insert_id();
+    }
+    
+    function add_services($dataArr) {
+        $this->db->insert($this->_table_services, $dataArr);
+        return $this->db->insert_id();
+    }
+    
+    function add_enjay_type($dataArr) {
+        $this->db->insert($this->_table_enjay_type, $dataArr);
         return $this->db->insert_id();
     }
 
@@ -25,7 +44,22 @@ class Enjay_type_model extends CI_Model {
         $this->db->delete($this->_table, array($this->_id => $id));
         return TRUE;
     }
+    
+    function delete_image($id) {
+        $this->db->delete($this->_table_image, array($this->_id => $id));
+        return TRUE;
+    }
 
+    function delete_services($id) {
+        $this->db->delete($this->_table_services, array($this->_id => $id));
+        return TRUE;
+    }
+    
+    function delete_enjay_type($id) {
+        $this->db->delete($this->_table_enjay_type, array($this->_id => $id));
+        return TRUE;
+    }
+    
     function get_all_admin() {
         $rs = $this->db->get($this->_table)->result();
         return $rs;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2017 at 09:22 PM
+-- Generation Time: Aug 07, 2017 at 05:32 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -84,17 +84,17 @@ CREATE TABLE IF NOT EXISTS `category` (
   `status` tinyint(1) DEFAULT '1',
   `type` int(11) NOT NULL,
   PRIMARY KEY (`categoryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`categoryId`, `parrentCategoryId`, `categoryName`, `image`, `status`, `type`) VALUES
-(9, 0, 'Standard & Medium Resorts', NULL, 1, 1),
-(10, 0, 'Luxurey & Supper Luxury Resort', NULL, 1, 1),
-(7, 0, 'Tour & Package', NULL, 1, 2),
-(8, 0, 'Cheap Holidays', NULL, 1, 1);
+(5, 0, 'Standard  & Medium Resort', NULL, 1, 1),
+(3, 0, 'Tour & Package', NULL, 1, 2),
+(4, 0, 'Cheap Holidays', NULL, 1, 1),
+(6, 0, 'Luxurey & Supper Luxury Resort', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -389,26 +389,26 @@ INSERT INTO `country` (`countryId`, `countryCode`, `countryName`) VALUES
 
 DROP TABLE IF EXISTS `enjay_type`;
 CREATE TABLE IF NOT EXISTS `enjay_type` (
-  `enjayTypeId` int(11) NOT NULL AUTO_INCREMENT,
+  `enjoyTypeId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(110) NOT NULL,
   `image` varchar(100) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`enjayTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`enjoyTypeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `enjay_type`
 --
 
-INSERT INTO `enjay_type` (`enjayTypeId`, `name`, `image`, `status`) VALUES
-(21, 'Honeymoon', '95339faca46918263f2662851a7a1c89.png', 1),
-(22, 'Diving', 'a6dca6ce3f381a30f53e922df85f0cf7.png', 1),
-(23, 'Family', '896ad23219acc5cdd827510787935eb4.png', 1),
-(24, 'Business', '4359231f88baba33c9d23032181f8f5b.png', 1),
-(25, 'Leisure', 'b82eaa12e6a69d44bc404e7f1ce50597.png', 1),
-(26, 'Excursion', 'a3c533c4f14a8d3b5e2242d8cbafcc16.png', 1),
-(27, 'Restaurant', '732e24c80aec8462fa2590a63fce9b8d.png', 1),
-(28, 'Bar', 'e0acb9e97e9bddf5a9157eaed43953d8.png', 1);
+INSERT INTO `enjay_type` (`enjoyTypeId`, `name`, `image`, `status`) VALUES
+(13, 'Honeymoon', 'ee1bb5acb055f13e052fb3c71d87cd2b.png', 1),
+(14, 'Diving', 'd8e80f6c21b36d8c0ebb73f38dc59a54.png', 1),
+(15, 'Family', 'b7cde38f0bd15d096badb539fd4d8800.png', 1),
+(16, 'Business', 'a61db79ac6574a01cf5efa374a056f0e.png', 1),
+(17, 'Leisure', '3538b506c45440923b4570072db0693c.png', 1),
+(18, 'Excursion', '2bb48c798c052e3de0680158bea59a6d.png', 1),
+(19, 'Restaurant', 'ada3429125c79d84c59beff8dd954253.png', 1),
+(20, 'Bar', '3959a1c5e19bdfc7f8be1c0b16bbb88d.png', 1);
 
 -- --------------------------------------------------------
 
@@ -475,7 +475,6 @@ CREATE TABLE IF NOT EXISTS `menu_category` (
   `menuCategoryName` varchar(50) NOT NULL,
   `menuParentCategoryId` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(2) NOT NULL DEFAULT '1',
-  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=>Resort,1=>Tour',
   PRIMARY KEY (`menuCategoryId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -483,8 +482,8 @@ CREATE TABLE IF NOT EXISTS `menu_category` (
 -- Dumping data for table `menu_category`
 --
 
-INSERT INTO `menu_category` (`menuCategoryId`, `menuCategoryName`, `menuParentCategoryId`, `status`, `type`) VALUES
-(1, 'Resort', 0, 1, 0);
+INSERT INTO `menu_category` (`menuCategoryId`, `menuCategoryName`, `menuParentCategoryId`, `status`) VALUES
+(1, 'Resort', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -511,14 +510,14 @@ CREATE TABLE IF NOT EXISTS `resort` (
   `contactInfo` varchar(350) NOT NULL,
   `categoryId` int(11) NOT NULL,
   PRIMARY KEY (`resortId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort`
 --
 
 INSERT INTO `resort` (`resortId`, `title`, `shortBody`, `body`, `overview`, `mapZoomLevel`, `latitude`, `longitude`, `addedDate`, `status`, `metaDescription`, `metaKeywords`, `metaTitle`, `location`, `contactInfo`, `categoryId`) VALUES
-(5, 'Bandus Island', NULL, NULL, 'Bandus Island', 6, '20.1234', '85.2345', '2017-08-09 02:51:43', 1, 'Bandus Island', 'Bandus Island', 'Bandus Island', 'Bandus Island', '<p>\r\n contract info<br>\r\n  </p>', 9);
+(3, 'Bandos Maldives', NULL, NULL, 'Bandos Maldives', 1, '25.299999', '28.299999', '2017-06-30 16:47:43', 1, 'Bandos Maldives meta description', 'Bandos Maldives meta', 'Bandos Maldives meta title', 'Hulumale Island', '<p>\r\n value="</p>\r\n<p>\r\n Bandos Maldives<br>\r\n  </p>\r\n<p>\r\n "</p>', 0);
 
 -- --------------------------------------------------------
 
@@ -532,26 +531,7 @@ CREATE TABLE IF NOT EXISTS `resort_enjay_type` (
   `resortId` int(11) NOT NULL,
   `enjayTypeId` int(11) NOT NULL,
   PRIMARY KEY (`resortEnjayTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resort_enjay_type`
---
-
-INSERT INTO `resort_enjay_type` (`resortEnjayTypeId`, `resortId`, `enjayTypeId`) VALUES
-(1, 4, 13),
-(2, 4, 16),
-(3, 4, 17),
-(4, 4, 18),
-(5, 4, 19),
-(6, 4, 20),
-(7, 5, 21),
-(8, 5, 22),
-(9, 5, 23),
-(10, 5, 25),
-(11, 5, 26),
-(12, 5, 27),
-(13, 5, 28);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -581,7 +561,7 @@ CREATE TABLE IF NOT EXISTS `resort_facility` (
   `resortId` int(11) NOT NULL,
   `facilityId` int(11) NOT NULL,
   PRIMARY KEY (`resortFacilityId`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_facility`
@@ -597,10 +577,9 @@ INSERT INTO `resort_facility` (`resortFacilityId`, `resortId`, `facilityId`) VAL
 (7, 1, 7),
 (8, 1, 8),
 (9, 1, 9),
-(23, 5, 1),
-(24, 5, 2),
-(25, 5, 5),
-(26, 5, 6);
+(16, 3, 1),
+(17, 3, 2),
+(18, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -614,7 +593,7 @@ CREATE TABLE IF NOT EXISTS `resort_factfile` (
   `resortId` int(11) NOT NULL,
   `factfileId` int(11) NOT NULL,
   PRIMARY KEY (`resortFactfileId`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_factfile`
@@ -629,10 +608,10 @@ INSERT INTO `resort_factfile` (`resortFactfileId`, `resortId`, `factfileId`) VAL
 (6, 1, 6),
 (7, 1, 7),
 (8, 1, 8),
-(26, 5, 2),
-(27, 5, 3),
-(28, 5, 4),
-(29, 5, 6);
+(18, 3, 1),
+(19, 3, 2),
+(20, 3, 3),
+(21, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -649,17 +628,14 @@ CREATE TABLE IF NOT EXISTS `resort_image` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `featured` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`resortImageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_image`
 --
 
 INSERT INTO `resort_image` (`resortImageId`, `resortId`, `image`, `caption`, `status`, `featured`) VALUES
-(17, 5, '498245206ddaaeee8d6645f484c11e45.jpg', NULL, 1, 0),
-(18, 5, 'bc29834e1b86d6e7cc21b1009c5be171.jpg', NULL, 1, 0),
-(19, 5, 'b201e424056c7155dfaf21f72092e2e3.jpg', NULL, 1, 0),
-(20, 5, 'e536368eaefb0ce8d8c7aa20ef749362.jpg', NULL, 1, 0);
+(16, 3, 'a7ff9b9e4502856f155464d2282a3e29.jpg', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -736,14 +712,14 @@ CREATE TABLE IF NOT EXISTS `resort_sports_recreation` (
   `resortId` int(11) NOT NULL,
   `sportsRecreationId` int(11) NOT NULL,
   PRIMARY KEY (`resortSportsRecreationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `resort_sports_recreation`
 --
 
 INSERT INTO `resort_sports_recreation` (`resortSportsRecreationId`, `resortId`, `sportsRecreationId`) VALUES
-(5, 5, 2);
+(3, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -787,20 +763,6 @@ CREATE TABLE IF NOT EXISTS `room_type` (
 INSERT INTO `room_type` (`roomTypeId`, `roomType`, `status`) VALUES
 (2, 'tet', 1),
 (3, 'Standard Room', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `services`
---
-
-DROP TABLE IF EXISTS `services`;
-CREATE TABLE IF NOT EXISTS `services` (
-  `serviceId` int(11) NOT NULL AUTO_INCREMENT,
-  `services` varchar(250) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`serviceId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -974,99 +936,6 @@ INSERT INTO `system_constants` (`constantId`, `constantName`, `constantValue`, `
 (5, 'SupportEmail', 'judhisahoo@gmail.com', 'Email id for support inquiry message'),
 (6, 'MetaDescription', 'Maldive traverller  For You Description', ''),
 (7, 'ContactNo', '9556644964', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tours`
---
-
-DROP TABLE IF EXISTS `tours`;
-CREATE TABLE IF NOT EXISTS `tours` (
-  `toursId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `description` int(11) NOT NULL,
-  `chargesPerPerson` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`toursId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tours_enjay_type`
---
-
-DROP TABLE IF EXISTS `tours_enjay_type`;
-CREATE TABLE IF NOT EXISTS `tours_enjay_type` (
-  `toursEnjayTypeId` int(11) NOT NULL AUTO_INCREMENT,
-  `toursId` int(11) NOT NULL,
-  `enjayTypeId` int(11) NOT NULL,
-  PRIMARY KEY (`toursEnjayTypeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tours_enjay_type_ratting`
---
-
-DROP TABLE IF EXISTS `tours_enjay_type_ratting`;
-CREATE TABLE IF NOT EXISTS `tours_enjay_type_ratting` (
-  `toursEnjayTypeRattingId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `toursEnjayTypeId` int(11) NOT NULL,
-  `ratting` int(11) NOT NULL,
-  `IP` varchar(20) NOT NULL,
-  `addedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`toursEnjayTypeRattingId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tours_image`
---
-
-DROP TABLE IF EXISTS `tours_image`;
-CREATE TABLE IF NOT EXISTS `tours_image` (
-  `toursImageId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `toursId` int(11) NOT NULL,
-  `image` varchar(250) NOT NULL,
-  `caption` varchar(250) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `featured` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`toursImageId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tours_ratting`
---
-
-DROP TABLE IF EXISTS `tours_ratting`;
-CREATE TABLE IF NOT EXISTS `tours_ratting` (
-  `toursRattingId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `toursId` int(11) NOT NULL,
-  `ratting` int(11) NOT NULL,
-  `IP` varchar(20) NOT NULL,
-  `addedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`toursRattingId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tours_services`
---
-
-DROP TABLE IF EXISTS `tours_services`;
-CREATE TABLE IF NOT EXISTS `tours_services` (
-  `toursServicesId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `toursId` int(11) NOT NULL,
-  `serviceId` int(11) NOT NULL,
-  PRIMARY KEY (`toursServicesId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

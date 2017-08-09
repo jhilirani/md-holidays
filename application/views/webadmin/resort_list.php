@@ -336,7 +336,7 @@ function AskDelete(id){
     <td align="left" valign="top">
         <?php foreach($resortEnjayTypeArr AS $k):?>
             <label class="checkbox-inline col-md-3">
-                <input type="checkbox" name="enjoyType[]" required="required" value="<?php echo $k->enjoyTypeId;?>"><?php echo $k->name;?>
+                <input type="checkbox" name="enjayType[]" required="required" value="<?php echo $k->enjayTypeId;?>"><?php echo $k->name;?>
             </label>
         <?php endforeach;?>
     </td>

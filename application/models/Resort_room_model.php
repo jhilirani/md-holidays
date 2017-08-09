@@ -120,7 +120,7 @@ class Resort_room_model extends CI_Model {
     
     function all_rooms_by_resort_id($resortId){
         $rs=  $this->db->get_where($this->_table,array('resortId'=>$resortId))->result();
-        echo $this->db->last_query();die;
+        //echo $this->db->last_query();die;
         return $rs;
     }
 }

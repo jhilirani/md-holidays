@@ -33,7 +33,7 @@ function ShowAddAdminBox(){
 	}else{
 		document.AdminEdit.Editstatus[1].checked=true;
 	}
-	$('#enjoyTypeId').val(DataArr[id]['enjoyTypeId']);
+	$('#enjayTypeId').val(DataArr[id]['enjayTypeId']);
 	
  }
 
@@ -101,19 +101,19 @@ function AskDelete(id){
     <td><?php echo ($InerArr->status=='1')?'Active':'Inactive';?></td>
     <td>
 	<?php if($InerArr->status=='1'){$action=0;}else{$action=1;}?>
-	<a href="<?php echo base_url().'webadmin/enjay_type/change_status/'.$InerArr->enjoyTypeId.'/'.$action;?>" class="AdminDashBoardLinkText"><?php if($InerArr->status=='1'){?><img src="<?php echo SiteImagesURL.'webadmin/';?>active1.png" alt="Inactive" title="Active" /><?php }else{?><img src="<?php echo SiteImagesURL.'webadmin/';?>inactive1.png" alt="Inactive" title="Inactive" /><?php }?></a>
+	<a href="<?php echo base_url().'webadmin/enjay_type/change_status/'.$InerArr->enjayTypeId.'/'.$action;?>" class="AdminDashBoardLinkText"><?php if($InerArr->status=='1'){?><img src="<?php echo SiteImagesURL.'webadmin/';?>active1.png" alt="Inactive" title="Active" /><?php }else{?><img src="<?php echo SiteImagesURL.'webadmin/';?>inactive1.png" alt="Inactive" title="Inactive" /><?php }?></a>
 	&nbsp;&nbsp;
-	<a href="javascript:void(0);" onclick="ShowEditBox('<?php echo $InerArr->enjoyTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>edit.png" width="15" height="15" title="Edit"/></a>
+	<a href="javascript:void(0);" onclick="ShowEditBox('<?php echo $InerArr->enjayTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>edit.png" width="15" height="15" title="Edit"/></a>
 	&nbsp;&nbsp;
-	<a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->enjoyTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>delete.png" width="15" height="15" title="Delete"/></a>
+	<a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->enjayTypeId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>delete.png" width="15" height="15" title="Delete"/></a>
 	</td> 
   </tr>
   <script language="javascript">
-  DataArr[<?php echo $InerArr->enjoyTypeId?>]=new Array();
-  DataArr[<?php echo $InerArr->enjoyTypeId?>]['enjoyTypeId']='<?php echo $InerArr->enjoyTypeId?>';
-  DataArr[<?php echo $InerArr->enjoyTypeId?>]['image']='<?php echo $InerArr->image?>';
-  DataArr[<?php echo $InerArr->enjoyTypeId?>]['name']='<?php echo $InerArr->name?>';
-  DataArr[<?php echo $InerArr->enjoyTypeId?>]['status']='<?php echo $InerArr->status?>';
+  DataArr[<?php echo $InerArr->enjayTypeId?>]=new Array();
+  DataArr[<?php echo $InerArr->enjayTypeId?>]['enjayTypeId']='<?php echo $InerArr->enjayTypeId?>';
+  DataArr[<?php echo $InerArr->enjayTypeId?>]['image']='<?php echo $InerArr->image?>';
+  DataArr[<?php echo $InerArr->enjayTypeId?>]['name']='<?php echo $InerArr->name?>';
+  DataArr[<?php echo $InerArr->enjayTypeId?>]['status']='<?php echo $InerArr->status?>';
   </script>
   <?php $val++;}?>
   </tbody>
@@ -189,7 +189,7 @@ function AskDelete(id){
     <td align="left" valign="top"><label></label></td>
     <td align="left" valign="top"><input type="submit" name="Submit3" value="Submit" class="btn btn-success"/>&nbsp;&nbsp;&nbsp;
       <input type="button" name="Submit22" value="Cancel" onclick="return CancelAdd();" class="btn btn-primary"/>
-	  <input  type="hidden" name="enjoyTypeId"  id="enjoyTypeId" value=""/>
+	  <input  type="hidden" name="enjayTypeId"  id="enjayTypeId" value=""/>
 	  <input  type="hidden" name="Editimage" id="Editimage" value=""/></td>
   </tr>
   <tr>
