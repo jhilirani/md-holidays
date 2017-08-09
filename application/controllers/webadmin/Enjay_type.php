@@ -82,7 +82,7 @@ class Enjay_type extends MY_Controller {
             $colVal=trim($this->input->post('Edit'.$k, TRUE));
             $dataArr[$k]=$colVal;
         }
-        $enjoyTypeId = $this->input->post('enjoyTypeId', TRUE);
+        $enjayTypeId = $this->input->post('enjayTypeId', TRUE);
         $Editimage = $this->input->post('Editimage', TRUE);
         if($_FILES['Edit'.$this->_image_main_path]['name']!=""){
             $upload_path=AssetsPath.$this->_image_main_path.'/';
@@ -118,21 +118,21 @@ class Enjay_type extends MY_Controller {
             $this->delete_image($Editimage);
         }
         //print_r($dataArr);die;
-        $this->Enjay_type_model->edit($dataArr, $enjoyTypeId);
+        $this->Enjay_type_model->edit($dataArr, $enjayTypeId);
         $this->session->set_flashdata('Message', 'Resort enjay type  updated successfully.');
         redirect(base_url() . 'webadmin/enjay_type/viewlist');
     }
 
-    public function change_status($enjoyTypeId, $Action) {
-        $this->Enjay_type_model->edit(array('status'=>$Action), $enjoyTypeId);
+    public function change_status($enjayTypeId, $Action) {
+        $this->Enjay_type_model->edit(array('status'=>$Action), $enjayTypeId);
 
         $this->session->set_flashdata('Message', 'Resort enjay type  status updated successfully.');
         redirect(base_url() . 'webadmin/enjay_type/viewlist');
     }
 
-    public function delete($enjoyTypeId) {
-        $rs=  $this->db->get_where('enjay_type',array('enjoyTypeId'=>$enjoyTypeId))->result();
-        $this->Enjay_type_model->delete($enjoyTypeId);
+    public function delete($enjayTypeId) {
+        $rs=  $this->db->get_where('enjay_type',array('enjayTypeId'=>$enjayTypeId))->result();
+        $this->Enjay_type_model->delete($enjayTypeId);
         $this->delete_image($rs[0]->image);
         $this->session->set_flashdata('Message', 'Resort enjay type  deleted successfully.');
         redirect(base_url() . 'webadmin/enjay_type/viewlist');

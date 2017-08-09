@@ -57,8 +57,9 @@ if ( ! function_exists('pre')){
 if ( ! function_exists('jmultiple_array_search')){
     function jmultiple_array_search($id,$column, $dataArray){ //die('rrr');
        foreach ($dataArray as $key => $val) {
-           //pre($val);
-           //echo $column.'<br>';
+           //pre($val); //die;
+           echo $column.'<br>'; //die;
+           echo $val[$column];die;
            //echo $val[$column].' = '.$id .'<br>';//die;
            if ($val[$column] == $id) {
                //echo $key;die;

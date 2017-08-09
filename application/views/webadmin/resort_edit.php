@@ -1,24 +1,13 @@
 <?php
 echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
 <table cellspacing=5 cellpadding=5 width=90% border=0 >
-  <tr>
-    <td style="padding-left:50px;">&nbsp;</td>
-  </tr>
-  
-<tr>
-    <td style="padding-left:5px;"><span class="PageHeading">Resort Edit for <?php echo $dataArr[0]->title?></span></td>
-  </tr>
-  
-  <tr>
-    <td style="padding-left:5px;">&nbsp;</td>
-  </tr>
   
   <tr>
   <td valign="top"> 
   
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td height="30px;"></td>
+    <td></td>
   </tr>
   
   <tr>
@@ -185,7 +174,7 @@ echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">&nbsp;</td>
   </tr>
-  <tr>
+  <?php /*<tr>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Select Factfile </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
@@ -235,22 +224,23 @@ echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
             </label>
         <?php endforeach;?>
     </td>
-  </tr>
+  </tr> */?>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top">&nbsp;</td>
   </tr>
-  <?php //pre($resortEnjayTypeArr);?>
+  <?php //pre($selectedEnjayTypeDataArr);die;?>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Select Enjay type</td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top">
-        <?php foreach($resortEnjayTypeArr AS $k):?>
+        <?php foreach($resortEnjayTypeArr AS $k): //pre($k);die;?>
             <label class="checkbox-inline col-md-3">
-                <input type="checkbox" name="enjoyType[]" required="required" value="<?php echo $k->enjoyTypeId;?>"><?php echo $k->name;?>
+                <?php $srch=jmultiple_array_search($k->enjayTypeId,'enjayTypeId',$selectedEnjayTypeDataArr);?>
+                <input type="checkbox" name="enjayType[]" required="required" value="<?php echo $k->enjayTypeId;?>" <?php if($srch!='-1'){?>checked<?php }?>><?php echo $k->name;?>
             </label>
         <?php endforeach;?>
     </td>

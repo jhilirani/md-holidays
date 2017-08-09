@@ -12,11 +12,11 @@ class Category extends MY_Controller{
 	
 	public function viewlist(){
             $data=$this->_show_admin_logedin_layout();
-            $data['pageTitle']="Category Manager";
-            $data['pageSubtitle']="Category List";
+            $data['pageTitle']="Menu Manager";
+            $data['pageSubtitle']="Menu List";
             $data['contName']="category";
             $data['contAction']="viewlist";
-            $data['contNameLabel']="Category Manager";
+            $data['contNameLabel']="Menu Manager";
             $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
             $data['DataArr']=$this->Category_model->get_all();
             $this->load->view('webadmin/category_list',$data);
