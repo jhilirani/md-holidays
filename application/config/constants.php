@@ -107,6 +107,10 @@ define('ResortImgURL',SiteAssetsURL.'resort_images/');
 define('ResortSmallImageURL',ResortImgURL.'100X100/');
 define('ResortModiumURL',ResortImgURL.'300X300/');
 
+define('ToursImgURL',SiteAssetsURL.'tours_images/');
+define('ToursSmallImageURL',ToursImgURL.'100X100/');
+define('ToursModiumURL',ToursImgURL.'300X300/');
+
 define('ResortRoomImgURL',SiteAssetsURL.'resort_room_images/');
 define('ResortRoomImgSmallImageURL',ResortRoomImgURL.'100X100/');
 define('ResortRoomImgModiumURL',ResortRoomImgURL.'300X300/');
