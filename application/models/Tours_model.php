@@ -24,12 +24,12 @@ class Tours_model extends CI_Model {
     }
     
     function add_services($dataArr) {
-        $this->db->insert($this->_table_services, $dataArr);
+        $this->db->insert_batch($this->_table_services, $dataArr);
         return $this->db->insert_id();
     }
     
     function add_enjay_type($dataArr) {
-        $this->db->insert($this->_table_enjay_type, $dataArr);
+        $this->db->insert_batch($this->_table_enjay_type, $dataArr);
         return $this->db->insert_id();
     }
 
@@ -61,7 +61,10 @@ class Tours_model extends CI_Model {
     }
     
     function get_all_admin() {
-        $rs = $this->db->get($this->_table)->result();
+        $this->db->select('t.*,ti.image')->from($this->_table." as t");
+        $this->db->join($this->_table_image." AS ti",'ti.toursId=t.toursId','left');
+        $rs=$this->db->where('t.status',1)->get()->result();
+        //echo $this->db->last_query();die;
         return $rs;
     }
 

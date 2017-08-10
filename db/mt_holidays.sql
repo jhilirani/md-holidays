@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2017 at 09:22 PM
+-- Generation Time: Aug 10, 2017 at 09:55 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -796,11 +796,23 @@ INSERT INTO `room_type` (`roomTypeId`, `roomType`, `status`) VALUES
 
 DROP TABLE IF EXISTS `services`;
 CREATE TABLE IF NOT EXISTS `services` (
-  `serviceId` int(11) NOT NULL AUTO_INCREMENT,
+  `servicesId` int(11) NOT NULL AUTO_INCREMENT,
   `services` varchar(250) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`serviceId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`servicesId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`servicesId`, `services`, `status`) VALUES
+(2, 'Pickup services from male and hulumale', 1),
+(3, 'Crouse ship passengers picked up where tender boat arives', 1),
+(4, 'Roundtrip transfer', 1),
+(5, 'Entrance fee', 1),
+(6, 'buffet launch', 1),
+(7, 'Beach Towel', 1);
 
 -- --------------------------------------------------------
 
@@ -988,8 +1000,18 @@ CREATE TABLE IF NOT EXISTS `tours` (
   `description` int(11) NOT NULL,
   `chargesPerPerson` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
+  `metaDescription` varchar(400) NOT NULL,
+  `metaKeywords` varchar(350) NOT NULL,
+  `metaTitle` varchar(300) NOT NULL,
   PRIMARY KEY (`toursId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tours`
+--
+
+INSERT INTO `tours` (`toursId`, `title`, `description`, `chargesPerPerson`, `status`, `metaDescription`, `metaKeywords`, `metaTitle`) VALUES
+(3, 'Maldeves Tours : Day Visit to Adaaran Prestige Vadoo', 0, 200, 1, 'Maldeves Tours : Day Visit to Adaaran Prestige Vadoo', 'Maldeves Tours : Day Visit to Adaaran Prestige Vadoo', 'Maldeves Tours : Day Visit to Adaaran Prestige Vadoo');
 
 -- --------------------------------------------------------
 
@@ -1003,7 +1025,19 @@ CREATE TABLE IF NOT EXISTS `tours_enjay_type` (
   `toursId` int(11) NOT NULL,
   `enjayTypeId` int(11) NOT NULL,
   PRIMARY KEY (`toursEnjayTypeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tours_enjay_type`
+--
+
+INSERT INTO `tours_enjay_type` (`toursEnjayTypeId`, `toursId`, `enjayTypeId`) VALUES
+(1, 3, 21),
+(2, 3, 23),
+(3, 3, 25),
+(4, 3, 26),
+(5, 3, 27),
+(6, 3, 28);
 
 -- --------------------------------------------------------
 
@@ -1064,9 +1098,20 @@ DROP TABLE IF EXISTS `tours_services`;
 CREATE TABLE IF NOT EXISTS `tours_services` (
   `toursServicesId` bigint(20) NOT NULL AUTO_INCREMENT,
   `toursId` int(11) NOT NULL,
-  `serviceId` int(11) NOT NULL,
+  `servicesId` int(11) NOT NULL,
   PRIMARY KEY (`toursServicesId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tours_services`
+--
+
+INSERT INTO `tours_services` (`toursServicesId`, `toursId`, `servicesId`) VALUES
+(1, 3, 2),
+(2, 3, 3),
+(3, 3, 4),
+(4, 3, 6),
+(5, 3, 7);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -118,6 +118,18 @@
                     <li class="active"><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>-->
                 </ul>
             </li>
+            <li class="treeview">
+                <a href="javascript:void(0);">
+                    <i class="fa fa-tags"></i><i class="fa fa-bus"></i><i class="fa fa-suitcase"></i><span>Tour</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo ADMIN_BASE_URL.'tours/viewlist';?>"><i class="fa fa-bus"></i><i class="fa fa-suitcase"></i>Tour Manager</a></li>
+                    <li><a href="<?php echo ADMIN_BASE_URL.'services/viewlist';?>"><i class="fa fa-tasks"></i><i class="fa fa-shield"></i>Tour Services Manager</a></li>
+                </ul>
+            </li>    
         </ul>
     </section>
     <!-- /.sidebar -->
