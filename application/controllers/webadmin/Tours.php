@@ -191,16 +191,14 @@ class Tours extends MY_Controller {
         //echo 'comming for delete to id '.$id;die;
         $No = $this->Tours_model->delete($id);
         if ($No > 0) {
-            $this->load->model('Resort_image_model'); //delete_resort_image
-            $allResortImages=$this->Resort_image_model->get_data_generic_fun('*',array('resortId'=>$id),'result_arr');
-            foreach ($allResortImages AS $k){
+            $this->load->model('Tours_image_model'); //delete_resort_image
+            $allToursImages=$this->Tours_image_model->get_data_generic_fun('*',array('toursId'=>$id),'result_arr');
+            foreach ($allToursImages AS $k){
                 $this->delete_image($k->image);
             }
-            $this->Resort_image_model->delete_all_image_by_resort_id($id);
-            $this->Tours_model->remove_factfile($id);
-            $this->Tours_model->remove_facility($id);
-            $this->Tours_model->remove_sports_recreation($id);
-            $this->delete_all_rooms($id);
+            $this->Tours_image_model->delete_all_image_by_tours_id($id);
+            $this->Tours_model->delete_services($id);
+            $this->Tours_model->delete_enjay_type($id);
             $this->session->set_flashdata('UserListPageMsg', 'Record deleted successfully.');
             redirect($this->config->item('base_url') . 'webadmin/tours/');
         } else {
@@ -221,8 +219,8 @@ class Tours extends MY_Controller {
     }
     
     public function image_change_status($resortId, $status,$resortImageId) {
-        $this->load->model("Resort_image_model");
-        $No = $this->Resort_image_model->edit(array('status'=>$status), $resortImageId);
+        $this->load->model("Tours_image_model");
+        $No = $this->Tours_image_model->edit(array('status'=>$status), $resortImageId);
         if ($No > 0) {
             $this->session->set_flashdata('UserListPageMsg', 'Record status changed successfully.');
             redirect($this->config->item('base_url') . 'webadmin/tours/view_images/'.$resortId);
@@ -234,7 +232,7 @@ class Tours extends MY_Controller {
     
     function view_images($Id){
         if($Id==""){
-            redirect(ADMIN_BASE_URL.'resort/viewlist');
+            redirect(ADMIN_BASE_URL.'tours/viewlist');
         }
         $details=$this->Tours_model->details($Id);
         //pre($details);die;
@@ -243,7 +241,7 @@ class Tours extends MY_Controller {
         $this->load->helper("ckeditor");
         $data = $this->_show_admin_logedin_layout();
         $data['pageTitle']="Manage Resort Images of ".$details[0]->title;
-        $data['pageSubtitle']="Manage Resort Images of ".$details[0]->title;
+        $data['pageSubtitle']=""; //"Manage Resort Images of ".$details[0]->title;
         $data['contName']="resort";
         $data['contAction']="viewlist/";
         $data['contNameLabel']="Manage Resort";
@@ -256,43 +254,36 @@ class Tours extends MY_Controller {
         
         $data["details"] = $details;
         $data["DataArr"] = $allImg;
-        $this->load->view('webadmin/resort_images_list', $data);
+        $this->load->view('webadmin/tours_images_list', $data);
     }
     
-    function delete_resort_image($resortImageId,$resortId){
-        $this->load->model("Resort_image_model");
-        $imageArr=$this->Resort_image_model->get_data_generic_fun('*',array('resortImageId'=>$resortImageId));
+    function delete_tours_image($toursImageId,$toursId){
+        $this->load->model("Tours_image_model");
+        $imageArr=$this->Tours_image_model->get_data_generic_fun('*',array('toursImageId'=>$toursImageId));
         //pre($imageArr);die;
-        $act=  $this->Resort_image_model->delete($resortImageId);
+        $act=  $this->Tours_image_model->delete($toursImageId);
         if($act){
             foreach($imageArr AS $k){
                 $this->delete_image($k->image);
             }
         }
         $this->session->set_flashdata('UserListPageMsg', 'Record deleted successfully.');
-        redirect(ADMIN_BASE_URL.'resort/view_images/'.$resortId);
+        redirect(ADMIN_BASE_URL.'tours/view_images/'.$toursId);
     }
     
-    function delete_image($file_name,$image_type='main'){
+    function delete_image($file_name){
         foreach($this->_resize_file_array As $k){
-            if($image_type=='main')
-                $upload_path=AssetsPath.$this->_image_main_path;
-            else
-                $upload_path=AssetsPath.$this->_room_image_main_path.'/';
-            
+            $upload_path=AssetsPath.$this->_image_main_path;
             @unlink($upload_path.$k.'/'.$file_name);
         }
         @unlink($upload_path.$file_name);
     }
     
-    function resize_image($full_path,$file_name,$image_type='main'){
+    function resize_image($full_path,$file_name){
         $this->load->library('image_lib');
         $is_file_error=FALSE;
         foreach($this->_resize_file_array As $k){
-            if($image_type=='main')
-                $upload_path=AssetsPath.$this->_image_main_path;
-            else
-                $upload_path=AssetsPath.$this->_room_image_main_path.'/';
+            $upload_path=AssetsPath.$this->_image_main_path;
             $imagePathArr=  explode('X', $k);
 
             $config2['image_library'] = 'gd2';
@@ -322,244 +313,4 @@ class Tours extends MY_Controller {
         }
     }
     
-    function view_rooms($id){ 
-        $this->load->model('Resort_room_type_model');
-        $allRooms=$this->Tours_model->get_rooms($id);
-        //pre($allRooms);die;
-        $data = $this->_show_admin_logedin_layout();
-        $data['resortTitle']=$allRooms[0]['resortTitle'];
-        $data['pageTitle']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
-        $data['pageSubtitle']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
-        $roomTypeDataArr=$this->Resort_room_type_model->get_all();
-        //pre($roomTypeDataArr);die;
-        $data['roomTypeDataArr']=$roomTypeDataArr;
-        
-        $data['contName']="resort";
-        $data['contAction']="viewlist/";
-        $data['contNameLabel']="Manage Resort";
-        
-        $data['secondContName']="resort";
-        $data['secondContAction']="view_rooms/".$id;
-        $data['secondContNameLabel']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
-        $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
-        $data["DataArr"] = $allRooms;
-        $data["resortId"] = $id;
-        $this->load->view('webadmin/resort_room_list', $data);
-    }
-    
-    function add_room(){
-        $dataArr=array();
-        foreach($this->_ins_room_columnArr AS $k){
-            $colVal=trim($this->input->post($k, TRUE));
-            $dataArr[$k]=$colVal;
-        }
-        $resortId=$dataArr['resortId'];
-        $noOfBookingPeriod=  $this->input->post('noOfBookingPeriod');
-        //pre($resortId);
-        $allRoomChargesDataArr=array();
-        for($i=1;$i<$noOfBookingPeriod+1;$i++){
-            $roomChargesDataArr=array();
-            foreach($this->_ins_room_booking_columnArr AS $k){  //echo $k.' == '.$v.'<br>';
-                $colVal=trim($this->input->post($k.$i, TRUE));
-                $roomChargesDataArr[$k]=$colVal;
-            }
-            $bookingStartDateArr=  explode('-',trim($this->input->post('bookingStartDate'.$i, TRUE)));
-            $bookingEndDateArr=  explode('-',trim($this->input->post('bookingEndDate'.$i, TRUE)));
-            $roomChargesDataArr['bookingStartDate']=$bookingStartDateArr[2].'-'.$bookingStartDateArr[1].'-'.$bookingStartDateArr[0];
-            $roomChargesDataArr['bookingEndDate']=$bookingEndDateArr[2].'-'.$bookingEndDateArr[1].'-'.$bookingEndDateArr[0];
-            //pre($roomChargesDataArr);die;
-            $allRoomChargesDataArr[]=$roomChargesDataArr;
-        }
-        //pre($allRoomChargesDataArr);
-        //pre($_FILES);die;
-        //echo $this->_room_image_main_path;die;
-        if($_FILES[$this->_room_image_main_path]['name']!=""){
-            $upload_path=AssetsPath.$this->_room_image_main_path."/";
-            $config['upload_path'] = $upload_path;
-            $config['allowed_types'] = 'jpg|png|gif';
-            $config['max_size'] = '0';
-            $config['max_filename'] = '255';
-            $config['encrypt_name'] = TRUE;
-            $config['quality'] = "50";
-            //pre($config);die;
-            $image_data = array();
-            //$is_file_error = FALSE;
-
-            //load the preferences
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload($this->_room_image_main_path)) {
-                //if file upload failed then catch the errors
-                $errMsg=$this->upload->display_errors();
-                //die($errMsg);
-                $this->session->set_flashdata('Message',$errMsg);
-                redirect(base_url().'webadmin/tours/view_rooms/'.$resortId);
-            }else{
-                $image_data = $this->upload->data();
-                $is_resize_done=$this->resize_image($image_data['full_path'],$image_data['file_name'],'room_image');
-            }
-            //die($is_resize_done);
-            if($is_resize_done != 1){
-                $this->session->set_flashdata('Message',$is_resize_done);
-                redirect(base_url().'webadmin/tours/view_rooms/'.$resortId);
-            }else{
-                $dataArr['image']=$image_data['file_name'];
-                $this->load->model('Resort_room_model');
-                $this->load->model('Resort_room_charges_model');
-                //pre($dataArr);die;
-                $resortRoomId=$this->Resort_room_model->add($dataArr);
-                $newAllRoomChargesDataArr=array();
-                foreach($allRoomChargesDataArr AS $k => $v){
-                    $v['resortRoomId']=$resortRoomId;
-                    $newAllRoomChargesDataArr[]=$v;
-                }
-                //pre($newAllRoomChargesDataArr);die;
-                $this->Resort_room_charges_model->add_bulk($newAllRoomChargesDataArr);
-            }
-        }else{
-            $this->session->set_flashdata('Message','Invalid room image uploaded.');
-        }
-        redirect(base_url().'webadmin/tours/view_rooms/'.$resortId);	
-    }
-    
-    function view_edit_room($resortRoomId){
-        $this->load->model('Resort_room_charges_model');
-        $this->load->model('Resort_room_model');
-        $this->load->model('Resort_room_type_model');
-        $resortRoomChargesDetails=$this->Resort_room_charges_model->get_data_generic_fun('*',array('resortRoomId'=>$resortRoomId));
-        $resortRoomDetails=$this->Resort_room_model->get_room_details($resortRoomId);
-        $data = $this->_show_admin_logedin_layout();
-        $roomTypeDataArr=$this->Resort_room_type_model->get_all();
-        //pre($roomTypeDataArr);die;
-        $data['roomTypeDataArr']=$roomTypeDataArr;
-        //pre($resortRoomDetails);die;
-        $data['pageTitle']="Manage Resort Rooms of ".$resortRoomDetails[0]->title;
-        $data['pageSubtitle']="Manage Resort Rooms of ".$resortRoomDetails[0]->title;
-        
-        $data['contName']="resort";
-        $data['contAction']="viewlist/";
-        $data['contNameLabel']="Manage Resort";
-        
-        $data['secondContName']="resort";
-        $data['secondContAction']="view_rooms/".$resortRoomDetails[0]->resortId;
-        $data['secondContNameLabel']="Manage Resort Rooms of ".$resortRoomDetails[0]->title;
-        
-        $data['resortRoomChargesDetails']=$resortRoomChargesDetails;
-        $data['resortRoomDetails']=$resortRoomDetails;
-        $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
-        //pre($data);die;
-        $this->load->view('webadmin/edit_room_details',$data);
-    }
-    
-    function edit_room(){
-        $resortRoomId=  trim($this->input->post("resortRoomId",TRUE));
-        $resortId= trim($this->input->post("resortId",TRUE));
-        if($resortId=="" || $resortRoomId==""){
-            //$this->session->set_flashdata('Message','Invalid room image uploaded.');
-            redirect(ADMIN_BASE_URL.'resort');
-        }
-        
-        $dataArr=array();
-        foreach($this->_ins_room_columnArr AS $k){
-            $colVal=trim($this->input->post($k, TRUE));
-            $dataArr[$k]=$colVal;
-        }
-        //pre($dataArr);die;
-        //$resortId=$dataArr['resortId'];
-        $noOfBookingPeriod=  $this->input->post('noOfBookingPeriod');
-        echo '$noOfBookingPeriod : '.$noOfBookingPeriod;
-        //pre($_POST);
-        
-        $allRoomChargesDataArr=array();
-        for($i=1;$i<$noOfBookingPeriod+1;$i++){
-            $roomChargesDataArr=array();
-            foreach($this->_ins_room_booking_columnArr AS $k){  //echo $k.' == '.$v.'<br>';
-                $colVal=trim($this->input->post($k.$i, TRUE));
-                $roomChargesDataArr[$k]=$colVal;
-            }
-            //pre('bookingStartDate'.$i);
-            $bookingStartDateArr=  explode('-',trim($this->input->post('bookingStartDate'.$i, TRUE)));
-            $bookingEndDateArr=  explode('-',trim($this->input->post('bookingEndDate'.$i, TRUE)));
-            
-            //pre($bookingStartDateArr);pre($bookingEndDateArr);
-            
-            $roomChargesDataArr['bookingStartDate']=$bookingStartDateArr[2].'-'.$bookingStartDateArr[1].'-'.$bookingStartDateArr[0];
-            $roomChargesDataArr['bookingEndDate']=$bookingEndDateArr[2].'-'.$bookingEndDateArr[1].'-'.$bookingEndDateArr[0];
-            //pre($roomChargesDataArr);die;
-            $allRoomChargesDataArr[]=$roomChargesDataArr;
-        }
-        //pre($allRoomChargesDataArr);die;
-        if($_FILES[$this->_room_image_main_path]['name']!=""){
-            $upload_path=AssetsPath.$this->_room_image_main_path."/";
-            $config['upload_path'] = $upload_path;
-            $config['allowed_types'] = 'jpg|png|gif';
-            $config['max_size'] = '0';
-            $config['max_filename'] = '255';
-            $config['encrypt_name'] = TRUE;
-            $config['quality'] = "50";
-            //pre($config);die;
-            $image_data = array();
-            //$is_file_error = FALSE;
-
-            //load the preferences
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload($this->_room_image_main_path)) {
-                //if file upload failed then catch the errors
-                $errMsg=$this->upload->display_errors();
-                //die($errMsg);
-                $this->session->set_flashdata('Message',$errMsg);
-                redirect(base_url().'webadmin/tours/view_rooms/'.$resortId);
-            }else{
-                $image_data = $this->upload->data();
-                $is_resize_done=$this->resize_image($image_data['full_path'],$image_data['file_name'],'room_image');
-            }
-            //die($is_resize_done);
-            if($is_resize_done != 1){
-                $this->session->set_flashdata('Message',$is_resize_done);
-                redirect(base_url().'webadmin/tours/view_rooms/'.$resortId);
-            }else{
-                $dataArr['image']=$image_data['file_name'];
-            }
-        }
-        $this->load->model('Resort_room_model');
-        $this->load->model('Resort_room_charges_model');
-        //pre($dataArr);die;
-        $this->Resort_room_model->edit($dataArr,$resortRoomId);
-        $this->Resort_room_charges_model->delete_by_room_id($resortRoomId);
-        $newAllRoomChargesDataArr=array();
-        foreach($allRoomChargesDataArr AS $k => $v){
-            $v['resortRoomId']=$resortRoomId;
-            $newAllRoomChargesDataArr[]=$v;
-        }
-        //pre($newAllRoomChargesDataArr);die;
-        $this->Resort_room_charges_model->add_bulk($newAllRoomChargesDataArr);
-        redirect(base_url().'webadmin/tours/view_rooms/'.$resortId);	
-    }
-    
-    function delete_room($resortRoomId,$resortId){
-        $this->load->model('Resort_room_model');
-        $this->load->model('Resort_room_charges_model');
-        $resortRoomDetails=$this->Resort_room_model->get_room_details($resortRoomId);
-        $this->delete_image($resortRoomDetails[0]->image,'room_image');
-        $this->Resort_room_model->delete($resortRoomId);
-        $this->Resort_room_charges_model->delete_by_room_id($resortRoomId);
-        $this->session->set_flashdata('UserListPageMsg', 'Record deleted successfully.');
-        redirect(ADMIN_BASE_URL.'resort/view_rooms/'.$resortId);
-    }
-    
-    function delete_all_rooms($resortId){
-        $this->load->model('Resort_room_model');
-        $allRooms=  $this->Resort_room_model->all_rooms_by_resort_id($resortId);
-        foreach ($allRooms As $k){
-            $this->delete_room($k->resortRoomId);
-        }
-    }
-    
-    function change_room_status($resortRoomId,$action,$resortId){
-        $this->load->model('Resort_room_model');
-        $this->Resort_room_model->edit(array('status'=>$action),$resortRoomId);
-        $this->session->set_flashdata('UserListPageMsg', 'Record updated successfully.');
-        redirect(ADMIN_BASE_URL.'resort/view_rooms/'.$resortId);
-    }
 }

@@ -40,7 +40,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
 
     <tr>
         <td style="padding-left:10px;padding-bottom:10px;">
-            <input type="button" name="AddBtn" id="AddBtn" value="Add Resort Images" onclick="ShowAddAdminBox();" class="btn btn-primary" accesskey="x"/>
+            <input type="button" name="AddBtn" id="AddBtn" value="Add Tours Images" onclick="ShowAddAdminBox();" class="btn btn-primary" accesskey="x"/>
         </td>
     </tr>
     <script language="javascript">
@@ -61,27 +61,26 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
         }
 
         function showUpdateCaption(id) {
-            //$('#MessaeBox').html("");
-            //$('#AddBtn').hide();
-            //$('#PageHeading').hide();
-            //$('#ListBox_wrapper').fadeOut(500);
-            //$('#ListBox').fadeOut(500);
-            //$('#AddBox').fadeIn(3500);
+            $('#MessaeBox').html("");
+            $('#AddBtn').hide();
+            $('#PageHeading').hide();
+            $('#ListBox_wrapper').fadeOut(500);
+            $('#ListBox').fadeOut(500);
+            $('#AddBox').fadeIn(3500);
             myJsMain.commonFunction.showWebAdminPleaseWait();
             $.ajax({
                 url: '<?php echo ADMIN_BASE_URL.'ajax_controller/update_resort_img_caption/'?>',
                 type: 'POST',
-                data: 'resortImageId=' + id,
+                data: 'toursImageId=' + id,
                 success: function (data) {
                     myJsMain.commonFunction.hideWebAdminPleaseWait();
                     $('#caption').val(data);
-                    $('#resortImageIdIndex').val(id);
-                    $('#myModal').modal('show');
+                    $('#myModal').modal('show')
                 }
             });
         }
 
-        function AskDelete(resortImageId, id) {
+        function AskDelete(toursImageId, id) {
             swal({
                 title: myJsMain.SystemMessageName,
                 text: "Are you sure to delete(Y/N) ?",
@@ -92,7 +91,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                 closeOnConfirm: false
             },
             function () {
-                location.href = '<?php echo base_url(); ?>webadmin/resort/delete_resort_image/' + resortImageId + '/' + id;
+                location.href = '<?php echo base_url(); ?>webadmin/tours/delete_resort_image/' + toursImageId + '/' + id;
             });
             return false;
         }
@@ -109,11 +108,11 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                                     <?php
                                     $val = 0;
                                     foreach ($DataArr as $InerArr) { //pre($InerArr);die;
-                                        $images = AsseUploadsPathtsPath . 'resort_images/100X100/';
+                                        $images = AsseUploadsPathtsPath . 'tours_images/100X100/';
                                         if (file_exists($images . $InerArr->image)) {
                                             ?>
                                             <div class="col-md-2">
-                                                <img src="<?php echo ResortSmallImageURL . $InerArr->image ?>" title="<?php echo $InerArr->caption; ?>" alt="<?php echo $InerArr->caption; ?>" class="img-responsive img-thumbnail" />
+                                                <img src="<?php echo ToursSmallImageURL. $InerArr->image ?>" alt="<?php echo $InerArr->caption; ?>" class="img-responsive img-thumbnail" />
                                                 <div>
                                                     <?php
                                                     if ($InerArr->status == '1') {
@@ -122,7 +121,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                                                         $action = 1;
                                                     }
                                                     ?>
-                                                    <a href="<?php echo ADMIN_BASE_URL . 'resort/image_change_status/' . $InerArr->resortId . '/' . $action . '/' . $InerArr->resortImageId; ?>" class="AdminDashBoardLinkText">
+                                                    <a href="<?php echo ADMIN_BASE_URL . 'tours/image_change_status/' . $InerArr->toursId . '/' . $action . '/' . $InerArr->toursImageId; ?>" class="AdminDashBoardLinkText">
                                                         <?php if ($InerArr->status == '1') { ?>
                                                             <i class="fa fa-check-circle fa-lg" title="Active"></i>
                                                         <?php } else { ?>
@@ -130,9 +129,9 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
         <?php } ?>
                                                     </a>
                                                     &nbsp;&nbsp;
-                                                    <a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->resortImageId; ?>', '<?php echo $InerArr->resortId; ?>');"><i class="fa fa-remove fa-lg"></i></a>
+                                                    <a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->toursImageId; ?>', '<?php echo $InerArr->toursId; ?>');"><i class="fa fa-remove fa-lg"></i></a>
                                                     &nbsp;&nbsp;
-                                                    <a href="javascript:void(0);" onclick="showUpdateCaption('<?php echo $InerArr->resortImageId; ?>')"><i class="fa fa-header fa-lg"><i class="fa fa-plus-circle"></i></i></a>
+                                                    <a href="javascript:void(0);" onclick="showUpdateCaption('<?php echo $InerArr->toursImageId; ?>')"><i class="fa fa-header fa-lg"><i class="fa fa-plus-circle"></i></i></a>
                                                 </div>
                                             </div>
                                             <?php
@@ -151,7 +150,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                                 <th width="13%" align="left" valign="top" scope="col">&nbsp;</th>
                                 <th width="18%" align="left" valign="top" scope="col">&nbsp;</th>
                                 <th width="3%" align="left" valign="top" scope="col" class="PageHeading">&nbsp;</th>
-                                <th width="66%" align="left" valign="top" scope="col"><span class="PageHeading">Upload Resort Image </span></th>
+                                <th width="66%" align="left" valign="top" scope="col"><span class="PageHeading">Upload Tours Image </span></th>
                             </tr>
                             <tr>
                                 <td align="left" valign="top">&nbsp;</td>
@@ -161,8 +160,8 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                             </tr>
                             <tr>
                                 <td align="left" valign="top" colspan="4">
-                                    <form action="<?php echo site_url("image_process/start_mulitple_upload") ?>" id="form-upload"> 
-                                        <input type="hidden" name="resortId" id="resortId" value="<?php echo $details[0]->resortId; ?>" />
+                                    <form action="<?php echo site_url("image_process/start_mulitple_upload_tours") ?>" id="form-upload"> 
+                                        <input type="hidden" name="toursId" id="toursId" value="<?php echo $details[0]->toursId; ?>" />
                                         <div class="fileinput fileinput-new input-group" data-provides="fileinput" style="width:100% !important;">
                                             <div class="form-control" data-trigger="fileinput">
                                                 <i class="glyphicon glyphicon-file fileinput-exists"></i> 
@@ -222,7 +221,9 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                             </tr>
                             <tr>
                                 <td align="left" valign="top">&nbsp;</td>
-                                <td align="left" valign="top" colspan="2"><input type="button" class="btn btn-success" value="Show Resort Image List" onclick="location.href = '<?php echo ADMIN_BASE_URL . 'resort/view_images/' . $details[0]->resortId; ?>'"></td>
+                                <td align="left" valign="top" colspan="2">
+                                    <input type="button" class="btn btn-success" value="Show Tours Image List" onclick="location.href = '<?php echo ADMIN_BASE_URL . 'tours/view_images/' . $details[0]->toursId; ?>'">
+                                </td>
                                 <td align="left" valign="top">&nbsp;</td>
                             </tr>
                         </table>
@@ -243,6 +244,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
 <?php echo $page_heading_end . $footer; ?>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
+
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -252,8 +254,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
             <div class="modal-body">
                 <div class="form-group">
                     <label for="usrname"><span class="glyphicon glyphicon-tags glyphicon-header"></span>Update Image Caption</label>
-                    <input type="text" class="form-control" id="caption" name="caption" placeholder="Update Caption" required="required">
-                    <input type="hidden" name="resortImageIdIndex" id="resortImageIdIndex" value="" />
+                    <input type="text" class="form-control" id="caption" name="caption" placeholder="Update Caption">
                 </div>
                 <button type="button" id="update-caption-btn" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Caption</button>
             </div>
@@ -264,6 +265,6 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
     </div>
 </div>
 <script src="<?php echo base_url(); ?>assets/js/jasny-bootstrap.min.js"></script>    
-<script src="<?php echo base_url(); ?>assets/js/custom.js"></script>   
+<script src="<?php echo base_url(); ?>assets/js/custom1.js"></script>   
 <script>
 </script>
