@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2017 at 06:33 AM
+-- Generation Time: Aug 10, 2017 at 09:55 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mt_holidays`
 --
+CREATE DATABASE IF NOT EXISTS `mt_holidays` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mt_holidays`;
 
 -- --------------------------------------------------------
 
@@ -654,8 +656,8 @@ CREATE TABLE IF NOT EXISTS `resort_image` (
 --
 
 INSERT INTO `resort_image` (`resortImageId`, `resortId`, `image`, `caption`, `status`, `featured`) VALUES
-(17, 5, '498245206ddaaeee8d6645f484c11e45.jpg', 'test1234 jduhisthira sahoo', 1, 0),
-(18, 5, 'bc29834e1b86d6e7cc21b1009c5be171.jpg', 'Two penguine', 1, 0),
+(17, 5, '498245206ddaaeee8d6645f484c11e45.jpg', NULL, 1, 0),
+(18, 5, 'bc29834e1b86d6e7cc21b1009c5be171.jpg', NULL, 1, 0),
 (19, 5, 'b201e424056c7155dfaf21f72092e2e3.jpg', NULL, 1, 0),
 (20, 5, 'e536368eaefb0ce8d8c7aa20ef749362.jpg', NULL, 1, 0);
 
@@ -1068,14 +1070,7 @@ CREATE TABLE IF NOT EXISTS `tours_image` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `featured` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`toursImageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tours_image`
---
-
-INSERT INTO `tours_image` (`toursImageId`, `toursId`, `image`, `caption`, `status`, `featured`) VALUES
-(2, 3, '1e5023ca907b48cb0887a7e6d76d9008.jpg', '', 1, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

@@ -45,10 +45,10 @@ class Room_type extends MY_Controller {
             $colVal=trim($this->input->post('Edit'.$k, TRUE));
             $dataArr[$k]=$colVal;
         }
-        $roomDetailsId = $this->input->post('roomDetailsId', TRUE);
-
-        //print_r($dataArr);die;
-        $this->Resort_room_type_model->edit($dataArr, $roomDetailsId);
+        $roomTypeId = $this->input->post('roomTypeId', TRUE);
+        //pre($_POST);
+        //pre($dataArr);die;
+        $this->Resort_room_type_model->edit($dataArr, $roomTypeId);
         $this->session->set_flashdata('Message', 'Room type  updated successfully.');
         redirect(base_url() . 'webadmin/room_type/viewlist');
     }
