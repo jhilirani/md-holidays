@@ -1,13 +1,9 @@
 <?php
 
-class Tours_model extends CI_Model {
+class Tours_image_model extends CI_Model {
 
-    private $_table = 'tours';
-    private $_table_image = 'tours_image';
-    private $_table_services = 'tours_services';
-    private $_table_rattings = 'tours_rattings';
-    private $_table_enjay_type = 'tours_enjay_type';
-    private $_id = "toursId";
+    public $_table = 'tours_image';
+    private $_id = "toursImageId";
 
     function __construct() {
         parent::__construct();
@@ -15,21 +11,6 @@ class Tours_model extends CI_Model {
 
     function add($dataArr) {
         $this->db->insert($this->_table, $dataArr);
-        return $this->db->insert_id();
-    }
-    
-    function add_image($dataArr) {
-        $this->db->insert($this->_table_image, $dataArr);
-        return $this->db->insert_id();
-    }
-    
-    function add_services($dataArr) {
-        $this->db->insert_batch($this->_table_services, $dataArr);
-        return $this->db->insert_id();
-    }
-    
-    function add_enjay_type($dataArr) {
-        $this->db->insert_batch($this->_table_enjay_type, $dataArr);
         return $this->db->insert_id();
     }
 
@@ -45,26 +26,13 @@ class Tours_model extends CI_Model {
         return TRUE;
     }
     
-    function delete_image($id) {
-        $this->db->delete($this->_table_image, array($this->_id => $id));
+    function delete_all_image_by_tours_id($id){
+        $this->db->delete($this->_table, array('toursId' => $id));
         return TRUE;
     }
 
-    function delete_services($id) {
-        $this->db->delete($this->_table_services, array($this->_id => $id));
-        return TRUE;
-    }
-    
-    function delete_enjay_type($id) {
-        $this->db->delete($this->_table_enjay_type, array($this->_id => $id));
-        return TRUE;
-    }
-    
     function get_all_admin() {
-        $this->db->select('t.*,ti.image')->from($this->_table." as t");
-        $this->db->join($this->_table_image." AS ti",'ti.toursId=t.toursId','left');
-        $rs=$this->db->where('t.status',1)->get()->result();
-        //echo $this->db->last_query();die;
+        $rs = $this->db->get($this->_table)->result();
         return $rs;
     }
 
@@ -72,7 +40,12 @@ class Tours_model extends CI_Model {
         $rs = $this->db->get_where($this->_table, array('status' => 1))->result();
         return $rs;
     }
-
+    
+    function delete_by_img($image){
+        $this->db->delete($this->_table, array('image' => $image));
+        return TRUE;
+    }
+    
     /**
      * 
      * @param type $columnName
@@ -148,15 +121,4 @@ class Tours_model extends CI_Model {
         return $rs;
     }
 
-    function details($id) {
-        $rs = $this->db->get_where($this->_table, array($this->_id => $id))->result();
-        //echo $this->db->last_query();
-        return $rs;
-    }
-    
-    function get_images($Id) {
-        $rs = $this->db->get_where($this->_table_image, array($this->_id => $Id))->result();
-        //echo $this->db->last_query();
-        return $rs;
-    }
 }

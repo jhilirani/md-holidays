@@ -75,4 +75,12 @@ class Ajax_controller extends MY_Controller{
         $this->load->view('webadmin/room_details',$data);
         //echo $ret;die;
     }
+    
+    function edit_resort_img_caption(){
+        $resortImageId=  $this->input->post('resortImageId',TRUE);
+        $caption=  $this->input->post('caption',TRUE);
+        $this->load->model('Resort_image_model');
+        $this->Resort_image_model->edit(array('caption'=>$caption),$resortImageId);
+        echo 'ok';die;
+    }
 }
