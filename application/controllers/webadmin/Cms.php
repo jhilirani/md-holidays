@@ -149,7 +149,7 @@ class Cms extends MY_Controller {
         //print_r($dataArr);die;
         $this->Cms_model->edit($dataArr, $cmsId);
 
-        $this->session->set_flashdata('Message', 'Course edited successfully.');
+        $this->session->set_flashdata('Message', 'CMS edited successfully.');
         redirect(base_url() . 'webadmin/cms/viewlist');
     }
 
