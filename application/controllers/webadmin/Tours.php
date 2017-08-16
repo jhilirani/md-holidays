@@ -16,7 +16,7 @@ class Tours extends MY_Controller {
         $this->_admin_auth();
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='tours_images/';
-        $this->_ins_columnArr=array('title','description','metaDescription','metaKeywords','metaTitle','status','chargesPerPerson');
+        $this->_ins_columnArr=array('title','description','metaDescription','metaKeywords','metaTitle','status','chargesPerPerson','chargesPerChild');
     }
 
     public function index() {
@@ -34,8 +34,8 @@ class Tours extends MY_Controller {
         $data['contNameLabel']="Tours Manager";
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         $dataArr=$this->Tours_model->get_all_admin();
-        $toursEnjayTypeArr=$this->Enjay_type_model->get_all();
         $data['DataArr'] = $dataArr;
+        $toursEnjayTypeArr=$this->Enjay_type_model->get_all();
         $data['toursEnjayTypeArr'] = $toursEnjayTypeArr;
         $data['servicesDataArr'] = $this->Services_model->get_all();
         $data['ckeditor'] = array(
@@ -85,20 +85,20 @@ class Tours extends MY_Controller {
             $this->Tours_model->add_enjay_type($enjayTypesBatchArr);
         }
         $this->session->set_flashdata('Message', 'Tours  added successfully.');
-        redirect(base_url() . 'webadmin/tours/viewlist');
+        redirect(ADMIN_BASE_URL.'tours/viewlist');
     }
 
-    public function view_edit($resortId) {
+    public function view_edit($toursId) {
         $this->load->model('Enjay_type_model');
         $this->load->model('Category_model');
-        $details=$this->Tours_model->details($resortId);
+        $details=$this->Tours_model->details($toursId);
         $this->load->helper("ckeditor");
         $data = $this->_show_admin_logedin_layout();
-        $data['pageTitle']="Update Resort ".$details[0]->title;
-        $data['pageSubtitle']="Update Resort ".$details[0]->title;
-        $data['contName']="resort";
+        $data['pageTitle']="Update Tours ".$details[0]->title;
+        $data['pageSubtitle']="Update Tours ".$details[0]->title;
+        $data['contName']="tours";
         $data['contAction']="view_edit";
-        $data['contNameLabel']="Update Resort ".$details[0]->title;
+        $data['contNameLabel']="Update Tours ".$details[0]->title;
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         
         $data["dataArr"] = $details;
@@ -118,17 +118,13 @@ class Tours extends MY_Controller {
         );
         $data['dataArr']=$details;
         
-        $data['factfileDataArr']=  $this->Factfile_model->get_all();
-        $data['facilityDataArr']=  $this->Facility_model->get_all();
-        $data['sportsRecreationDataArr']=  $this->Sports_recreation_model->get_all();
-        $resortEnjayTypeArr=$this->Enjay_type_model->get_all();
-        $data['resortEnjayTypeArr'] = $resortEnjayTypeArr;
-        $data['selectedFactfileDataArr']=  $this->Tours_model->get_factfile($resortId);
-        $data['selectedFacilityDataArr']=  $this->Tours_model->get_facility($resortId);
-        $data['selectedEnjayTypeDataArr']=  $this->Tours_model->get_enjay_type($resortId);
-        $data['selectedSportsRecreationDataArr']=  $this->Tours_model->get_sports_recreation($resortId);
+        $toursEnjayTypeArr=$this->Enjay_type_model->get_all();
+        $data['toursEnjayTypeArr'] = $toursEnjayTypeArr;
+        $data['servicesDataArr'] = $this->Services_model->get_all();
+        $data['selectedServicesDataArr']=  $this->Tours_model->get_services($toursId);
+        $data['selectedEnjayTypeDataArr']=  $this->Tours_model->get_enjay_type($toursId);
         
-        $this->load->view('webadmin/resort_edit', $data);
+        $this->load->view('webadmin/tours_edit', $data);
     }
 
     public function edit() {
@@ -137,73 +133,55 @@ class Tours extends MY_Controller {
             $colVal=trim($this->input->post($k, TRUE));
             $dataArr[$k]=$colVal;
         }
-        $resortId=  $this->input->post("resortId",TRUE);
-        //pre($resortId);
+        $toursId=  $this->input->post("toursId",TRUE);
+        //pre($toursId);
         //pre($dataArr);die;
-        $this->Tours_model->edit($dataArr, $resortId);
+        $this->Tours_model->edit($dataArr, $toursId);
         
-        $factfile=  $this->input->post('factfile',TRUE);
-        $facility=  $this->input->post('facility',TRUE);
-        $sportsRecreation=  $this->input->post('sportsRecreation',TRUE);
+        $services=  $this->input->post('services',TRUE);
         $enjayType=  $this->input->post('enjayType',TRUE);
         
-        $factfileBatchArr=array();
-        foreach($factfile As $k=>$v){
-            $factfileBatchArr[]=array('resortId'=>$resortId,'factfileId'=>$v);
+        $servicesBatchArr=array();
+        foreach($services As $k=>$v){
+            $servicesBatchArr[]=array('toursId'=>$toursId,'servicesId'=>$v);
         }
-        if(!empty($factfileBatchArr)){
-            $this->Tours_model->remove_factfile($resortId);
-            $this->Tours_model->add_factfile($factfileBatchArr);
-        }
-        
-        $facilityBatchArr=array();
-        foreach($facility As $k=>$v){
-            $facilityBatchArr[]=array('resortId'=>$resortId,'facilityId'=>$v);
-        }
-        if(!empty($facilityBatchArr)){
-            $this->Tours_model->remove_facility($resortId);
-            $this->Tours_model->add_facility($facilityBatchArr);
-        }
-        
-        $sportsBatchArr=array();
-        foreach($sportsRecreation As $k=>$v){
-            $sportsBatchArr[]=array('resortId'=>$resortId,'sportsRecreationId'=>$v);
-        }
-        if(!empty($sportsBatchArr)){
-            $this->Tours_model->remove_sports_recreation($resortId);
-            $this->Tours_model->add_sports_recreation($sportsBatchArr);
+        //pre($servicesBatchArr);die;
+        if(!empty($servicesBatchArr)){
+            $this->Tours_model->remove_services($toursId);
+            $this->Tours_model->add_services($servicesBatchArr);
         }
         
         $enjayTypeBatchArr=array();
         foreach($enjayType As $k=>$v){
-            $enjayTypeBatchArr[]=array('resortId'=>$resortId,'enjayTypeId'=>$v);
+            $enjayTypeBatchArr[]=array('toursId'=>$toursId,'enjayTypeId'=>$v);
         }
         if(!empty($enjayTypeBatchArr)){
-            $this->Tours_model->remove_enjay_type($resortId);
+            $this->Tours_model->remove_enjay_type($toursId);
             $this->Tours_model->add_enjay_type($enjayTypeBatchArr);
         }
         
         $this->session->set_flashdata('Message', 'Tours  edited successfully.');
-        redirect(base_url() . 'webadmin/tours/viewlist');
+        redirect(ADMIN_BASE_URL.'tours/');
     }
 
     public function delete($id) {
         //echo 'comming for delete to id '.$id;die;
+        $this->load->model('Tours_image_model'); //delete_resort_image
+        $allToursImages=$this->Tours_image_model->get_data_generic_fun('*',array('toursId'=>$id));
+        //pre($allToursImages);die;
+        foreach ($allToursImages AS $k){
+            $this->delete_image($k->image);
+        }
+        $this->Tours_image_model->delete_all_image_by_tours_id($id);
+        $this->Tours_model->delete_services($id);
+        $this->Tours_model->delete_enjay_type($id);
         $No = $this->Tours_model->delete($id);
         if ($No > 0) {
-            $this->load->model('Tours_image_model'); //delete_resort_image
-            $allToursImages=$this->Tours_image_model->get_data_generic_fun('*',array('toursId'=>$id),'result_arr');
-            foreach ($allToursImages AS $k){
-                $this->delete_image($k->image);
-            }
-            $this->Tours_image_model->delete_all_image_by_tours_id($id);
-            $this->Tours_model->delete_services($id);
-            $this->Tours_model->delete_enjay_type($id);
             $this->session->set_flashdata('UserListPageMsg', 'Record deleted successfully.');
-            redirect($this->config->item('base_url') . 'webadmin/tours/');
+            redirect(ADMIN_BASE_URL.'tours/');
         } else {
             $this->session->set_flashdata('UserListPageMsg', 'Unabel to delete the record,please try again .');
-            redirect($this->config->item('base_url') . 'webadmin/tours/');
+            redirect(ADMIN_BASE_URL.'tours/');
         }
     }
 
@@ -211,22 +189,22 @@ class Tours extends MY_Controller {
         $No = $this->Tours_model->edit(array('status'=>$status), $id);
         if ($No > 0) {
             $this->session->set_flashdata('UserListPageMsg', 'Record status changed successfully.');
-            redirect($this->config->item('base_url') . 'webadmin/tours/viewlist');
+            redirect(ADMIN_BASE_URL.'tours/');
         } else {
             $this->session->set_flashdata('UserListPageMsg', 'Unable to changed the for this record,please try again .');
-            redirect($this->config->item('base_url') . 'webadmin/tours/viewlist');
+            redirect(ADMIN_BASE_URL.'tours/');
         }
     }
     
-    public function image_change_status($resortId, $status,$resortImageId) {
+    public function image_change_status($toursId, $status,$resortImageId) {
         $this->load->model("Tours_image_model");
         $No = $this->Tours_image_model->edit(array('status'=>$status), $resortImageId);
         if ($No > 0) {
             $this->session->set_flashdata('UserListPageMsg', 'Record status changed successfully.');
-            redirect($this->config->item('base_url') . 'webadmin/tours/view_images/'.$resortId);
+            redirect(ADMIN_BASE_URL.'tours/view_images/'.$toursId);
         } else {
             $this->session->set_flashdata('UserListPageMsg', 'Unable to changed the for this record,please try again .');
-            redirect($this->config->item('base_url') . 'webadmin/tours/view_images/'.$resortId);
+            redirect(ADMIN_BASE_URL.'tours/view_images/'.$toursId);
         }
     }
     
@@ -240,15 +218,15 @@ class Tours extends MY_Controller {
         //pre($allImg);die;
         $this->load->helper("ckeditor");
         $data = $this->_show_admin_logedin_layout();
-        $data['pageTitle']="Manage Resort Images of ".$details[0]->title;
-        $data['pageSubtitle']=""; //"Manage Resort Images of ".$details[0]->title;
-        $data['contName']="resort";
+        $data['pageTitle']="Manage Tours Images of ".$details[0]->title;
+        $data['pageSubtitle']=""; //"Manage Tours Images of ".$details[0]->title;
+        $data['contName']="tours";
         $data['contAction']="viewlist/";
-        $data['contNameLabel']="Manage Resort";
+        $data['contNameLabel']="Manage Tours";
         
-        $data['secondContName']="resort";
+        $data['secondContName']="tours";
         $data['secondContAction']="view_images/".$Id;
-        $data['secondContNameLabel']="Manage Resort Images of ".$details[0]->title;
+        $data['secondContNameLabel']="Manage Tours Images of ".$details[0]->title;
         
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         

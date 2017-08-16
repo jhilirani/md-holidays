@@ -86,8 +86,6 @@ function AskDelete(id){
 	&nbsp;&nbsp;
         <a href="<?php echo ADMIN_BASE_URL.'tours/view_images/'.$InerArr->toursId;?>" class="AdminDashBoardLinkText"><i class="fa fa-file-image-o fa-lg"></i></a>
 	&nbsp;&nbsp;
-        <a href="javascript:void(0);" onclick="showDetails('<?php echo $InerArr->toursId;?>');" class="AdminDashBoardLinkText"><i class="fa fa-eye fa-lg"></i></a>
-	&nbsp;&nbsp;
         <a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->toursId;?>');" class="AdminDashBoardLinkText"><i class="fa fa-remove fa-lg"></i></a>
 	</td> 
   </tr>
@@ -153,6 +151,18 @@ function AskDelete(id){
     <td align="left" valign="top" class="ListHeadingLable">Charges Per Person </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top"><input name="chargesPerPerson" type="text" id="chargesPerPerson"  class="required form-control" maxlength="10"/></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Charges Per Child </td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top"><input name="chargesPerChild" type="text" id="chargesPerChild"  class="required form-control" maxlength="10"/></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
