@@ -75,6 +75,23 @@ echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Is Show in Home Page </td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top">
+        <select name="isShowAtHome" id="isShowAtHome" class="form-control" required="required">
+            <option value="1" selected>Select Option</option>
+            <option value="0" <?php if($k->isShowAtHome==0){?>selected<?php }?>>No</option>
+            <option value="1" <?php if($k->isShowAtHome==1){?>selected<?php }?>>Yes</option>
+        </select></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta title </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top"><input name="metaTitle" type="text" id="metaTitle"  class="required form-control" value="<?php echo $dataArr[0]->metaTitle;?>"/></td>

@@ -4,17 +4,25 @@ class Resort_model extends CI_Model {
 
     private $_table = 'resort';
     private $_table_room_type = 'room_type';
-    private $_table_room = 'resort_room';
-    private $_table_image = 'resort_image';
+    private $_table_room;
+    private $_table_image;
     private $_id = "resortId";
     private $_id_img = "resortImageId";
-    private $_table_factfile = "resort_factfile";
-    private $_table_facility = "resort_facility";
-    private $_table_sports = "resort_sports_recreation";
-    private $_table_enjay_type = "resort_enjay_type";
+    private $_table_factfile ;
+    private $_table_facility ;
+    private $_table_sports ;
+    private $_table_enjay_type;
+    private $_table_room_charges;
 
     function __construct() {
         parent::__construct();
+        $this->_table_room=  $this->_table."_room";
+        $this->_table_image=  $this->_table."_image";
+        $this->_table_factfile=  $this->_table."_factfile";
+        $this->_table_facility=  $this->_table."_facility";
+        $this->_table_sports=  $this->_table."_sports_recreation";
+        $this->_table_enjay_type=  $this->_table."_enjay_type";
+        $this->_table_room_charges=  $this->_table_room."_charges";
     }
 
     function add($dataArr) {
@@ -35,9 +43,20 @@ class Resort_model extends CI_Model {
     }
 
     function get_all_admin() {
+        //echo $this->_table_images;die;
         $this->db->select('r.*,ri.image')->from($this->_table." as r");
         $this->db->join($this->_table_image." AS ri",'ri.resortId=r.resortId','left');
-        $rs=$this->db->where('r.status',1)->group_by('ri.resortId')->get()->result();
+        $rs=$this->db->where('r.status',1)->group_by('r.resortId')->get()->result();
+        //echo $this->db->last_query();die;
+        return $rs;
+    }
+    
+    function get_latet_10_resort_for_home(){
+        $this->db->select('r.*,ri.image,rrc.oneAdult')->from($this->_table." as r");
+        $this->db->join($this->_table_image." AS ri",'ri.resortId=r.resortId','left');
+        $this->db->join($this->_table_room." AS rr",'rr.resortId=r.resortId','left');
+        $this->db->join($this->_table_room_charges." AS rrc",'rrc.resortRoomId=rr.resortRoomId','left');
+        $rs=$this->db->where('r.isShowAtHome',1)->where('r.status',1)->group_by('r.resortId')->get()->result_array();
         //echo $this->db->last_query();die;
         return $rs;
     }

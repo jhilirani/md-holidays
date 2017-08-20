@@ -16,7 +16,7 @@ class Tours extends MY_Controller {
         $this->_admin_auth();
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='tours_images/';
-        $this->_ins_columnArr=array('title','description','metaDescription','metaKeywords','metaTitle','status','chargesPerPerson','chargesPerChild');
+        $this->_ins_columnArr=array('title','description','metaDescription','metaKeywords','metaTitle','status','chargesPerPerson','chargesPerChild','isShowAtHome');
     }
 
     public function index() {

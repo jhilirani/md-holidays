@@ -81,7 +81,7 @@ class MY_Controller extends CI_Controller {
         }
     }
 
-    public function _get_logedin_template() {
+    public function _get_logedin_template($SEODataArr) {
         $data = array();
         $CountryDataArr = $this->Siteconfig_model->get_country();
         $HiName = $this->session->userdata('FE_SESSION_USER_SiteNickName_VAR');
@@ -104,9 +104,10 @@ class MY_Controller extends CI_Controller {
                 break;
             }
         }
-        $Data['NewUrlQueryString'] = implode('&', $UrlQueryStringArr);
+        $data = $this->html_heading($SEODataArr);
+        $data['NewUrlQueryString'] = implode('&', $UrlQueryStringArr);
         $data['HasLogedIn'] = 'Yes';
-        $CurrentSiteLanguage = $this->session->userdata('site_lang');
+        /*$CurrentSiteLanguage = $this->session->userdata('site_lang');
         if ($CurrentSiteLanguage == '') {
             $data['CurrentSiteLanguage'] = 'english';
             $this->lang->load('header1', 'english');
@@ -115,11 +116,11 @@ class MY_Controller extends CI_Controller {
             $data['CurrentSiteLanguage'] = $CurrentSiteLanguage;
             $this->lang->load('header1', $CurrentSiteLanguage);
             $this->lang->load('footer1', $CurrentSiteLanguage);
-        }
+        }*/
 
-        $data['CountryData'] = $CountryDataArr;
-        $data['CMSData'] = $this->Cms_model->get_all();
-        $data['TestimonialData'] = $this->Testimonial_model->get_all();
+        //$data['CountryData'] = $CountryDataArr;
+        //$data['CMSData'] = $this->Cms_model->get_all();
+        //$data['TestimonialData'] = $this->Testimonial_model->get_all();
 
         $data['BaseURL'] = $this->config->item('base_url');
         $data['SiteImagesURL'] = $this->config->item('SiteImagesURL');
@@ -127,7 +128,7 @@ class MY_Controller extends CI_Controller {
         $data['SiteJSURL'] = $this->config->item('SiteJSURL');
         $data['SiteResourcesURL'] = $this->config->item('SiteResourcesURL');
 
-        $data['html_heading'] = $this->load->view('html_heading', $data, true);
+        //$data['html_heading'] = $this->load->view('html_heading', $data, true);
         $data['header'] = $this->load->view('header1', $data, true);
         $data['footer'] = $this->load->view('footer', $data, true);
         return $data;
@@ -164,7 +165,7 @@ class MY_Controller extends CI_Controller {
           $data['TestimonialData']=$this->Testimonial_model->get_all(); */
         $data = $this->html_heading($SEODataArr);
 
-        $data['CMSDataArr'] = $this->Cms_model->get_all();
+        //$data['CMSDataArr'] = $this->Cms_model->get_all();
 
         $data['header'] = $this->load->view('header', $data, true);
         $data['footer'] = $this->load->view('footer', $data, true);
@@ -254,6 +255,16 @@ class MY_Controller extends CI_Controller {
         $data['SiteCSSURL'] = $this->config->item('SiteCSSURL');
         $data['SiteJSURL'] = $this->config->item('SiteJSURL');
         $data['SiteResourcesURL'] = $this->config->item('SiteResourcesURL');
+        $GateWayState=$this->input->get('GateWayState',TRUE);
+        //echo '$GateWayState  ='.$GateWayState;die;
+        if($GateWayState!=""){
+            $this->session->set_userdata('GateWayState',$GateWayState);
+        }
+
+        $ClearGateWayState=$this->input->get('ClearGateWayState',TRUE);
+        if($ClearGateWayState!=""){
+            $this->session->unset_userdata('GateWayState');
+        }
 
 
         /* $metaInfoUriSegmentArr=array('cms');
@@ -281,14 +292,23 @@ class MY_Controller extends CI_Controller {
         if (empty($SEODataArr)) {
             $MetaData = $this->Siteconfig_model->get_html_head();
             $data['MetaTitle'] = $MetaData[0]->ConstantValue;
-            $data['MetaKeyWord'] = $MetaData[1]->ConstantValue;
-            $data['MetaDescription'] = $MetaData[2]->ConstantValue;
+            $meta[]=array('name' => 'description', 'content' => $MetaData[2]->ConstantValue);
+            $meta[]=array('name' => 'keywords', 'content' =>$MetaData[1]->ConstantValue);
+            $data['meta']=$meta;
+            $data['ogImage']='';
         } else {
-            $data['MetaTitle'] = $SEODataArr['MetaTitle'];
-            $data['MetaKeyWord'] = $SEODataArr['MetaKeyWord'];
-            $data['MetaDescription'] = $SEODataArr['MetaDescription'];
+            if(array_key_exists('meta', $SEODataArr)){
+                //echo 'rrr ppp';die;
+                $data['MetaTitle']=$SEODataArr['MetaTitle'];
+                $data['meta']=$SEODataArr['meta'];
+            }else{
+                $data['MetaTitle'] = $SEODataArr['MetaTitle'];
+                $meta[]=array('name' => 'description', 'content' => $SEODataArr['MetaDescription']);
+                $meta[]=array('name' => 'keywords', 'content' =>$SEODataArr['MetaKeyWord']);
+                $data['meta']=$meta;
+            }
         }
-
+        $data['navigation']=  $this->load->view('navigation',$data,TRUE);
         $data['html_heading'] = $this->load->view('html_heading', $data, true);
         return $data;
     }

@@ -172,6 +172,23 @@ function AskDelete(id){
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Is Show in Home Page </td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top">
+        <select name="isShowAtHome" id="isShowAtHome" class="form-control" required="required">
+            <option value="1" selected>Select Option</option>
+            <option value="0">No</option>
+            <option value="1" selected>Yes</option>
+        </select></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
     <td align="left" valign="top" class="ListHeadingLable">Meta title </td>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top"><input name="metaTitle" type="text" id="metaTitle"  class="required form-control"/></td>

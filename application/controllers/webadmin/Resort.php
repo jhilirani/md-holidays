@@ -19,7 +19,7 @@ class Resort extends MY_Controller {
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='resort_images/';
         $this->_room_image_main_path='resort_room_image';
-        $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo','categoryId');
+        $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo','categoryId','isShowAtHome');
         $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId','needPay');
         $this->_ins_room_booking_columnArr=array('oneAdult','twoAdult','threeAdult','fourAdult','extraPerAdult','childRate','maxChild','infantRate','maxInfant','extraChargesForInfantChild');
     }
