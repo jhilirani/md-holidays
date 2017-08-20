@@ -28,9 +28,17 @@ class Tours_model extends CI_Model {
         return $this->db->insert_id();
     }
     
+    function remove_services($id) {
+        $this->db->delete($this->_table_services, array($this->_id => $id));
+    }
+    
     function add_enjay_type($dataArr) {
         $this->db->insert_batch($this->_table_enjay_type, $dataArr);
         return $this->db->insert_id();
+    }
+    
+    function remove_enjay_type($id) {
+        $this->db->delete($this->_table_enjay_type, array($this->_id => $id));
     }
 
     function edit($dataArr, $id) {
@@ -63,7 +71,7 @@ class Tours_model extends CI_Model {
     function get_all_admin() {
         $this->db->select('t.*,ti.image')->from($this->_table." as t");
         $this->db->join($this->_table_image." AS ti",'ti.toursId=t.toursId','left');
-        $rs=$this->db->where('t.status',1)->get()->result();
+        $rs=$this->db->where('t.status',1)->group_by('ti.toursId')->get()->result();
         //echo $this->db->last_query();die;
         return $rs;
     }
@@ -72,7 +80,7 @@ class Tours_model extends CI_Model {
         $rs = $this->db->get_where($this->_table, array('status' => 1))->result();
         return $rs;
     }
-
+    
     /**
      * 
      * @param type $columnName
@@ -157,6 +165,26 @@ class Tours_model extends CI_Model {
     function get_images($Id) {
         $rs = $this->db->get_where($this->_table_image, array($this->_id => $Id))->result();
         //echo $this->db->last_query();
+        return $rs;
+    }
+    
+    function get_services($id) {
+        $rs = $this->db->get_where($this->_table_services, array($this->_id => $id))->result_array();
+        //echo $this->db->last_query();
+        return $rs;
+    }
+    
+    function get_enjay_type($id){
+        $rs = $this->db->get_where($this->_table_enjay_type, array($this->_id => $id))->result_array();
+        //echo $this->db->last_query();
+        return $rs;
+    }
+    
+    function get_latet_10_tours_for_home(){
+        $this->db->select('t.*,ti.image')->from($this->_table." as t");
+        $this->db->join($this->_table_image." AS ti",'ti.toursId=t.toursId','left');
+        $rs=$this->db->where('t.isShowAtHome',1)->where('t.status',1)->group_by('t.toursId')->get()->result_array();
+        //echo $this->db->last_query();die;
         return $rs;
     }
 }

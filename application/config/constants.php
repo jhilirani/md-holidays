@@ -116,6 +116,8 @@ define('ResortRoomImgSmallImageURL',ResortRoomImgURL.'100X100/');
 define('ResortRoomImgModiumURL',ResortRoomImgURL.'300X300/');
 
 define('AssetsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
+define('ResortImagePath',AssetsPath.'resort_images/');
+define('ToursImagePath',AssetsPath.'tours_images/');
 
 define('UploadsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'uploads/');
 

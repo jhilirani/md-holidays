@@ -58,8 +58,8 @@ if ( ! function_exists('jmultiple_array_search')){
     function jmultiple_array_search($id,$column, $dataArray){ //die('rrr');
        foreach ($dataArray as $key => $val) {
            //pre($val); //die;
-           echo $column.'<br>'; //die;
-           echo $val[$column];die;
+           //echo $column.'<br>'; //die;
+           //echo $val[$column];die;
            //echo $val[$column].' = '.$id .'<br>';//die;
            if ($val[$column] == $id) {
                //echo $key;die;
@@ -90,20 +90,6 @@ if(!function_exists('user_role_check')){
 }
 
 if ( ! function_exists('get_home_url')){
-    function get_home_url(){
-        $CI =& get_instance();
-        $countryId=$CI->session->userdata('USER_SHIPPING_COUNTRY');
-        if($countryId==1){
-            return base_url().'send-online-gifts-usa';
-        }else if($countryId==99){
-            return base_url().'send-wine-cakes-flowers-online-india';
-        }else if($countryId==240){
-            return base_url().'send-gifts-worldwide';
-        }
-    }
-}
-
-if ( ! function_exists('get_home_url')){
     function title_more_string($str,$no_char=22){
         $strArr=  explode(' ', $str);
         $strLen=0;
@@ -129,4 +115,10 @@ if ( ! function_exists('get_cms_title')){
     }
 }
 
+
+if(!function_exists('get_site_breadcrumb')){
+    function get_site_breadcrumb(){
+        
+    }
+}
 ?>
