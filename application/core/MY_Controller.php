@@ -308,6 +308,9 @@ class MY_Controller extends CI_Controller {
                 $data['meta']=$meta;
             }
         }
+        $this->load->model("Category_model");
+        $categoryArr=$this->Category_model->get_all_active();
+        $data['menuDataArr']=$categoryArr;
         $data['navigation']=  $this->load->view('navigation',$data,TRUE);
         $data['html_heading'] = $this->load->view('html_heading', $data, true);
         return $data;

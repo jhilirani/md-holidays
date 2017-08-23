@@ -53,3 +53,5 @@ $route['default_controller'] = "Index";
 $route['webadmin']="webadmin/index";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['resort-listing/(:any)']="listing/show_rerort/$1";
+$route['tours-listing/(:any)']="listing/show_tours/$1";

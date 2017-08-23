@@ -9,8 +9,17 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav arrow">
                             <li><a href="#" class="active"><img src="<?php echo SiteAssetsURL; ?>img/home.png" alt=""></a></li>
-                            <li><a href="#">Tours & Packages</a></li>
-                            <li class="dropdown">
+                            <?php foreach ($menuDataArr AS $k):?>
+                            <li>
+                                <?php if($k->type==1){?>
+                                <a href="<?php echo BASE_URL.'resort-listing/'.my_seo_freindly_url($k->categoryName)."-".($k->categoryId*102102);?>"><?php echo $k->categoryName;?></a>
+                                <?php }else{?>
+                                <a href="<?php echo BASE_URL.'tours-listing/'.my_seo_freindly_url($k->categoryName)."-".($k->categoryId*102102);?>"><?php echo $k->categoryName;?></a>
+                                <?php }?>
+                            </li>
+                            <?php endforeach;?>
+                            <?php /*<li><a href="#">Tours & Packages</a></li>
+                            <?php /*<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cheap Holidays<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Tour Packages1</a></li>
@@ -27,8 +36,8 @@
                                     <li><a href="#">Tour Packages3</a></li>
                                     <li><a href="#">Tour Packages4</a></li>
                                 </ul>
-                            </li>		
-                            <li><a href="j#">Luxury & Super Luxury Resorts</a></li>
+                            </li>*/?>		
+                            <!--<li><a href="j#">Luxury & Super Luxury Resorts</a></li> -->
                             <li><a href="#">Travel Guide</a></li>
                         </ul>
                     </div>
