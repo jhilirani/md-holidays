@@ -42,8 +42,11 @@ class Category extends MY_Controller{
             );
 
             //print_r($dataArr);die;
-            $this->Category_model->add($dataArr);
-
+            $categoryId=$this->Category_model->add($dataArr);
+            if($this->is_max_menu_activated()){
+                $this->Category_model->edit(array('status'=>'0'),$categoryId);
+            }
+            
             $this->session->set_flashdata('Message','Category added successfully.');
             redirect(base_url().'webadmin/category/viewlist');
 	}
@@ -58,9 +61,9 @@ class Category extends MY_Controller{
             $dataArr=array(
                 'categoryName'=>$categoryName,
                 'type'=>$type,
-                'status'=>$status
+                //'status'=>$status
             );
-
+            
             //print_r($categoryId);die;
             $this->Category_model->edit($dataArr,$categoryId);
             $this->session->set_flashdata('Message','Category updated successfully.');
@@ -69,11 +72,28 @@ class Category extends MY_Controller{
 	
 	
 	public function change_status($categoryId,$Action){
-            $this->Category_model->change_category_status($categoryId,$Action);
-
-            $this->session->set_flashdata('Message','Category status updated successfully.');
+            if($Action==1){
+                if(!$this->is_max_menu_activated()){
+                    $this->Category_model->change_category_status($categoryId,$Action);
+                    $this->session->set_flashdata('Message','Category status updated successfully.');
+                }else{
+                    $this->session->set_flashdata('Message','4 Categories already activated,So no more category allow for activation status updated successfully.');
+                }
+            }else{
+                $this->Category_model->change_category_status($categoryId,$Action);
+                $this->session->set_flashdata('Message','Category status updated successfully.');
+            }
             redirect(base_url().'webadmin/category/viewlist');
 	}
+        
+        function is_max_menu_activated(){
+            $rs=  $this->db->query("SELECT count(categoryId) AS tot FROM `category` WHERE status=1")->get()->result();
+            if($rs[0]->tot<4){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        }
 	
 	public function delete($categoryId){
 		$this->Category_model->delete($categoryId);

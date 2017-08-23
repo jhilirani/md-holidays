@@ -16,18 +16,20 @@ if ( ! function_exists('short_words')){
     }
 }
 
+if (!function_exists('my_seo_freindly_url')) {
 
-if ( ! function_exists('my_seo_freindly_url')){
-    function my_seo_freindly_url($String){
-            $ChangedStr = preg_replace('/\%/',' percentage',$String);
-            $ChangedStr = preg_replace('/\@/',' at ',$ChangedStr);
-            $ChangedStr = preg_replace('/\&/',' and ',$ChangedStr);
-            $ChangedStr = preg_replace('/\s[\s]+/','-',$ChangedStr);    // Strip off multiple spaces
-            $ChangedStr = preg_replace('/[\s\W]+/','-',$ChangedStr);    // Strip off spaces and non-alpha-numeric
-            $ChangedStr = preg_replace('/^[\-]+/','',$ChangedStr); // Strip off the starting hyphens
-            $ChangedStr = preg_replace('/[\-]+$/','',$ChangedStr); // // Strip off the ending hyphens
-            return $ChangedStr;
+    function my_seo_freindly_url($String) {
+        $ChangedStr=  strtolower(trim($String));
+        $ChangedStr = preg_replace('/\%/', ' percentage', $ChangedStr);
+        $ChangedStr = preg_replace('/\@/', ' at ', $ChangedStr);
+        $ChangedStr = preg_replace('/\&/', ' and ', $ChangedStr);
+        $ChangedStr = preg_replace('/\s[\s]+/', '-', $ChangedStr);    // Strip off multiple spaces
+        $ChangedStr = preg_replace('/[\s\W]+/', '-', $ChangedStr);    // Strip off spaces and non-alpha-numeric
+        $ChangedStr = preg_replace('/^[\-]+/', '', $ChangedStr); // Strip off the starting hyphens
+        $ChangedStr = preg_replace('/[\-]+$/', '', $ChangedStr); // // Strip off the ending hyphens
+        return $ChangedStr;
     }
+
 }
 
 if ( ! function_exists('check_exists_BPO')){
