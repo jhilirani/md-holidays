@@ -1,0 +1,16 @@
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('BebasNeue.eot') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src:  url('BebasNeue.otf')  format('opentype');	    
+  font-weight: normal;
+  font-style: normal;
+}
+
+
