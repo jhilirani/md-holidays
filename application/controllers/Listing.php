@@ -32,6 +32,7 @@ class Listing extends MY_Controller {
     }
     
     function show_tours($str){
+        //pre($str);die;
         $realMenuId=  $this->_get_real_id($str,'menue');
         $allToursList=  $this->Tours_model->get_all_by_menue($realMenuId);
         if(empty($allToursList)){
@@ -110,6 +111,34 @@ class Listing extends MY_Controller {
     
     function tours_details($str){
         $toursId=  $this->_get_real_id($str,'non_menue');
+        $toursDataArr=  $this->Tours_model->get_full_details($toursId);
+        //pre($toursDataArr);die;
+        $SEODataArr=  $this->_get_meta_deetails_of_item($toursDataArr[0]);
+        //pre($SEODataArr);die;
+        $breadCrumb=array('link1'=>array(
+                                    'url'=>BASE_URL.'tours-listing/'.my_seo_freindly_url($toursDataArr[0]['categoryName'])."-".($toursDataArr[0]['categoryId']*102102),
+                                    'label'=>$toursDataArr[0]['categoryName']),
+            'link2'=>array('label'=>$toursDataArr[0]['title'])
+            );
+        if($this->is_loged_in($SEODataArr)){
+            $data=  $this->_get_logedin_template();
+        }else{
+            $data=  $this->_get_tobe_login_template($SEODataArr);
+        }
+        
+        $data['breadCrumb']=$breadCrumb;
+        $enjayTypeDataArr=  $this->Tours_model->get_enjay_type($toursId);
+        $servicesDataArr=  $this->Tours_model->get_services($toursId);
+        //pre($servicesDataArr);die;
+        $this->load->model("Tours_image_model");
+        $rsToursImageArr=  $this->Tours_image_model->get_data_generic_fun('*',array('toursId'=>$toursId),'result_arrr');
+        //pre($rsToursImageArr);die;
+        $data['bread_crumb']=  $this->load->view('bread_crumb',$data,TRUE);
+        $data['toursDataArr']=$toursDataArr;
+        $data['enjayTypeDataArr']=$enjayTypeDataArr;
+        $data['servicesDataArr']=$servicesDataArr;
+        $data['rsToursImageArr']=$rsToursImageArr;
+        $this->load->view('tour',$data);
     }
     
     function _get_real_id($str,$type){

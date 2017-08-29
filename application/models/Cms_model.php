@@ -28,7 +28,7 @@ class Cms_model extends CI_Model {
 
     public function get_content_by_id($CMSID) {
         $this->db->select('*')->from($this->_table)->where('CMSID', $CMSID);
-        return $this->db->get()->result();
+        return $this->db->get()->result_array();
     }
 
     public function change_status($CMSID, $Status) {
@@ -44,15 +44,13 @@ class Cms_model extends CI_Model {
 
     public function get_content($string) {
         $funIdArr = array(
-            'about_atad' => 1,
-            'our_vision' => 2,
-            'demo_schedules' => 3,
-            'our_activity' => 4,
-            'terms_and_conditions' => 5,
-            'career_center' => 7,
-            'privacy_policy' => 6,
-            'press_release' => 8
+            'about_us' => 1,
+            'terms_of_services' => 3,
+            'privacy_policy' => 4,
+            'travel_guide' => 5,
+            'contact_us' => 2,
         );
+        //contact-us ===  2
         return $this->get_content_by_id($funIdArr[$string]);
     }
 

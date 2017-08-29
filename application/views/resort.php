@@ -178,7 +178,7 @@
                         <div class="col-md-4">
                             <div class="mrg-buttom">
                                 <div class="location_now">
-                                    <h1>Location</h1>
+                                    <h1> <i class="fa fa-map-marker fa-2x" style="color:white;" aria-hidden="true"></i> Location</h1>
                                     <div id="map" class="location_nowinner"></div>
                                     <!--<div class="location_nowinner">
                                         <img src="img/map.jpg" alt="">
@@ -186,7 +186,7 @@
                                 </div>
                             </div>
                             <div class="location_now">
-                                <h1>Factfile</h1>
+                                <h1> <i class="fa fa-circle-o fa-2x" style="color:white;"></i> Factfile</h1>
                                 <div class="location_nowinner">
                                     <p>
                                         <?php echo $factfileStr;?>
@@ -194,7 +194,7 @@
                                 </div>
                             </div>
                             <div class="location_now">
-                                <h1>Facilities</h1>
+                                <h1> <i class="fa fa-building fa-2x" style="color:white;"></i> Facilities</h1>
                                 <div class="location_nowinner">
                                     <div class="row">
                                         <div class="col-md-12" style="padding: 10px;">
@@ -210,7 +210,7 @@
                                 </div>
                             </div>
                             <div class="location_now">
-                                <h1>Sports and Recreation</h1>
+                                <h1> <i class="fa fa-futbol-o" aria-hidden="true"></i><i class="fa fa-gamepad fa-2x" style="color:white;"></i> Sports and Recreation</h1>
                                 <div class="location_nowinner">
                                     <div class="row">
                                         <div class="col-md-12" style="padding: 10px;">
@@ -226,7 +226,7 @@
                                 </div>
                             </div>
                             <div class="location_now">
-                                <h1>Language Spoken</h1>
+                                <h1> <i class="fa fa-language fa-2x" style="color:white;" aria-hidden="true"></i> Language Spoken</h1>
                                 <div class="location_nowinner">
                                     <div class="colm2">
                                         <ul>

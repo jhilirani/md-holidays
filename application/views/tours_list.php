@@ -4,12 +4,12 @@
         <div class="container">
             <div class="product_inner">
                 <h1>Resort </h1>                 
-                <?php foreach($allToursList AS $k):?>
+                <?php foreach($allToursList AS $k): //pre($k);die;?>
                 <div class="box_pro">
                     <div class="price_tag">
                         $ <?php echo $k['chargesPerPerson'];?>
                     </div>
-                    <a href="#">
+                    <a href="<?php echo BASE_URL.'tour/'.my_seo_freindly_url($k['categoryName'])."/".my_seo_freindly_url($k['title'])."-".($k['toursId']*204204);?>">
                         <?php $imgExistsPath=ToursImagePath.'300X300/'.$k['image'];
                                 $imgUrl=ToursModiumURL.$k['image'];
                                 ?> 

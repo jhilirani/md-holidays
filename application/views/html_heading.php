@@ -35,7 +35,7 @@
     <?php }?>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo SiteCSSURL;?>bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo SiteCSSURL;?>font-awesome.css" rel="stylesheet">
+    <!--<link href="<?php //echo SiteCSSURL;?>font-awesome.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="<?php echo SiteCSSURL;?>flexslider.css" type="text/css" media="screen" />
     <link href="<?php echo SiteCSSURL;?>animate.css" rel="stylesheet" type="text/css">
     <link href="<?php echo SiteCSSURL;?>style.css" rel="stylesheet" type="text/css">

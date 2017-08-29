@@ -38,7 +38,7 @@
                                 </ul>
                             </li>*/?>		
                             <!--<li><a href="j#">Luxury & Super Luxury Resorts</a></li> -->
-                            <li><a href="#">Travel Guide</a></li>
+                            <li><a href="<?php echo BASE_URL.'travel-guide';?>">Travel Guide</a></li>
                         </ul>
                     </div>
                 </nav>

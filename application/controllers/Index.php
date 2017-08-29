@@ -30,4 +30,57 @@ class Index extends MY_Controller {
         $data['allResortToursDataArr']=$allResortToursDataArr;
         $this->load->view('home',$data);
     }
+    
+    function contact_us(){
+        $this->load->model('Cms_model');
+        $CmsData=$this->Cms_model->get_content('contact_us'); //get_content_by_id(2);
+        $SEODataArr=$this->_get_meta_deetails_of_menu($CmsData[0]);
+        if($this->is_loged_in()){
+                $data=$this->_get_logedin_template($SEODataArr);
+        }else{
+                $data=$this->_get_tobe_login_template($SEODataArr);
+        }
+        
+        $data['CmsData']=$CmsData;
+        $this->load->view('contact',$data);
+    }
+    
+    function _get_meta_deetails_of_menu($Arr){
+        $meta=array(
+            '0'=>array('name'=>'description','content'=>$Arr['metaDescription']),
+            '1'=>array('name'=>'keywords','content'=>$Arr['metaDescription'])
+            );
+        $SEODataArr=array('MetaTitle'=>$Arr['metaTitle'],'meta'=>$meta);
+        return $SEODataArr;
+    }
+    
+    function contact_us_submit(){
+        $Email=$this->input->post('email',TRUE);
+        $Name=$this->input->post('fullName',TRUE);
+        $Phone=$this->input->post('phone',TRUE);
+        $Message=$this->input->post('message',TRUE);
+        $secret=$this->input->post('secret',TRUE);
+        $error=FALSE;
+        $error_message='';
+
+        /*if($error==FALSE){
+            $server_secret=$this->session->userdata('secret');
+            //echo '$server_secret :- '.$server_secret;die;
+            if($server_secret!=$secret){
+                    //print_r($_SESSION);
+                    $error=TRUE;
+                    //die('zzzzzzzzzz');
+                    $error_message='Please enter valid security code';
+            }
+        }*/
+
+        if($error==FALSE){
+            $dataArr=array('Name'=>$Name,'Email'=>$Email,'Phone'=>$Phone,'Message'=>$Message,'addedDate'=>date('Y-m-d H:i:s'),'IP'=>  $this->input->ip_address());
+
+            $this->User_model->post_contact($dataArr);
+            die("OK");
+        }else{
+            die('<i class="fa fa-exclamation-triangle fa-2x"></i> '.$error_message);
+        }
+    }
 }

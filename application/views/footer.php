@@ -7,10 +7,10 @@
 				<div class="col-md-12">
                         <div class="footer_widget_two">
                             <ul>
-                                <li><a href="#">About Us</a></li>                                
-                                <li><a href="#">Contact Us</a></li>
-								<li><a href="#">Terms of Services</a></li>
-								<li><a href="#">Privacy Policy</a></li>
+                                <li><a href="<?php echo BASE_URL.'about-us';?>">About Us</a></li>                                
+                                <li><a href="<?php echo BASE_URL.'contact-us';?>">Contact Us</a></li>
+								<li><a href="<?php echo BASE_URL.'terms-of-services';?>">Terms of Services</a></li>
+								<li><a href="<?php echo BASE_URL.'privacy-policy';?>">Privacy Policy</a></li>
 								
                             </ul>
                         </div>

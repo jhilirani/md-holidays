@@ -5,8 +5,10 @@ class Tours_model extends CI_Model {
     private $_table = 'tours';
     private $_table_image = 'tours_image';
     private $_table_services = 'tours_services';
+    private $_services = 'services';
     private $_table_rattings = 'tours_rattings';
     private $_table_enjay_type = 'tours_enjay_type';
+    private $_enjay_type = 'enjay_type';
     private $_id = "toursId";
 
     function __construct() {
@@ -169,13 +171,19 @@ class Tours_model extends CI_Model {
     }
     
     function get_services($id) {
-        $rs = $this->db->get_where($this->_table_services, array($this->_id => $id))->result_array();
+        $this->db->select('ts.*,s.services')->from($this->_table_services." AS ts");
+        $this->db->join($this->_services." AS s",'ts.servicesId=s.servicesId');
+        $rs=  $this->db->where('ts.toursId',$id)->get()->result_array();
+        //$rs = $this->db->get_where($this->_table_services, array($this->_id => $id))->result_array();
         //echo $this->db->last_query();
         return $rs;
     }
     
     function get_enjay_type($id){
-        $rs = $this->db->get_where($this->_table_enjay_type, array($this->_id => $id))->result_array();
+        $this->db->select('tet.*,et.name,et.image')->from($this->_table_enjay_type." AS tet");
+        $this->db->join($this->_enjay_type." AS et",'tet.enjayTypeId=et.enjayTypeId');
+        $rs=  $this->db->where('tet.toursId',$id)->get()->result_array();
+        //$rs = $this->db->get_where($this->_table_enjay_type, array($this->_id => $id))->result_array();
         //echo $this->db->last_query();
         return $rs;
     }
@@ -194,6 +202,15 @@ class Tours_model extends CI_Model {
         $this->db->join($this->_table_image." AS ti",'ti.toursId=t.toursId','left');
         $rs=$this->db->where('t.isShowAtHome',1)->where('t.status',1)->group_by('t.toursId')->get()->result_array();
         //echo $this->db->last_query();
+        return $rs;
+    }
+    
+    function get_full_details($toursId){
+        $sql="SELECT t.*,c.categoryName FROM ".$this->_table." AS t "
+                . " JOIN category AS c ON(c.categoryId=t.categoryId)  "
+                . " WHERE t.toursId=".$toursId.' GROUP BY t.toursId';
+        //echo $sql;die;
+        $rs=  $this->db->query($sql)->result_array();
         return $rs;
     }
 }
