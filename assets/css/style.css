@@ -1282,10 +1282,11 @@ body {
 .box_pro {
 	padding: 0;
 	text-align: left;
-	margin: 10px 0;
+	margin: 10px 8px 0 0;
 	position: relative;
 	float: left;
-	width: 20%;
+	height: 320px;
+	width: 19.31%;
 }
 .box_pro .price_tag {
 	padding: 0 10px;
