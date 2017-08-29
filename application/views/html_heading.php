@@ -33,6 +33,7 @@
     <meta name="twitter:title" content="<?php echo $MetaTitle;?>">
     <meta name="twitter:image" content="<?php echo DETAILS_PAGE_BIG_IMG.$ogImage;?>">
     <?php }?>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo SiteCSSURL;?>bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo SiteCSSURL;?>font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo SiteCSSURL;?>flexslider.css" type="text/css" media="screen" />

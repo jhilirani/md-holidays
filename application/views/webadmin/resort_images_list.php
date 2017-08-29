@@ -109,7 +109,7 @@ echo $html_head . $body_start . $header . $left_menu . $page_heading_start;
                                     <?php
                                     $val = 0;
                                     foreach ($DataArr as $InerArr) { //pre($InerArr);die;
-                                        $images = AsseUploadsPathtsPath . 'resort_images/100X100/';
+                                        $images = AssetsUploadsPathtsPath . 'resort_images/100X100/';
                                         if (file_exists($images . $InerArr->image)) {
                                             ?>
                                             <div class="col-md-2">

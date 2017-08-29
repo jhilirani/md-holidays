@@ -68,7 +68,7 @@ function AskDelete(id){
     <td><?php echo $val+1;?></td>
     <td><?php echo $InerArr->title;?></td>
     <td>
-        <?php $images = AsseUploadsPathtsPath . 'tours_images/100X100/';
+        <?php $images = AssetsUploadsPathtsPath . 'tours_images/100X100/';
         //echo $images.$InerArr->image;die;
         if (file_exists($images . $InerArr->image) && $InerArr->image!="") { ?>
         <img alt="<?php echo $InerArr->title;?>" src="<?php echo ToursSmallImageURL.$InerArr->image;?>" class="img-responsive img-thumbnail" />
@@ -179,6 +179,24 @@ function AskDelete(id){
             <option value="1" selected>Select Option</option>
             <option value="0">No</option>
             <option value="1" selected>Yes</option>
+        </select></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" class="ListHeadingLable">Menue where show the Resort </td>
+    <td align="left" valign="top"><label><strong>:</strong></label></td>
+    <td align="left" valign="top">
+        <select name="categoryId" id="categoryId" class="form-control" required="required">
+            <option value="1" selected>Select Menu Category</option>
+            <?php foreach($categoryArr as $k):?>
+            <option value="<?php echo $k->categoryId;?>"><?php echo $k->categoryName;?></option>
+            <?php endforeach;?>
         </select></td>
   </tr>
   <tr>

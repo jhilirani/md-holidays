@@ -301,11 +301,15 @@ class MY_Controller extends CI_Controller {
                 //echo 'rrr ppp';die;
                 $data['MetaTitle']=$SEODataArr['MetaTitle'];
                 $data['meta']=$SEODataArr['meta'];
+                if(!array_key_exists('ogImage', $SEODataArr)){
+                    $data['ogImage']='';
+                }
             }else{
                 $data['MetaTitle'] = $SEODataArr['MetaTitle'];
                 $meta[]=array('name' => 'description', 'content' => $SEODataArr['MetaDescription']);
                 $meta[]=array('name' => 'keywords', 'content' =>$SEODataArr['MetaKeyWord']);
                 $data['meta']=$meta;
+                $data['ogImage']='';
             }
         }
         $this->load->model("Category_model");

@@ -20,7 +20,7 @@ class Resort extends MY_Controller {
         $this->_image_main_path='resort_images/';
         $this->_room_image_main_path='resort_room_image';
         $this->_ins_columnArr=array('title','overview','latitude','mapZoomLevel','longitude','metaDescription','metaKeywords','metaTitle','location','status','contactInfo','categoryId','isShowAtHome');
-        $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId','needPay');
+        $this->_ins_room_columnArr=array('roomTypeId','title','orderNo','totalNosRoom','taxAndServiceCharges','status','roomDescription','resortId','needPay','maxAdultPerRoom');
         $this->_ins_room_booking_columnArr=array('oneAdult','twoAdult','threeAdult','fourAdult','extraPerAdult','childRate','maxChild','infantRate','maxInfant','extraChargesForInfantChild');
     }
 
@@ -346,6 +346,7 @@ class Resort extends MY_Controller {
     
     function view_rooms($id){ 
         $this->load->model('Resort_room_type_model');
+        $this->load->model('Room_details_model');
         $allRooms=$this->Resort_model->get_rooms($id);
         //pre($allRooms);die;
         $data = $this->_show_admin_logedin_layout();
@@ -353,8 +354,10 @@ class Resort extends MY_Controller {
         $data['pageTitle']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
         $data['pageSubtitle']="Manage Resort Rooms of ".$allRooms[0]['resortTitle'];
         $roomTypeDataArr=$this->Resort_room_type_model->get_all();
+        $roomDetailsDataArr=$this->Room_details_model->get_all();
         //pre($roomTypeDataArr);die;
         $data['roomTypeDataArr']=$roomTypeDataArr;
+        $data['roomDetailsDataArr']=$roomDetailsDataArr;
         
         $data['contName']="resort";
         $data['contAction']="viewlist/";
@@ -377,6 +380,7 @@ class Resort extends MY_Controller {
         }
         $resortId=$dataArr['resortId'];
         $noOfBookingPeriod=  $this->input->post('noOfBookingPeriod');
+        $roomDetails=  $this->input->post('roomDetails',TRUE);
         //pre($resortId);
         $allRoomChargesDataArr=array();
         for($i=1;$i<$noOfBookingPeriod+1;$i++){
@@ -437,6 +441,13 @@ class Resort extends MY_Controller {
                 }
                 //pre($newAllRoomChargesDataArr);die;
                 $this->Resort_room_charges_model->add_bulk($newAllRoomChargesDataArr);
+                
+                $roomDetailsBatchArr=array();
+                foreach($roomDetails As $k=>$v){
+                    $roomDetailsBatchArr[]=array('resortRoomId'=>$resortRoomId,'roomDetailsId'=>$v);
+                }
+                if(!empty($roomDetailsBatchArr))
+                    $this->Resort_model->add_room_details($roomDetailsBatchArr);
             }
         }else{
             $this->session->set_flashdata('Message','Invalid room image uploaded.');
@@ -447,13 +458,16 @@ class Resort extends MY_Controller {
     function view_edit_room($resortRoomId){
         $this->load->model('Resort_room_charges_model');
         $this->load->model('Resort_room_model');
+        $this->load->model('Room_details_model');
         $this->load->model('Resort_room_type_model');
         $resortRoomChargesDetails=$this->Resort_room_charges_model->get_data_generic_fun('*',array('resortRoomId'=>$resortRoomId));
         $resortRoomDetails=$this->Resort_room_model->get_room_details($resortRoomId);
         $data = $this->_show_admin_logedin_layout();
         $roomTypeDataArr=$this->Resort_room_type_model->get_all();
+        $roomDetailsDataArr=$this->Room_details_model->get_all();
         //pre($roomTypeDataArr);die;
         $data['roomTypeDataArr']=$roomTypeDataArr;
+        $data['roomDetailsDataArr']=$roomDetailsDataArr;
         //pre($resortRoomDetails);die;
         $data['pageTitle']="Manage Resort Rooms of ".$resortRoomDetails[0]->title;
         $data['pageSubtitle']="Manage Resort Rooms of ".$resortRoomDetails[0]->title;
@@ -466,6 +480,7 @@ class Resort extends MY_Controller {
         $data['secondContAction']="view_rooms/".$resortRoomDetails[0]->resortId;
         $data['secondContNameLabel']="Manage Resort Rooms of ".$resortRoomDetails[0]->title;
         
+        $data['selectedRoomDetailsDataArr']=  $this->Resort_model->get_room_details($resortRoomId);
         $data['resortRoomChargesDetails']=$resortRoomChargesDetails;
         $data['resortRoomDetails']=$resortRoomDetails;
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
@@ -489,7 +504,7 @@ class Resort extends MY_Controller {
         //pre($dataArr);die;
         //$resortId=$dataArr['resortId'];
         $noOfBookingPeriod=  $this->input->post('noOfBookingPeriod');
-        echo '$noOfBookingPeriod : '.$noOfBookingPeriod;
+        //echo '$noOfBookingPeriod : '.$noOfBookingPeriod;
         //pre($_POST);
         
         $allRoomChargesDataArr=array();
@@ -554,6 +569,16 @@ class Resort extends MY_Controller {
             $v['resortRoomId']=$resortRoomId;
             $newAllRoomChargesDataArr[]=$v;
         }
+        $roomDetails=  $this->input->post('roomDetails',TRUE);
+        $roomDetailsBatchArr=array();
+        foreach($roomDetails As $k=>$v){
+            $roomDetailsBatchArr[]=array('resortRoomId'=>$resortRoomId,'roomDetailsId'=>$v);
+        }
+        if(!empty($roomDetailsBatchArr)){
+            $this->Resort_model->remove_room_details($resortRoomId);
+            $this->Resort_model->add_room_details($roomDetailsBatchArr);
+        }
+        
         //pre($newAllRoomChargesDataArr);die;
         $this->Resort_room_charges_model->add_bulk($newAllRoomChargesDataArr);
         redirect(base_url().'webadmin/resort/view_rooms/'.$resortId);	

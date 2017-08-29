@@ -14,6 +14,7 @@ class Index extends MY_Controller {
         }else{
             $data=  $this->_get_tobe_login_template();
         }
+        //pre($data);die;
         $homePageResort=$this->Resort_model->get_latet_10_resort_for_home();
         //pre($homePageResort);die;
         $homePageTours=$this->Tours_model->get_latet_10_tours_for_home();

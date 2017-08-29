@@ -26,7 +26,8 @@ function ShowAddAdminBox()
 }
  function ShowEditBox(id)
  {
- 	$('#MessaeBox').html("");
+     location.href='<?php echo ADMIN_BASE_URL.'category/view_edit/';?>'+id;
+ 	<?php /*$('#MessaeBox').html("");
 	$('#AddBtn').fadeOut();
 	$('#PageHeading').fadeOut();
 	$('#AddBox').fadeOut();
@@ -44,7 +45,7 @@ function ShowAddAdminBox()
 		document.AdminEdit.Editstatus[1].checked=true;
 	}
 	$('#categoryId').val(DataArr[id]['categoryId']);
-	
+	<?php */?>
  }
 
  function CancelEdit()
@@ -123,13 +124,6 @@ function AskDelete(id){
 	<a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr->categoryId;?>');" class="AdminDashBoardLinkText"><img src="<?php echo SiteImagesURL.'webadmin/';?>delete.png" width="15" height="15" title="Delete"/></a>
 	</td> 
   </tr>
-  <script language="javascript">
-  DataArr[<?php echo $InerArr->categoryId?>]=new Array();
-  DataArr[<?php echo $InerArr->categoryId?>]['categoryId']='<?php echo $InerArr->categoryId?>';
-  DataArr[<?php echo $InerArr->categoryId?>]['categoryName']='<?php echo $InerArr->categoryName?>';
-  DataArr[<?php echo $InerArr->categoryId?>]['type']='<?php echo $InerArr->type?>';
-  DataArr[<?php echo $InerArr->categoryId?>]['status']='<?php echo $InerArr->status?>';
-  </script>
   
   <?php $val++;} ?>
   </tbody>
@@ -150,86 +144,6 @@ function AskDelete(id){
 </table></td>
   </tr>
  
-  <tr>
-    <td><form name="AdminEdit" id="AdminEdit" method="post" action="<?=base_url()?>webadmin/category/edit/">
-<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="EditBox" style="display:none;">
-  <tr>
-    <th colspan="4"><span class="PageHeading">Category Edit of <span id="EditBoxTitle"></span></span></th>
-  </tr>
-  <tr>
-    <td align="left" valign="top" height="40px;">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top" class="ListHeadingLable"> Category Name </td>
-    <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top"><input name="EditcategoryName" type="text" id="EditcategoryName"  class="required form-control" /></td>
-  </tr>
-  <tr>
-    <td align="left" valign="top" height="40px;">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top" class="ListHeadingLable">Type </td>
-    <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top">
-        <select name="Edittype" id="Edittype" class="form-control" required="required">
-            <option value="" selected>Select</option>
-            <option value="1">Resort</option>
-            <option value="2">Tour</option>
-        </select></td>
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-  </tr>
-  <tr class="ListHeadingLable">
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">status</td>
-    <td align="left" valign="top"><label><strong>:</strong></label></td>
-    <td align="left" valign="top">
-        <label class="radio-inline"><input type="radio" name="Editstatus" value="1" checked="" class="required">Active</label>
-        <label class="radio-inline"><input type="radio" name="Editstatus" value="0"  class="required">Active</label>
-        </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top"><label></label></td>
-    <td align="left" valign="top"><input type="submit" name="Submit3" value="Submit" class="btn btn-success"/>&nbsp;&nbsp;&nbsp;
-      <input type="button" name="Submit22" value="Cancel" onclick="return CancelAdd();" class="btn btn-primary"/>
-	  <input  type="hidden" name="categoryId"  id="categoryId" value=""/></td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-    <td align="left" valign="top">&nbsp;</td>
-  </tr>
-</table>
-</form></td>
-  </tr>
   <tr>
     <td><form name="AdminAdd" id="AdminAdd" method="post" action="<?=base_url()?>webadmin/category/add" >
 <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="AddBox" style="display:none;">

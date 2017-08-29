@@ -68,7 +68,7 @@ function AskDelete(id){
     <td><?php echo $val+1;?></td>
     <td><?php echo $InerArr->title;?></td>
     <td>
-        <?php $images = AsseUploadsPathtsPath . 'resort_images/100X100/';
+        <?php $images = AssetsUploadsPathtsPath . 'resort_images/100X100/';
         //echo $images.$InerArr->image;die;
         if (file_exists($images . $InerArr->image) && $InerArr->image!="") { ?>
         <img alt="<?php echo $InerArr->title;?>" src="<?php echo ResortSmallImageURL.$InerArr->image;?>" class="img-responsive img-thumbnail" />

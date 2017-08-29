@@ -187,4 +187,13 @@ class Tours_model extends CI_Model {
         //echo $this->db->last_query();die;
         return $rs;
     }
+    
+    function get_all_by_menue(){
+        $this->db->select('t.*,ti.image,c.categoryName')->from($this->_table." as t");
+        $this->db->join("category AS c",'c.categoryId=t.categoryId');
+        $this->db->join($this->_table_image." AS ti",'ti.toursId=t.toursId','left');
+        $rs=$this->db->where('t.isShowAtHome',1)->where('t.status',1)->group_by('t.toursId')->get()->result_array();
+        //echo $this->db->last_query();
+        return $rs;
+    }
 }

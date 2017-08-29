@@ -274,7 +274,7 @@ echo $html_head.$body_start.$header.$left_menu.$page_heading_start;?>
     <td align="left" valign="top"><label><strong>:</strong></label></td>
     <td align="left" valign="top">
         <label class="radio-inline"><input type="radio" name="status" value="1" class="required" <?php if($dataArr[0]->status==1){echo 'checked';}?>>Active</label>
-        <label class="radio-inline"><input type="radio" name="status" value="0"  class="required" <?php if($dataArr[0]->status==0){echo 'checked';}?>>Active</label></td>
+        <label class="radio-inline"><input type="radio" name="status" value="0"  class="required" <?php if($dataArr[0]->status==0){echo 'checked';}?>>InActive</label></td>
   </tr>
   <tr>
     <td align="left" valign="top">&nbsp;</td>

@@ -18,7 +18,7 @@
                     </div> 
                     <div class="clearfix"></div>
                         <div class="copy_right">
-                            <p><span>© 2017 TROPICAL PARADISE PVT LTD</span> ALL RIGHTS RESERVED. NO PART OF THIS WEBSITE MAY BE REPRODUCED WITHOUT OUR WRITTEN PERMISSION</p>
+                            <p><span>&COPY; <?php echo date('Y');?> TROPICAL PARADISE PVT LTD</span> ALL RIGHTS RESERVED. NO PART OF THIS WEBSITE MAY BE REPRODUCED WITHOUT OUR WRITTEN PERMISSION</p>
                         </div>
                 </div>
             </div>
@@ -27,15 +27,18 @@
     <!-- // FOOTER AREA END  // -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="<?php echo SiteJSURL;?>js/bootstrap.min.js"></script>
-    <script src="<?php echo SiteJSURL;?>js/jquery.flexslider.js"></script>
+    <script src="<?php echo SiteJSURL;?>bootstrap.min.js"></script>
+    <script src="<?php echo SiteJSURL;?>jquery.flexslider.js"></script>
     <script type="text/javascript">
-        $(function() {
-            SyntaxHighlighter.all();
-        });
         $(window).load(function() {
             $('.flexslider').flexslider({
                 animation: "slide",
+                easing: "swing",
+                animationLoop: true,
+                reverse:true,
+                slideshowSpeed: 4000,
+                animationSpeed: 900,
+                //thumbCaptions:true,
                 start: function(slider) {
                     $('body').removeClass('loading');
                 }
@@ -43,11 +46,8 @@
         });
     </script>
     <script type="text/javascript">
-        $(function() {
-            SyntaxHighlighter.all();
-        });
         $(window).load(function() {
-            $('.flexslider').flexslider({
+            /*$('.flexslider').flexslider({
                 animation: "slide",
                 animationLoop: false,
                 itemWidth: 210,
@@ -56,18 +56,17 @@
                 start: function(slider) {
                     $('body').removeClass('loading');
                 }
-            });
+            });*/
         });
     </script>
-    <script type="text/javascript" src="<?php echo SiteJSURL;?>js/jquery.cslider.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.slider2').bxSlider({
+            /*$('.slider2').bxSlider({
                 slideWidth: 300,
                 minSlides: 2,
                 maxSlides: 2,
                 slideMargin: 10
-            });
+            });*/
         });
     </script>
 </body>

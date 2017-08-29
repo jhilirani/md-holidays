@@ -4,6 +4,7 @@ class Category extends MY_Controller{
             parent::__construct();
             $this->load->model('Category_model');
             $this->_admin_auth();
+            $this->_ins_columnArr=array('categoryName','type','metaDescription','metaKeywords','metaTitle','status');
 	}
 	
 	public function index(){
@@ -23,24 +24,12 @@ class Category extends MY_Controller{
 	}
 	
 	public function add(){
-            $categoryName=$this->input->post('categoryName',TRUE);
-            $parrentCategoryId=$this->input->post('parrentCategoryId',TRUE);
-            $type=$this->input->post('type',TRUE);
-            if($parrentCategoryId==""){
-                $parrentCategoryId=0;
+            $dataArr=array();
+            foreach($this->_ins_columnArr AS $k){
+                $colVal=trim($this->input->post($k, TRUE));
+                $dataArr[$k]=$colVal;
             }
-            $status=$this->input->post('status',TRUE);
-            if($status==""){
-                $status=1;
-            }
-            
-            $dataArr=array(
-            'categoryName'=>$categoryName,
-            'parrentCategoryId'=>$parrentCategoryId,
-            'type'=>$type,
-            'status'=>$status
-            );
-
+            $dataArr['parrentCategoryId']=0;
             //print_r($dataArr);die;
             $categoryId=$this->Category_model->add($dataArr);
             if($this->is_max_menu_activated()){
@@ -51,20 +40,28 @@ class Category extends MY_Controller{
             redirect(base_url().'webadmin/category/viewlist');
 	}
 	
+        public function view_edit($categoryId){
+            $data=$this->_show_admin_logedin_layout();
+            $categoryDetailsArr=  $this->Category_model->get_data_generic_fun('*',array('categoryId'=>$categoryId),'result_arrr');
+            $data['pageTitle']="Category Update of : ".$categoryDetailsArr[0]['categoryName'];
+            $data['pageSubtitle']="Category Update of : ".$categoryDetailsArr[0]['categoryName'];
+            $data['contName']="category";
+            $data['contAction']="viewlist";
+            $data['contNameLabel']="Update Category Info";
+            $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
+            $data['categoryDetailsArr'] =   $categoryDetailsArr;
+            //$data['DataArr']=$this->Category_model->get_all();
+            $this->load->view('webadmin/category_edit',$data);
+	}
 	
 	public function edit(){
-            $categoryName=$this->input->post('EditcategoryName',TRUE);
-            $status=$this->input->post('Editstatus',TRUE);
-            $type=$this->input->post('Edittype',TRUE);
+            $dataArr=array();
+            foreach($this->_ins_columnArr AS $k){
+                $colVal=trim($this->input->post($k, TRUE));
+                $dataArr[$k]=$colVal;
+            }
             $categoryId=$this->input->post('categoryId',TRUE);
-
-            $dataArr=array(
-                'categoryName'=>$categoryName,
-                'type'=>$type,
-                //'status'=>$status
-            );
-            
-            //print_r($categoryId);die;
+            //pre($dataArr);die;
             $this->Category_model->edit($dataArr,$categoryId);
             $this->session->set_flashdata('Message','Category updated successfully.');
             redirect(base_url().'webadmin/category/viewlist');

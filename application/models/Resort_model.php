@@ -9,10 +9,15 @@ class Resort_model extends CI_Model {
     private $_id = "resortId";
     private $_id_img = "resortImageId";
     private $_table_factfile ;
+    private $_factfile="factfile" ;
     private $_table_facility ;
+    private $_facility ="facility";
     private $_table_sports ;
+    private $_sports ="sports_recreation";
     private $_table_enjay_type;
+    private $_enjay_type="enjay_type";
     private $_table_room_charges;
+    private $_table_room_details;
 
     function __construct() {
         parent::__construct();
@@ -23,6 +28,7 @@ class Resort_model extends CI_Model {
         $this->_table_sports=  $this->_table."_sports_recreation";
         $this->_table_enjay_type=  $this->_table."_enjay_type";
         $this->_table_room_charges=  $this->_table_room."_charges";
+        $this->_table_room_details=  $this->_table_room."_details";
     }
 
     function add($dataArr) {
@@ -109,27 +115,56 @@ class Resort_model extends CI_Model {
     function remove_enjay_type($id) {
         $this->db->delete($this->_table_enjay_type, array($this->_id => $id));
     }
+    
+    function add_room_details($batchDataArr) {
+        $this->db->insert_batch($this->_table_room_details, $batchDataArr);
+    }
+
+    function remove_room_details($id) {
+        $this->db->delete($this->_table_room_details, array('resortRoomId' => $id));
+    }
 
     function get_factfile($id) {
-        $rs = $this->db->get_where($this->_table_factfile, array($this->_id => $id))->result_array();
+        $this->db->select('rf.*,f.factfile')->from($this->_table_factfile." AS rf");
+        $this->db->join($this->_factfile." AS f",'rf.factfileId=f.factfileId');
+        $rs=$this->db->where('rf.resortId',$id)->get()->result_array();
+        //$rs = $this->db->get_where($this->_table_factfile, array($this->_id => $id))->result_array();
         //echo $this->db->last_query();
         return $rs;
     }
 
     function get_facility($id) {
-        $rs = $this->db->get_where($this->_table_facility, array($this->_id => $id))->result_array();
+        $this->db->select('rf.*,f.facility')->from($this->_table_facility." AS rf");
+        $this->db->join($this->_facility.' AS f','rf.facilityId=f.facilityId');
+        $rs = $this->db->where('rf.resortId',$id)->get()->result_array();
+        //$rs = $this->db->get_where($this->_table_facility, array($this->_id => $id))->result_array();
         //echo $this->db->last_query();
         return $rs;
     }
 
     function get_sports_recreation($id) {
-        $rs = $this->db->get_where($this->_table_sports, array($this->_id => $id))->result_array();
+        $this->db->select('rsr.*,sr.sportsRecreation')->from($this->_table_sports." AS rsr");
+        $this->db->join($this->_sports." AS sr",'rsr.sportsRecreationId=sr.sportsRecreationId');
+        $rs=  $this->db->where('rsr.resortId',$id)->get()->result_array();
+        //$rs = $this->db->get_where($this->_table_sports, array($this->_id => $id))->result_array();
         //echo $this->db->last_query();
         return $rs;
     }
     
     function get_enjay_type($id){
-        $rs = $this->db->get_where($this->_table_enjay_type, array($this->_id => $id))->result_array();
+        $this->db->select('ret.*,et.name,et.image')->from($this->_table_enjay_type." AS ret");
+        $this->db->join($this->_enjay_type." AS et",'ret.enjayTypeId=et.enjayTypeId');
+        $rs=  $this->db->where('ret.resortId',$id)->get()->result_array();
+        //$rs = $this->db->get_where($this->_table_enjay_type, array($this->_id => $id))->result_array();
+        //echo $this->db->last_query();
+        return $rs;
+    }
+    
+    function get_room_details($resortRoomId){
+        $this->db->select('rrd.*,rd.title')->from($this->_table_room_details.' As rrd');
+        $this->db->join('room_details AS rd','rrd.roomDetailsId=rd.roomDetailsId');
+        $rs = $this->db->where('rrd.resortRoomId',$resortRoomId)->get()->result_array();
+        //$rs = $this->db->get_where($this->_table_room_details, array("resortRoomId" => $resortRoomId))->result_array();
         //echo $this->db->last_query();
         return $rs;
     }
@@ -220,4 +255,29 @@ class Resort_model extends CI_Model {
         return $rs;
     }
 
+    function get_full_details($resortId){
+        $sql="SELECT r.*,rer.*,r.resortId AS ResortID,c.categoryName,r.title AS ResortTitle FROM ".$this->_table." AS r JOIN ".$this->_table_room." AS rr ON(r.resortId=rr.resortId)"
+                . " JOIN category AS c ON(c.categoryId=r.categoryId) JOIN ".$this->_table_room." AS rer ON(rer.resortId=r.resortId) "
+                . " WHERE r.resortId=".$resortId.' GROUP BY rer.resortRoomId';
+        //echo $sql;die;
+        $rs=  $this->db->query($sql)->result_array();
+        return $rs;
+    }
+    
+    function get_all_by_menue($categoryId){
+        $sql=  $this->db->select('r.*,ri.image,rrc.oneAdult,c.categoryName')->from($this->_table." AS r");
+        $this->db->join("category AS c",'c.categoryId=r.categoryId');
+        $this->db->join($this->_table_image." ri",'ri.resortId=r.resortId','left');
+        $this->db->join($this->_table_room." AS rr",'rr.resortId=r.resortId','left');
+        $this->db->join($this->_table_room_charges." AS rrc",'rrc.resortRoomId=rr.resortRoomId','left');
+        $rs=$this->db->where('r.isShowAtHome',1)->where('r.status',1)->where('r.categoryId',$categoryId)->group_by('r.resortId')->get()->result_array();
+        //echo $this->db->last_query();
+        return $rs;
+    }
+    
+    function first_charges_by_resortRoomId($resortRoomId){
+        $rs=  $this->db->from($this->_table_room_charges)->where('resortRoomId',$resortRoomId)->get()->result_array();
+        //echo $this->db->last_query();die;
+        return $rs;
+    }
 }

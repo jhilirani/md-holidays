@@ -45,10 +45,3 @@
     </div>
     <div class="clearfix"></div>
     <div class="clearfix"></div>
-    <div class="login_banner">
-        <div class="loginbanner_inner">
-            <div class="container">
-                <div class="bread_cum"> <a href="index.html">Home</a> > <a href="#">Tour & Package</a></div>
-            </div>
-        </div>
-    </div>

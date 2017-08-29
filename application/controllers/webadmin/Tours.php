@@ -16,7 +16,7 @@ class Tours extends MY_Controller {
         $this->_admin_auth();
         $this->_resize_file_array=array('100X100','200X200','300X300');
         $this->_image_main_path='tours_images/';
-        $this->_ins_columnArr=array('title','description','metaDescription','metaKeywords','metaTitle','status','chargesPerPerson','chargesPerChild','isShowAtHome');
+        $this->_ins_columnArr=array('title','description','metaDescription','metaKeywords','metaTitle','status','chargesPerPerson','chargesPerChild','isShowAtHome','categoryId');
     }
 
     public function index() {
@@ -25,6 +25,7 @@ class Tours extends MY_Controller {
 
     public function viewlist() {
         $this->load->model('Enjay_type_model');
+        $this->load->model('Category_model');
         $data = $this->_show_admin_logedin_layout();
         //$this->load->helper("ckeditor");
         $data['pageTitle']="Tours Manager";
@@ -35,6 +36,7 @@ class Tours extends MY_Controller {
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         $dataArr=$this->Tours_model->get_all_admin();
         $data['DataArr'] = $dataArr;
+        $data['categoryArr'] = $this->Category_model->get_data_generic_fun('*',array('type'=>2));
         $toursEnjayTypeArr=$this->Enjay_type_model->get_all();
         $data['toursEnjayTypeArr'] = $toursEnjayTypeArr;
         $data['servicesDataArr'] = $this->Services_model->get_all();
@@ -102,7 +104,7 @@ class Tours extends MY_Controller {
         $data['page_heading_start'] = $this->load->view('webadmin/page_heading_start', $data, TRUE);
         
         $data["dataArr"] = $details;
-        $data['categoryArr'] = $this->Category_model->get_data_generic_fun('*',array('type'=>1));
+        $data['categoryArr'] = $this->Category_model->get_data_generic_fun('*',array('type'=>2));
         $data['ckeditor'] = array(
             //ID of the textarea that will be replaced
             'id' => 'contactInfo',

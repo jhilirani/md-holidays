@@ -102,7 +102,7 @@ define('SiteUploadsURL',BASE_URL.'uploads/');
 define('SiteImagesURL',SiteAssetsURL.'images/');
 define('SiteCSSURL',SiteAssetsURL.'css/');
 define('SiteJSURL',SiteAssetsURL.'js/');
-define('AsseUploadsPathtsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
+define('AssetsUploadsPathtsPath',$_SERVER['DOCUMENT_ROOT'].'/'.SITE_SUB_DOMAIN.'assets/');
 define('ResortImgURL',SiteAssetsURL.'resort_images/');
 define('ResortSmallImageURL',ResortImgURL.'100X100/');
 define('ResortModiumURL',ResortImgURL.'300X300/');

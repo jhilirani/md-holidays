@@ -45,6 +45,44 @@
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
         </tr>
+        <?php $maxAdultPerRoomDataArr=array(1,2,3,4);?>
+        <tr>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">Select Number Adult can use room</td>
+            <td align="left" valign="top"><label><strong>:</strong></label></td>
+            <td align="left" valign="top">
+                <select class="form-control" name="maxAdultPerRoom" id="maxAdultPerRoom">
+                    <?php foreach ($maxAdultPerRoomDataArr AS $k): ?>
+                        <option value="<?php echo $k; ?>" <?php if($resortRoomDetails[0]->maxAdultPerRoom==$k){?>selected<?php }?>><?php echo $k; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">Select Resort Room Details</td>
+            <td align="left" valign="top"><label><strong>:</strong></label></td>
+            <td align="left" valign="top">
+                <?php foreach($roomDetailsDataArr AS $k):?>
+                    <label class="checkbox-inline col-md-3">
+                        <?php $srch=jmultiple_array_search($k->roomDetailsId,'roomDetailsId',$selectedRoomDetailsDataArr);?>
+                        <input type="checkbox" name="roomDetails[]" required="required" value="<?php echo $k->roomDetailsId;?>" <?php if($srch!='-1'){?>checked<?php }?>><?php echo $k->title;?>
+                    </label>
+                <?php endforeach;?>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">&nbsp;</td>
+            <td align="left" valign="top">&nbsp;</td>
+        </tr>
         <tr>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">Order No</td>
@@ -85,7 +123,7 @@
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">Description</td>
             <td align="left" valign="top"><label><strong>:</strong></label></td>
-            <td align="left" valign="top"><textarea name="roomDescription" id="roomDescription" class="form-control"><?php echo $resortRoomDetails[0]->roomDescription;?></textarea></td>
+            <td align="left" valign="top"><input value="<?php echo $resortRoomDetails[0]->roomDescription;?>" type="text" name="roomDescription" id="roomDescription" class="form-control"></td>
         </tr>
         <tr>
             <td align="left" valign="top">&nbsp;</td>
