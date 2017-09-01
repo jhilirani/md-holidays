@@ -23,7 +23,6 @@
     <?php if($ogImage!=''){?>
     <meta property="og:title" content="<?php echo $MetaTitle;?>"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:image" content="<?php echo ResortImgURL.$ogImage;?>"/>
     <meta property="og:url" content="<?php echo current_url();?>"/>
     <meta property="og:description" content="<?php echo $MetaTitle;?>"/>
     <meta property="og:site_name" content="<?php echo current_url();?>"/> 
@@ -31,7 +30,13 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="<?php echo current_url();?>">
     <meta name="twitter:title" content="<?php echo $MetaTitle;?>">
-    <meta name="twitter:image" content="<?php echo DETAILS_PAGE_BIG_IMG.$ogImage;?>">
+        <?php if($this->uri->segment(1)=='resort'):?>
+            <meta property="og:image" content="<?php echo ResortModiumURL.$ogImage;?>"/>
+            <meta name="twitter:image" content="<?php echo ResortModiumURL.$ogImage;?>">
+        <?php else:?>
+            <meta property="og:image" content="<?php echo ToursModiumURL.$ogImage;?>"/>
+            <meta name="twitter:image" content="<?php echo ToursModiumURL.$ogImage;?>">
+        <?php endif;?>
     <?php }?>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo SiteCSSURL;?>bootstrap.min.css" rel="stylesheet">

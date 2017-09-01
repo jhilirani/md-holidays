@@ -303,6 +303,8 @@ class MY_Controller extends CI_Controller {
                 $data['meta']=$SEODataArr['meta'];
                 if(!array_key_exists('ogImage', $SEODataArr)){
                     $data['ogImage']='';
+                }else{
+                    $data['ogImage']=$SEODataArr['ogImage'];
                 }
             }else{
                 $data['MetaTitle'] = $SEODataArr['MetaTitle'];

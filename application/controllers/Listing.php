@@ -52,18 +52,21 @@ class Listing extends MY_Controller {
     }
     
     function resort_details($str){
+        //die("kkk");
         $resortId=  $this->_get_real_id($str,'non_menue');
         //pre($resortId);die;
         $resortRoomDataArr=  $this->Resort_model->get_full_details($resortId);
-        //pre($resortRoomDataArr);die;
-        $SEODataArr=  $this->_get_meta_deetails_of_item($resortRoomDataArr[0]);
+        $this->load->model("Resort_image_model");
+        $rsResortImageArr=  $this->Resort_image_model->get_data_generic_fun('*',array('resortId'=>$resortId),'result_arrr');
+        //pre($rsResortImageArr);die;
+        $SEODataArr=  $this->_get_meta_deetails_of_item($resortRoomDataArr[0],$rsResortImageArr[0]);
         $breadCrumb=array('link1'=>array(
                                     'url'=>BASE_URL.'resort-listing/'.my_seo_freindly_url($resortRoomDataArr[0]['categoryName'])."-".($resortRoomDataArr[0]['categoryId']*102102),
                                     'label'=>$resortRoomDataArr[0]['categoryName']),
             'link2'=>array('label'=>$resortRoomDataArr[0]['ResortTitle'])
             );
-        if($this->is_loged_in($SEODataArr)){
-            $data=  $this->_get_logedin_template();
+        if($this->is_loged_in()){
+            $data=  $this->_get_logedin_template($SEODataArr);
         }else{
             $data=  $this->_get_tobe_login_template($SEODataArr);
         }
@@ -96,8 +99,6 @@ class Listing extends MY_Controller {
         ///pre($factfileStr);die;
         $sportsAndRecreationDataArr=  $this->Resort_model->get_sports_recreation($resortId);
         
-        $this->load->model("Resort_image_model");
-        $rsResortImageArr=  $this->Resort_image_model->get_data_generic_fun('*',array('resortId'=>$resortId),'result_arrr');
         //pre($rsResortImageArr);die;
         $data['bread_crumb']=  $this->load->view('bread_crumb',$data,TRUE);
         $data['resortRoomDetailsDataArr']=$resortRoomDetailsDataArr;
@@ -112,16 +113,18 @@ class Listing extends MY_Controller {
     function tours_details($str){
         $toursId=  $this->_get_real_id($str,'non_menue');
         $toursDataArr=  $this->Tours_model->get_full_details($toursId);
-        //pre($toursDataArr);die;
-        $SEODataArr=  $this->_get_meta_deetails_of_item($toursDataArr[0]);
+        $this->load->model("Tours_image_model");
+        $rsToursImageArr=  $this->Tours_image_model->get_data_generic_fun('*',array('toursId'=>$toursId),'result_arrr');
+        //pre($rsToursImageArr);die;
+        $SEODataArr=  $this->_get_meta_deetails_of_item($toursDataArr[0],$rsToursImageArr[0]);
         //pre($SEODataArr);die;
         $breadCrumb=array('link1'=>array(
                                     'url'=>BASE_URL.'tours-listing/'.my_seo_freindly_url($toursDataArr[0]['categoryName'])."-".($toursDataArr[0]['categoryId']*102102),
                                     'label'=>$toursDataArr[0]['categoryName']),
             'link2'=>array('label'=>$toursDataArr[0]['title'])
             );
-        if($this->is_loged_in($SEODataArr)){
-            $data=  $this->_get_logedin_template();
+        if($this->is_loged_in()){
+            $data=  $this->_get_logedin_template($SEODataArr);
         }else{
             $data=  $this->_get_tobe_login_template($SEODataArr);
         }
@@ -130,8 +133,6 @@ class Listing extends MY_Controller {
         $enjayTypeDataArr=  $this->Tours_model->get_enjay_type($toursId);
         $servicesDataArr=  $this->Tours_model->get_services($toursId);
         //pre($servicesDataArr);die;
-        $this->load->model("Tours_image_model");
-        $rsToursImageArr=  $this->Tours_image_model->get_data_generic_fun('*',array('toursId'=>$toursId),'result_arrr');
         //pre($rsToursImageArr);die;
         $data['bread_crumb']=  $this->load->view('bread_crumb',$data,TRUE);
         $data['toursDataArr']=$toursDataArr;
@@ -175,12 +176,13 @@ class Listing extends MY_Controller {
         return $SEODataArr;
     }
     
-    function _get_meta_deetails_of_item($Arr){
+    function _get_meta_deetails_of_item($Arr,$ImgArr=array()){
         $meta=array(
             '0'=>array('name'=>'description','content'=>$Arr['metaDescription']),
             '1'=>array('name'=>'keywords','content'=>$Arr['metaDescription'])
             );
-        $SEODataArr=array('MetaTitle'=>$Arr['metaTitle'],'meta'=>$meta);
+        $SEODataArr=array('MetaTitle'=>$Arr['metaTitle'],'meta'=>$meta,'ogImage'=>$ImgArr['image']);
+        
         return $SEODataArr;
     }
 }

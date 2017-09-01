@@ -18,6 +18,7 @@ class Resort_model extends CI_Model {
     private $_enjay_type="enjay_type";
     private $_table_room_charges;
     private $_table_room_details;
+    private $_category ="category";
 
     function __construct() {
         parent::__construct();
@@ -58,7 +59,8 @@ class Resort_model extends CI_Model {
     }
     
     function get_latet_10_resort_for_home(){
-        $this->db->select('r.*,ri.image,rrc.oneAdult')->from($this->_table." as r");
+        $this->db->select('r.*,ri.image,rrc.oneAdult,c.categoryName')->from($this->_table." as r");
+        $this->db->join($this->_category." AS c",'r.categoryId=c.categoryId');
         $this->db->join($this->_table_image." AS ri",'ri.resortId=r.resortId','left');
         $this->db->join($this->_table_room." AS rr",'rr.resortId=r.resortId','left');
         $this->db->join($this->_table_room_charges." AS rrc",'rrc.resortRoomId=rr.resortRoomId','left');

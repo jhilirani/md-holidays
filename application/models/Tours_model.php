@@ -10,6 +10,7 @@ class Tours_model extends CI_Model {
     private $_table_enjay_type = 'tours_enjay_type';
     private $_enjay_type = 'enjay_type';
     private $_id = "toursId";
+    private $_category ="category";
 
     function __construct() {
         parent::__construct();
@@ -189,7 +190,8 @@ class Tours_model extends CI_Model {
     }
     
     function get_latet_10_tours_for_home(){
-        $this->db->select('t.*,ti.image')->from($this->_table." as t");
+        $this->db->select('t.*,ti.image,c.categoryName')->from($this->_table." as t");
+        $this->db->join($this->_category." AS c",'t.categoryId=c.categoryId');
         $this->db->join($this->_table_image." AS ti",'ti.toursId=t.toursId','left');
         $rs=$this->db->where('t.isShowAtHome',1)->where('t.status',1)->group_by('t.toursId')->get()->result_array();
         //echo $this->db->last_query();die;
