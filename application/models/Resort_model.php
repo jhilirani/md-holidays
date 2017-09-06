@@ -284,6 +284,11 @@ class Resort_model extends CI_Model {
     }
     
     function get_data_for_checkout($resortRoomId){
-        //$sql="SELECT"
+        $sql="SELECT r.title AS resortTitle,r.metaTitle,r.metaKeywords,r.metaDescription,ri.image,rr.title AS resortRoomtitle,rr.image AS roomImage, "
+                . " c.categoryName,r.resortId,r.categoryId FROM ".$this->_table." AS r JOIN category AS c ON(r.categoryId=c.categoryId) "
+                . " JOIN ".$this->_table_image." AS ri ON(r.resortId=ri.resortId) JOIN ".$this->_table_room." AS rr "
+                . " ON(r.resortId=rr.resortId) WHERE rr.resortRoomId='".$resortRoomId."' GROUP by r.resortId ";
+        $rs=  $this->db->query($sql)->result_array();
+        return $rs;
     }
 }

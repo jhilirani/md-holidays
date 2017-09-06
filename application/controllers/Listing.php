@@ -148,8 +148,25 @@ class Listing extends MY_Controller {
             redirect(BASE_URL);
         }
         $this->load->model("Resort_model");
-        //$dataArr=  $this->Resort_model->get_data_for_checkout($roomId);
-        redirect('404_override');
+        $dataArr=  $this->Resort_model->get_data_for_checkout($roomId);
+        $ogImgArr=array('image'=>$dataArr[0]['image']);
+        $SEODataArr=  $this->_get_meta_deetails_of_item($dataArr[0],$ogImgArr);
+        $breadCrumb=array('link1'=>array(
+                                    'url'=>BASE_URL.'resort-listing/'.my_seo_freindly_url($dataArr[0]['categoryName'])."-".($dataArr[0]['categoryId']*102102),
+                                    'label'=>$dataArr[0]['categoryName']),
+            'link2'=>array('url'=>BASE_URL.'resort/'.my_seo_freindly_url($dataArr[0]['categoryName']).'/'.my_seo_freindly_url($dataArr[0]['resortTitle']).'-'.$dataArr[0]['resortId']*204204,
+                'label'=>$dataArr[0]['resortTitle']),
+            'link3'=>array('label'=>$dataArr[0]['resortRoomtitle'])
+            );
+        if($this->is_loged_in()){
+            $data=  $this->_get_logedin_template($SEODataArr);
+        }else{
+            $data=  $this->_get_tobe_login_template($SEODataArr);
+        }
+        $data['breadCrumb']=$breadCrumb;
+        $data['dataArr']=$dataArr;
+        $data['bread_crumb']=  $this->load->view('bread_crumb',$data,TRUE);
+        $this->load->view('checkout',$data);
     }
     
     function _get_real_id($str,$type){
