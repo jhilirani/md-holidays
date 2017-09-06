@@ -16,6 +16,7 @@
  width: 100%;
 }
 </style>
+<link rel="stylesheet" href="<?php echo SiteAssetsURL ?>plugins/datepicker/datepicker3.css">
 <div class="clearfix"></div>
     <!-- // BANNER AREA START // -->
     <div class="slider">
@@ -124,7 +125,7 @@
                                         <div style="text-align: center;"><input value="Update" id="mt-book-update-btn" style="" type="submit"></div>
                                     </div> -->
                                     <?php foreach($resortRoomDetailsDataArr AS $roomKey=>$roomVal):
-                                        //pre($roomVal);die;?>
+                                        //pre($roomVal); //die;?>
                                     <div class="book_nowinner1">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -147,7 +148,15 @@
                                                         <h4>For <?php echo $roomVal['maxAdultPerRoom'];?> Adults stay in 1 Room</h4>
                                                         <p><?php echo $roomVal['roomDescription'];?> More details click Book Now</p>
                                                     </div>
-                                                    <div><input value="Book Now, Pay Later" id="mt-book-update-btn" type="submit"></div>
+                                                    <div class="col-md-12 text-left">
+                                                        <div class="col-md-5 col-sm-5 col-xs-5">
+                                                            <button class="btn btn-primary btn-sm viewRoomDetails" data-roomid="<?php echo $roomVal['resortRoomId'];?>" data-strurl="<?php echo my_seo_freindly_url($resortRoomDetailsDataArr[0]['ResortTitle']).'/'.my_seo_freindly_url($roomVal['title']);?>">View Details</button>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 col-xs-2"> &nbsp;</div>
+                                                        <div class="col-md-5 col-sm-5 col-xs-5">
+                                                            <button class="btn btn-primary btn-sm bookNow" data-roomid="<?php echo $roomVal['resortRoomId'];?>" data-strurl="<?php echo my_seo_freindly_url($resortRoomDetailsDataArr[0]['ResortTitle']).'/'.my_seo_freindly_url($roomVal['title']);?>">Book Now</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="row">
@@ -260,6 +269,8 @@
     <!-- // PRODUCTS AREA END // -->
     <!-- // PRODUCTS AREA END // -->
 <?php echo $footer;?>
+    <script type="text/javascript" src="<?php echo SiteAssetsURL; ?>plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="<?php echo SiteJSURL; ?>resort_tour_operation.js"></script>
     <script type="text/javascript">
         function initMap() {
         var uluru = {lat: <?php echo $resortRoomDetailsDataArr[0]['latitude'];?>, lng: <?php echo $resortRoomDetailsDataArr[0]['longitude'];?>};
@@ -272,5 +283,7 @@
           map: map
         });
       }
+      myJsMain.show_room_charges_details();
+      myJsMain.go_book_now();
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAksaNvL8irkMxMnQOitgjSrhkR7aiFw1s&callback=initMap"> </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAksaNvL8irkMxMnQOitgjSrhkR7aiFw1s&callback=initMap"> </script>

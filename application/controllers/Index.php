@@ -83,4 +83,24 @@ class Index extends MY_Controller {
             die('<i class="fa fa-exclamation-triangle fa-2x"></i> '.$error_message);
         }
     }
+    
+    function custom_404(){
+        $this->output->set_status_header('404');
+        if($this->is_loged_in()){
+                $data=$this->_get_logedin_template();
+        }else{
+                $data=$this->_get_tobe_login_template();
+        }
+        $this->load->view('custom_404',$data);
+    }
+    
+    function custom_500(){
+        $this->output->set_status_header('500');
+        if($this->is_loged_in()){
+                $data=$this->_get_logedin_template();
+        }else{
+                $data=$this->_get_tobe_login_template();
+        }
+        $this->load->view('custom_500',$data);
+    }
 }

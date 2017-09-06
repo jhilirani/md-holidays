@@ -57,6 +57,7 @@ $route['resort-listing/(:any)']="listing/show_resort/$1";
 $route['tours-listing/(:any)']="listing/show_tours/$1";
 $route['resort/(:any)/(:any)']="listing/resort_details/$2";
 $route['tour/(:any)/(:any)']="listing/tours_details/$2";
+$route['book-resort/(:any)/(:any)/(:num)']="listing/resort_room_book/$3";
 
 $route['about-us']="cms/about_us";
 $route['terms-of-services']="cms/terms_of_services";
@@ -64,3 +65,5 @@ $route['privacy-policy']="cms/privacy_policy";
 $route['travel-guide']="cms/travel_guide";
 $route['contact-us']="index/contact_us";
 $route['contact-save']="index/contact_us_submit";
+$route['404_override'] = 'index/custom_404';
+$route['500_override'] = 'index/custom_500';

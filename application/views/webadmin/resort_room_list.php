@@ -116,7 +116,7 @@
                                             &nbsp;&nbsp;
                                             <a href="<?php echo ADMIN_BASE_URL . 'resort/view_edit_room/' . $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
                                             &nbsp;&nbsp;
-                                            <a href="javascript:void(0);" alt="<?php echo $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText viewChargesDetails"><i class="fa fa-eye fa-lg" title="Edit"></i></a>
+                                            <a href="javascript:void(0);" alt="<?php echo $InerArr['resortRoomId']; ?>"  class="AdminDashBoardLinkText viewChargesDetails"><i class="fa fa-eye fa-lg" title="View Details"></i></a>
                                             &nbsp;&nbsp;
                                             <a href="javascript:void(0);" onclick="AskDelete('<?php echo $InerArr['resortRoomId']; ?>');" class="AdminDashBoardLinkText"><i class="fa fa-remove fa-lg" title="Delete"></i></a>
                                         </td> 

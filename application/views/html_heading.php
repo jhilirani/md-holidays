@@ -38,11 +38,21 @@
             <meta name="twitter:image" content="<?php echo ToursModiumURL.$ogImage;?>">
         <?php endif;?>
     <?php }?>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="<?php echo SiteAssetsURL; ?>font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo SiteAssetsURL; ?>ionicons-2.0.1/css/ionicons.min.css">
     <link href="<?php echo SiteCSSURL;?>bootstrap.min.css" rel="stylesheet">
     <!--<link href="<?php //echo SiteCSSURL;?>font-awesome.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="<?php echo SiteCSSURL;?>flexslider.css" type="text/css" media="screen" />
     <link href="<?php echo SiteCSSURL;?>animate.css" rel="stylesheet" type="text/css">
     <link href="<?php echo SiteCSSURL;?>style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<?php echo SiteAssetsURL; ?>css/sweetalert.css">
     <script src="<?php echo SiteJSURL;?>modernizr.js"></script>
+    <script type="text/javascript">
+        myJsMain = window.myJsMain || {};
+        myJsMain.adminBaseURL = '<?php echo ADMIN_BASE_URL;?>';
+        myJsMain.MainSiteBaseURL = '<?php echo BASE_URL;?>';
+        myJsMain.baseURL = '<?php echo BASE_URL;?>';
+        myJsMain.SystemMessageName='Maldives Traveller System Message'
+    </script>
 </head>

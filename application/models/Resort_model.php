@@ -282,4 +282,8 @@ class Resort_model extends CI_Model {
         //echo $this->db->last_query();die;
         return $rs;
     }
+    
+    function get_data_for_checkout($resortRoomId){
+        //$sql="SELECT"
+    }
 }

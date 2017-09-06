@@ -26,7 +26,7 @@ myJsMain.show_charges_details=function(){
     jQuery('.viewChargesDetails').on('click',function(){
             var dialog = bootbox.dialog({
                 title: '<b>Selected Room Details</b>',
-                message: '<p><i class="fa fa-spin fa-spinner"></i> Loading...</p>',
+                message: '<p class="text-center"><i class="fa fa-spin fa-spinner fa-5x"></i> Loading...</p>',
                 size:'large'
             });
             dialog.init(function(){

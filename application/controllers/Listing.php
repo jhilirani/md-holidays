@@ -142,6 +142,16 @@ class Listing extends MY_Controller {
         $this->load->view('tour',$data);
     }
     
+    function resort_room_book($roomIdNumber){
+        $roomId=$roomIdNumber/50250341;
+        if (strpos($roomId,'.') !== false) {
+            redirect(BASE_URL);
+        }
+        $this->load->model("Resort_model");
+        //$dataArr=  $this->Resort_model->get_data_for_checkout($roomId);
+        redirect('404_override');
+    }
+    
     function _get_real_id($str,$type){
         if(!isset($str) || $str==""){
             redirect(BASE_URL);
@@ -185,4 +195,6 @@ class Listing extends MY_Controller {
         
         return $SEODataArr;
     }
+    
+    
 }

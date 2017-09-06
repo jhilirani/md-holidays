@@ -26,9 +26,16 @@
     </footer>
     <!-- // FOOTER AREA END  // -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+    <script src="<?php echo SiteAssetsURL;?>plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="<?php echo SiteAssetsURL;?>plugins/jQueryUI/jquery-ui.min.js"></script>
     <script src="<?php echo SiteJSURL;?>bootstrap.min.js"></script>
     <script src="<?php echo SiteJSURL;?>jquery.flexslider.js"></script>
+    <script src="<?php echo SiteAssetsURL; ?>plugins/iCheck/icheck.min.js"></script>
+    <script src="<?php echo SiteJSURL; ?>bootbox.js_4.4.0_bootbox.min.js"></script>
+    <script src="<?php echo SiteJSURL; ?>jquery.validate.min.js"></script>
+    <script src="<?php echo SiteJSURL; ?>common.js"></script>
+    <script src="<?php echo SiteJSURL; ?>sweetalert.min.js"></script>
     <script type="text/javascript">
         $(window).load(function() {
             $('.flexslider').flexslider({

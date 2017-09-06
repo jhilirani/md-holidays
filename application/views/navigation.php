@@ -8,16 +8,33 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav arrow">
-                            <li><a href="#" class="active"><img src="<?php echo SiteAssetsURL; ?>img/home.png" alt=""></a></li>
-                            <?php foreach ($menuDataArr AS $k):?>
+                            <?php //echo  '='.$this->uri->segment(1).'***'.$this->uri->segment(2).'=';
+                            if($this->uri->segment(1)=="" && $this->uri->segment(1)==""):?>
+                            <li><a href="<?php echo BASE_URL;?>" class="active"><img src="<?php echo SiteAssetsURL; ?>img/home.png" alt=""></a></li>
+                            <?php 
+                            else:?>
+                            <li><a href="<?php echo BASE_URL;?>"><img src="<?php echo SiteAssetsURL; ?>img/home.png" alt=""></a></li>    
+                        <?php endif;
+                            $haystack =$this->uri->segment(2);
+                            $activeClass='';
+                            foreach ($menuDataArr AS $k):
+                                $needle=my_seo_freindly_url($k->categoryName);
+                                if( strpos( $haystack, $needle ) !== false ) {
+                                    $activeClass='class="active"';
+                                }
+                                ?>
                             <li>
                                 <?php if($k->type==1){?>
-                                <a href="<?php echo BASE_URL.'resort-listing/'.my_seo_freindly_url($k->categoryName)."-".($k->categoryId*102102);?>"><?php echo $k->categoryName;?></a>
+                                <a href="<?php echo BASE_URL.'resort-listing/'.my_seo_freindly_url($k->categoryName)."-".($k->categoryId*102102);?>" <?php echo $activeClass;?>><?php echo $k->categoryName;?></a>
                                 <?php }else{?>
-                                <a href="<?php echo BASE_URL.'tours-listing/'.my_seo_freindly_url($k->categoryName)."-".($k->categoryId*102102);?>"><?php echo $k->categoryName;?></a>
+                                <a href="<?php echo BASE_URL.'tours-listing/'.my_seo_freindly_url($k->categoryName)."-".($k->categoryId*102102);?>" <?php echo $activeClass;?>><?php echo $k->categoryName;?></a>
                                 <?php }?>
                             </li>
-                            <?php endforeach;?>
+                            <?php 
+                                if($activeClass!=""){
+                                    $activeClass="";
+                                }
+                                endforeach;?>
                             <?php /*<li><a href="#">Tours & Packages</a></li>
                             <?php /*<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cheap Holidays<b class="caret"></b></a>
@@ -38,7 +55,8 @@
                                 </ul>
                             </li>*/?>		
                             <!--<li><a href="j#">Luxury & Super Luxury Resorts</a></li> -->
-                            <li><a href="<?php echo BASE_URL.'travel-guide';?>">Travel Guide</a></li>
+                            <?php if($this->uri->segment(1)=='travel-guide'){$activeClass='class="active"';}?>
+                            <li><a href="<?php echo BASE_URL.'travel-guide';?>" <?php echo $activeClass;?>>Travel Guide</a></li>
                         </ul>
                     </div>
                 </nav>
