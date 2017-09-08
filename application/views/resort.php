@@ -1,20 +1,10 @@
 <?php echo $html_heading.$header.$bread_crumb; //pre($allResortToursDataArr);die;?>
 <style type="text/css">
-.flex-caption {
-  width: 100%;
-  padding: 1%;
-  left: 0;
-  bottom: 0;
-  background: rgba(0,0,0,.5);
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-  font-size: 14px;
-  line-height: 15px;
-}
-#map {
- height: 360px;
- width: 100%;
-}
+.flex-caption {width: 100%;padding: 1%;left: 0;bottom: 0;background: #009CFF;color: #fff;text-shadow: 0 -1px 0 #286090;font-size: 14px;line-height: 15px;}
+#map {height: 360px;width: 100%;}
+.room_details_mob{margin: 15px 0 8px 0;}
+.btn-primary{background-color:#009CFF !important;}
+.btn-primary:hover{background-color: #286090 !important;}
 </style>
 <link rel="stylesheet" href="<?php echo SiteAssetsURL ?>plugins/datepicker/datepicker3.css">
 <div class="clearfix"></div>
@@ -129,7 +119,7 @@
                                     <div class="book_nowinner1">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 col-sm-12 col-xs-12">
                                                     <div>
                                                         <?php $roomImagePath=AssetsPath.'resort_room_image/200X200/';
                                                         $roomImageURL=SiteAssetsURL.'resort_room_image/200X200/';
@@ -141,6 +131,16 @@
                                                             <img src="<?php echo $roomImageURL.$roomVal['image']?>" alt="<?php echo $roomVal['title'];?>" title="<?php echo $roomVal['title'];?>"/>
                                                         <?php }?>                
                                                     </div>
+                                                    <div class="col-md-12 col-sm-12 text-left ">
+                                                        <div class="col-md-5 col-sm-5 col-xs-5">
+                                                            <button class="btn btn-primary btn-sm viewRoomDetails" data-roomid="<?php echo $roomVal['resortRoomId'];?>" data-strurl="<?php echo my_seo_freindly_url($resortRoomDetailsDataArr[0]['ResortTitle']).'/'.my_seo_freindly_url($roomVal['title']);?>">View Details</button>
+                                                        </div>
+                                                        <div class="col-md-5 col-sm-5 col-xs-5 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                                                            <button class="btn btn-primary btn-sm bookNow" data-roomid="<?php echo $roomVal['resortRoomId'];?>" data-strurl="<?php echo my_seo_freindly_url($resortRoomDetailsDataArr[0]['ResortTitle']).'/'.my_seo_freindly_url($roomVal['title']);?>">Book Now</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-sm-12 col-xs-12">
                                                     <div class="book_nowinner2" style="border: 0;">
                                                         <h1><?php echo $roomVal['title'];?></h1>
                                                         <h2><i class="fa fa-usd" aria-hidden="true"></i> <?php echo $roomVal['resortRoomCharges'];?> Per Night</h2>
@@ -148,22 +148,19 @@
                                                         <h4>For <?php echo $roomVal['maxAdultPerRoom'];?> Adults stay in 1 Room</h4>
                                                         <p><?php echo $roomVal['roomDescription'];?> More details click Book Now</p>
                                                     </div>
-                                                    <div class="col-md-12 text-left">
-                                                        <div class="col-md-5 col-sm-5 col-xs-5">
-                                                            <button class="btn btn-primary btn-sm viewRoomDetails" data-roomid="<?php echo $roomVal['resortRoomId'];?>" data-strurl="<?php echo my_seo_freindly_url($resortRoomDetailsDataArr[0]['ResortTitle']).'/'.my_seo_freindly_url($roomVal['title']);?>">View Details</button>
-                                                        </div>
-                                                        <div class="col-md-2 col-sm-2 col-xs-2"> &nbsp;</div>
-                                                        <div class="col-md-5 col-sm-5 col-xs-5">
-                                                            <button class="btn btn-primary btn-sm bookNow" data-roomid="<?php echo $roomVal['resortRoomId'];?>" data-strurl="<?php echo my_seo_freindly_url($resortRoomDetailsDataArr[0]['ResortTitle']).'/'.my_seo_freindly_url($roomVal['title']);?>">Book Now</button>
-                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 room_details_mob">
+                                                        <div class="text-left col-md-3 col-sm-3 col-xs-12"><h3><strong>Room Details</strong></h3></div>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">&nbsp;</div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-sm-6 col-xs-12"><h3><strong>Room Details</strong></h3></div>
-                                                        <div class="col-md-6 col-sm-6 col-xs-12">&nbsp;</div>
-                                                    </div>
-                                                    <div class="row">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                                         <?php $roomDetails=$roomVal['roomDetails'];
                                                         foreach ($roomDetails AS $rK=>$rV):?>
                                                         <div class="col-md-6 col-sm-6 col-xs-12" style=" font-size: 13px;padding:3px 15px;"> 
