@@ -128,4 +128,44 @@ if (!function_exists('get_site_breadcrumb')) {
     }
 
 }
+
+if ( ! function_exists('isValidTimeStamp'))
+{
+    function isValidTimeStamp($timestamp)
+    {
+        return ((string) (int) $timestamp === $timestamp) 
+            && ($timestamp <= PHP_INT_MAX)
+            && ($timestamp >= ~PHP_INT_MAX);
+    }   
+}
+
+if ( ! function_exists('success_response_after_post_get')){
+    function success_response_after_post_get($parram=array()){
+        $result=array();
+        if(!array_key_exists('ajaxType', $parram)):
+            $result=  get_default_urls();    
+        endif;
+        //$result['message']="Shipping address data updated successfully.";
+        $result['timestamp'] = (string)time();
+        if(!empty($parram)):
+            foreach ($parram as $k => $v){
+                $result[$k]=$v;
+            }
+        endif;
+        
+        header('Content-type: application/json');
+        echo json_encode($result);
+    }
+}
+
+if ( ! function_exists('get_default_urls')){
+	function get_default_urls(){
+		$result=array();
+        $result['site_image_url']=SiteImagesURL;
+        $result['site_resort_image_url']=ResortSmallImageURL;
+        $result['site_tour_image_url']=ToursSmallImageURL;
+        $result['main_site_url']=BASE_URL;
+        return $result;
+	}
+}
 ?>
