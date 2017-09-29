@@ -79,6 +79,12 @@ class Resort_model extends CI_Model {
         //echo $this->db->last_query();
         return $rs;
     }
+    
+    function details_arr($id) {
+        $rs = $this->db->get_where($this->_table, array($this->_id => $id))->result_array();
+        //echo $this->db->last_query();
+        return $rs;
+    }
 
     function get_images($Id) {
         $rs = $this->db->get_where($this->_table_image, array($this->_id => $Id))->result();

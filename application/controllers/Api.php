@@ -129,5 +129,53 @@ class Api extends REST_Controller {
 		//$data['home_page_list'] = $allResortToursDataArr;
 		success_response_after_post_get($data);
 	}
-    
+    function get_resort_details_post(){
+        $this->load->model('Resort_image_model');
+        $this->load->model('Resort_model');
+        $resortId=  $this->post('resortId');
+        $dataArr=array();
+        $summery=array();
+        $rooms=array();
+        $photo=array();
+        
+        
+        $rsResortImageArr=  $this->Resort_image_model->get_data_generic_fun('*',array('resortId'=>$resortId),'result_arrr');
+        //pre($rsResortImageArr);
+        $resortRoomDataArr=  $this->Resort_model->get_full_details($resortId);
+        //pre($resortRoomDataArr);
+        
+        $resortRoomDetailsDataArr=array();
+        //pre($resortRoomDataArr);die;
+        foreach($resortRoomDataArr AS $k){
+            $roomDetails=  $this->Resort_model->get_room_details($k['resortRoomId']);
+            $first_charges=  $this->Resort_model->first_charges_by_resortRoomId($k['resortRoomId']);
+            $k['resortRoomCharges']=$first_charges[0]['oneAdult'];
+            $k['resortRoomBookingStartDate']=$first_charges[0]['bookingStartDate'];
+            $k['resortRoomBookingEndDate']=$first_charges[0]['bookingEndDate'];
+            $k['roomDetails']=$roomDetails;
+            //pre($k);die;
+            $resortRoomDetailsDataArr[]=$k;
+        }
+        
+        $enjayTypeDataArr=  $this->Resort_model->get_enjay_type($resortId);
+        $facilityDataArr=  $this->Resort_model->get_facility($resortId);
+        $factfileDataArr=  $this->Resort_model->get_factfile($resortId);
+        $factfileStr="";
+        foreach ($factfileDataArr AS $k =>$v){
+            if($factfileStr==""){
+                $factfileStr=$v['factfile'];
+            }else{
+                $factfileStr.=','.$v['factfile'];
+            }
+        }
+        $summery['enjayType']=$enjayTypeDataArr;
+        $summery['facility']=$facilityDataArr;
+        $summery['factfile']=$factfileStr;
+        $summery['details']=  $this->Resort_model->details_arr($resortId);
+        
+        $dataArr['summery']=$summery;
+        $dataArr['rooms']=$resortRoomDetailsDataArr;
+        $dataArr['photo']=$rsResortImageArr;
+        success_response_after_post_get($dataArr);
+    }
 }
