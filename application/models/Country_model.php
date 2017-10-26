@@ -21,13 +21,16 @@ class Country_model extends CI_Model {
     }
     
 	
-	function get_all()
+	function get_all($type="")
 	{
 		$this->db->select('*');
 		$this->db->from($this->_table);
 		//$this->db->where('Status <','2');
 		$query = $this->db->get();
-		$this->result = $query->result();
+                if($type=="")
+                    $this->result = $query->result();
+                else
+                    $this->result = $query->result_array();
 		return $this->result;
 	}	
 	
@@ -49,6 +52,18 @@ class Country_model extends CI_Model {
 		$this->result = $query->result();
 		return $this->result;
 	}
+        
+        function get_all_country(){
+            $rs= $this->db->from($this->_table)->where('locationType',0)->get()->result_array();
+            //echo $this->db->last_query();die;
+            return $rs;
+        }
+        
+        function get_state_by_country_for_api($parentId){
+            $rs= $this->db->from($this->_table)->where('locationType',1)->where('parentId',$parentId)->get()->result_array();
+            //echo $this->db->last_query();die;
+            return $rs;
+        }
 }
 
 ?>

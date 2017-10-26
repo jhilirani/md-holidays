@@ -178,4 +178,27 @@ class Api extends REST_Controller {
         $dataArr['photo']=$rsResortImageArr;
         success_response_after_post_get($dataArr);
     }
+    
+    function get_resort_room_details_get($resortRoomId){
+        $this->load->model('Resort_room_charges_model');
+        $this->load->model('Resort_room_model');
+        $dataArr=array();
+        $dataArr['resortRoomChargesDetails']=$this->Resort_room_charges_model->get_data_generic_fun('*',array('resortRoomId'=>$resortRoomId),'result_arr');
+        //$resortRoomDetails=$this->Resort_room_model->get_room_details($resortRoomId);
+        success_response_after_post_get($dataArr);
+    }
+    
+    function get_county_state_get($type="",$parentId=""){
+        $this->load->model("Country_model");
+        $dataArr=array();
+        if($type==""){
+            /// it is for country
+            $dataArr['countryDataArr']= $this->Country_model->get_all_country();
+            success_response_after_post_get($dataArr);
+        }else{
+            /// it is for state
+            $dataArr['stateDataArr']= $this->Country_model->get_state_by_country_for_api($parentId);
+            success_response_after_post_get($dataArr);
+        }
+    }
 }
