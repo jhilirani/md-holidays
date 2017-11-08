@@ -163,7 +163,8 @@ if ( ! function_exists('get_default_urls')){
 		$result=array();
         $result['site_image_url']=SiteImagesURL;
         $result['site_resort_image_url']=ResortSmallImageURL;
-		$result['site_resort_midium_image_url']=ResortModiumURL;
+	$result['site_resort_midium_image_url']=ResortModiumURL;
+        $result['site_tour_midium_image_url']=ToursModiumURL;
         $result['site_tour_image_url']=ToursSmallImageURL;
         $result['site_resort_enjay_type_image_url']=SiteAssetsURL.'resort_enjay_type/';
         $result['site_resort_room_image_image_url']=SiteAssetsURL.'resort_room_image/100X100/';
