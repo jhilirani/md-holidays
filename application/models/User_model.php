@@ -176,7 +176,11 @@ class User_model extends CI_Model {
 
         return $rs;
     }
-
+	
+	public function add_token($dataArray) {
+        $this->db->insert('fcm_token', $dataArray);
+        return $this->db->insert_id();
+    }
 }
 
 ?>

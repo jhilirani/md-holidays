@@ -225,4 +225,13 @@ class Api extends REST_Controller {
         $dataArr['photo'] = $rsToursImageArr;
         success_response_after_post_get($dataArr);
     }
+	
+	function save_device_token_post(){
+		$token = $this->post('token');
+		$dataArr=array('deviceToken'=>$token,'addedOn'=>date('d-m-Y'));
+		$this->load->model('User_model');
+		$this->User_model->add_token($dataArr);
+		$dataArr=array('success'=>'ok');
+		success_response_after_post_get($dataArr);
+	}
 }
