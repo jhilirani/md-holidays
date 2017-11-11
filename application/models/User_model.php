@@ -181,6 +181,12 @@ class User_model extends CI_Model {
         $this->db->insert('fcm_token', $dataArray);
         return $this->db->insert_id();
     }
+	
+	public function add_device_location($dataArray) {
+        $this->db->insert('device_location', $dataArray);
+        return $this->db->insert_id();
+    }
+	
 }
 
 ?>

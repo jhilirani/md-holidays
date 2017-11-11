@@ -229,9 +229,20 @@ class Api extends REST_Controller {
 	function save_device_token_post(){
 		$token = $this->post('token');
 		$deviceId = $this->post('deviceId');
-		$dataArr=array('deviceToken'=>$token,'addedOn'=>date('d-m-Y'),'deviceId'=>$deviceId);
+		$dataArr=array('deviceToken'=>$token,'deviceId'=>$deviceId);
 		$this->load->model('User_model');
 		$this->User_model->add_token($dataArr);
+		$dataArr=array('success'=>'ok');
+		success_response_after_post_get($dataArr);
+	}
+	
+	function save_device_location_post(){
+		$deviceId = $this->post('deviceId');
+		$latitude = $this->post('latitude');
+		$longitude = $this->post('longitude');
+		$dataArr=array('deviceId'=>$deviceId,'latitude'=>$latitude,'longitude'=>$longitude);
+		$this->load->model('User_model');
+		$this->User_model->add_device_location($dataArr);
 		$dataArr=array('success'=>'ok');
 		success_response_after_post_get($dataArr);
 	}
