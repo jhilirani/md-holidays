@@ -228,7 +228,8 @@ class Api extends REST_Controller {
 	
 	function save_device_token_post(){
 		$token = $this->post('token');
-		$dataArr=array('deviceToken'=>$token,'addedOn'=>date('d-m-Y'));
+		$deviceId = $this->post('deviceId');
+		$dataArr=array('deviceToken'=>$token,'addedOn'=>date('d-m-Y'),'deviceId'=>$deviceId);
 		$this->load->model('User_model');
 		$this->User_model->add_token($dataArr);
 		$dataArr=array('success'=>'ok');
