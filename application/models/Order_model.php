@@ -2,7 +2,7 @@
 
 class Order_model extends CI_Model {
 
-    private $_table = 'order';
+    private $_table = 'booking_order';
     private $_paypal = 'paypal_data';
     private $_table_pay_online_request = 'pay_online_request';
     public $result = NULL;

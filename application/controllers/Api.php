@@ -245,5 +245,64 @@ class Api extends REST_Controller {
 		$this->User_model->add_device_location($dataArr);
 		$dataArr=array('success'=>'ok');
 		success_response_after_post_get($dataArr);
-	}
+    }
+    
+    function start_booking_post(){
+		$this->load->model('User_model');
+		$this->load->model('Order_model');
+		$firstName=$this->post('firstName');
+		$lastName=$this->post('lastName');
+		$address=$this->post('address');
+		$checkIn=$this->post('checkIn');
+		$checkOut=$this->post('checkOut');
+		$city=$this->post('city');
+		$countryId=$this->post('country');
+		$stateId=$this->post('state');
+		$email=$this->post('email');
+		$resortTourIdVar=$this->post('resortTourIdVar');
+		$resortTourTypeVar=$this->post('resortTourTypeVar');
+		$zip=$this->post('zip');
+		$bookingLat=$this->post('bookingLat');
+		$bookingLng=$this->post('bookingLng');
+		$userDataArr=array('firstName'=>$firstName,'lastName'=>$lastName,'address'=>$address,'city'=>$city,'stateId'=>$stateId,
+		'countryId'=>$countryId,'email'=>$email,'zip'=>$zip,'bookingLat'=>$bookingLat,'bookingLng'=>$bookingLng);
+		$userId=$this->User_model->add($userDataArr);
+		$bookingNumber="abc0001234";
+		if($resortTourTypeVar==1){
+			/// it is resort
+			/// start query here using $resortTourIdVar on the base of $checkIn and $checkOut 
+			/// get the payment amount and get is pay now true of false
+			/// create new inactive order for user 
+			$bookingAmount=10;
+			$payNow=1;
+		}else{
+			/// it is tours
+			$bookingAmount=11;
+			$payNow=1;
+		}
+		
+		$orderDataArr=array('userId'=>$userId,'checkIn'=>$checkIn,'checkOut'=>$checkOut,'bookingAmount'=>$bookingAmount,
+		'resortTourId'=>$resortTourIdVar,'resortTourType'=>$resortTourTypeVar,'bookingNumber'=>$bookingNumber,'status'=>0,
+		'payNow'=>$payNow);
+		$orderId=$this->Order_model->add($orderDataArr);
+		$dataArr=array('orderId'=>$orderId,'payNow'=>$payNow,'amount'=>$bookingAmount);
+		success_response_after_post_get($dataArr);
+    }
+
+    function save_player_id_post(){
+        $playerId=$this->post('playerId');
+        $longitude=$this->post('longitude');
+        $latitude=$this->post('latitude');
+        $deviceId=$this->post('deviceId');
+        
+        $this->load->model('User_model');
+        $dataArr=array('playerId'=>$playerId,'deviceId'=>$deviceId,'longitude'=>$longitude,'latitude'=>$longitude);
+        $id=$this->User_model->add_device_location($dataArr);
+        if($id){
+            $apiRetDataArr=array('result'=>'success');
+        }else{
+            $apiRetDataArr=array('result'=>'error');
+        }
+        success_response_after_post_get($apiRetDataArr);
+    }
 }
