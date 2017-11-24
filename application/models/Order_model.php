@@ -80,6 +80,12 @@ class Order_model extends CI_Model {
     public function get_request_details($link) {
         return $this->db->from($this->_table_pay_online_request)->where('UniqueID', $link)->get()->row_array();
     }
+    
+    function update_rajorpayPaymentId($orderId,$rajorpayPaymentId){
+        $this->db->where('orderId',$orderId);
+        $this->db->update($this->_table,array('razorpayPaymentId'=>$rajorpayPaymentId));
+        return TRUE;
+    }
 
     /**
      * 

@@ -305,4 +305,14 @@ class Api extends REST_Controller {
         }
         success_response_after_post_get($apiRetDataArr);
     }
+    
+    function order_success_update_post(){
+        $apiRetDataArr=array();
+        $orderId= $this->post('orderId');
+        $rajorpayPaymentId= $this->post('rajorpayPaymentId');
+        $this->load->model("Order_model");
+        $this->Order_model->update_rajorpayPaymentId($rajorpayPaymentId,$orderId);
+        $apiRetDataArr=array('result'=>'success');
+        success_response_after_post_get($apiRetDataArr);
+    }
 }
